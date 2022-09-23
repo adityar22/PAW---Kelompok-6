@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAW Kelompok 6</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <div>
+                <div class="text-center">
+                    <a href="/" class="nav-brand text-dark">Task Management System</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Site-->
+        <main id="site-main">
+            <div class="container">
+                <div class="box-nav d-flex justify-between">
+                    <a href="../views/add_task.html" class="border-shadow">
+                        <span class="text-gradient">Add New Task <i class="fa-solid fa-list-check"></i></span>
+                    </a>
+                </div>
+            
+
+            <!--Form handling-->
+                <form action="/" method="POST">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Task ID</th>
+                                <th>Task Name</th>
+                                <th>Description</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Deadline</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>taskID</td>
+                                <td>taskName</td>
+                                <td>taskDesc</td>
+                                <td>taskPriority</td>
+                                <td>taskStat</td>
+                                <td>taskTime</td>
+                                <td>
+                                    <a href="#" class="btn border-shadow update">
+                                        <span class="text-gradient"><i class="fa-solid fa-pen"></i></span>
+                                    </a>
+                                    <a href="#" class="btn border-shadow delete">
+                                        <span class="text-gradient"><i class="fa-solid fa-trash"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <!--Form handling-->
+        </main>
+    <!-- Main Site-->
+</body>
+</html>
