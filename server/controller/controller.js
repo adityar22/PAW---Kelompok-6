@@ -7,12 +7,34 @@ exports.create=(req,res)=>{
 
 //retrieve and return all tasks
 exports.find=(req, res)=>{
-    
+    taskDB.find()
+        .then(task=>{
+            res.send(task)
+        })
+        .catch(err=>{
+            res.status(500).send({message:err.message||"Error occured while retrieving task information"})
+        })
 }
 
 //update a new task by id
 exports.update=(req, res)=>{
-    
+    if(req.body){
+        return res
+            .status(400)
+            .send({message:"Data to update can not be empty"})
+    }
+    const taskID = req.params.taskID;
+    taskDB.findByIdAndUpdate(taskID, req.body, {useFindAndModify:false})
+        .then(data=>{
+            if(!data){
+                res.status(404).send({message:`Cannot update task with ${taskID}. Maybe task not found`})
+            }else{
+                res.send(data)
+            }
+        })
+        .catch(err=>{
+            res.status(500).send({message:"Error update task information"})
+        })
 }
 
 //delete task

@@ -1,3 +1,5 @@
+const { default: axios } = require("axios");
+
 exports.homeRoutes = (req, res) =>{
     res.render('index');
 }
@@ -7,5 +9,11 @@ exports.add_task = (req, res) =>{
 }
 
 exports.edit_task = (req, res) =>{
-    res.render('edit_task');
+    axios.get("https://localhost:3000/api/tasks",{params:{taskID:req.query.taskID}})
+        .then(function(taskdata){
+            res.render("edit_task",{task:taskdata})
+        })
+        .catch(err=>{
+            res.send(err);
+        })
 }
