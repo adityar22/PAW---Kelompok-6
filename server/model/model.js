@@ -15,7 +15,8 @@ var schema = new mongoose.Schema({
         required: true
     },
     taskTime:{
-        type: Date,
+        // type: Date,
+        type: String,
         required:true
     },
     taskPriority:{
