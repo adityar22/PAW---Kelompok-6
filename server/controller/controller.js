@@ -1,3 +1,4 @@
+const { response } = require('express');
 var taskDB = require('../model/model');
 
 //create and save new task
@@ -17,7 +18,10 @@ exports.create=(req,res)=>{
     
     task
         .save(task)
-        .then(data => {res.send(data)})
+        .then(data => {
+            // res.send(data)
+            response.redirect("/add-task")
+        })
         .catch(err => {res.status(500).send({
             message: err.message || "Some error occured while creating a create operation"
         });});
@@ -25,18 +29,34 @@ exports.create=(req,res)=>{
 
 //retrieve and return all tasks
 exports.find=(req, res)=>{
-    taskDB.find()
+    if(req.query.taskID){
+        const taskID = req.query.taskID;
+
+        taskDB.findById(taskID)
+            .then(data=>{
+                if(!data){
+                    res.status(404).send({message:"Not Found task with id"+taskID})
+                }else{
+                    res.send(data)
+                }
+            })
+            .catch(err=>{
+                res.status(500).send({message:"Error retrieving task with id"+taskID})
+            })
+    }else{
+        taskDB.find()
         .then(task=>{
             res.send(task)
         })
         .catch(err=>{
             res.status(500).send({message:err.message||"Error occured while retrieving task information"})
         })
+    }
 }
 
 //update a new task by id
 exports.update=(req, res)=>{
-    if(req.body){
+    if(!req.body){
         return res
             .status(400)
             .send({message:"Data to update can not be empty"})
@@ -57,5 +77,21 @@ exports.update=(req, res)=>{
 
 //delete task
 exports.delete=(req, res)=>{
-    
+    const taskID = req.params.taskID;
+
+    taskDB.findByIdAndDelete(taskID)
+        .then(data=>{
+            if(!data){
+                res.status(404).send({message:`Cannot delete task with id ${taskID}. Maybe id is wrong`})
+            }else{
+                res.send({
+                    message: "task was deleted successfully!"
+                })
+            }
+        })
+        .catch(err=>{
+            res.status(500).send({
+                message:"Could not delete task with id = "+taskID
+            });
+        });
 }
