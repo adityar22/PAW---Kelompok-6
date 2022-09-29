@@ -24,7 +24,7 @@ route.get('/edit_task',services.edit_task);
 //API
 route.post('/api/tasks',controller.create);
 route.get('/api/tasks',controller.find);
-route.put('/api/tasks/:taskID',controller.update);
-route.delete('/api/tasks/:taskID',controller.delete);
+route.put('/api/tasks/:id',controller.update);
+route.delete('/api/tasks/:id',controller.delete);
 
 module.exports = route
