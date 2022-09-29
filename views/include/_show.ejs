@@ -7,11 +7,11 @@
     <td><%= tasks[i].taskStat%></td>
     <td><%= tasks[i].taskTime%></td>
     <td>
-        <a href="/edit_task?taskID=<%= tasks[i]._id%>" class="btn border-shadow update">
+        <a href="/edit_task?id=<%= tasks[i]._id%>" class="btn border-shadow update">
             <span class="text-gradient"><i class="fa-solid fa-pen"></i></span>
         </a>
-        <a href="#" class="btn border-shadow delete">
-            <span class="text-gradient"><i class="fa-solid fa-trash"></i></span>
+        <a class="btn border-shadow delete" data-id=<%= tasks[i]._id%> >
+            <span class="text-gradient"><i class="fas fa-times"></i></span>
         </a>
     </td>
 </tr>

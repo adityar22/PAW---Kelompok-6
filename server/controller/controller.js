@@ -8,7 +8,6 @@ exports.create=(req,res)=>{
         return;
     }
     const task = taskDB({
-        taskID: req.body.taskID,
         taskName: req.body.taskName,
         taskDescription: req.body.taskDescription,
         taskTime: req.body.taskTime,
@@ -20,7 +19,7 @@ exports.create=(req,res)=>{
         .save(task)
         .then(data => {
             // res.send(data)
-            response.redirect("/add-task")
+            response.redirect("/add_task")
         })
         .catch(err => {res.status(500).send({
             message: err.message || "Some error occured while creating a create operation"
@@ -29,19 +28,19 @@ exports.create=(req,res)=>{
 
 //retrieve and return all tasks
 exports.find=(req, res)=>{
-    if(req.query.taskID){
-        const taskID = req.query.taskID;
+    if(req.query.id){
+        const id = req.query.id;
 
-        taskDB.findById(taskID)
+        taskDB.findById(id)
             .then(data=>{
                 if(!data){
-                    res.status(404).send({message:"Not Found task with id"+taskID})
+                    res.status(404).send({message:"Not Found task with id"+id})
                 }else{
                     res.send(data)
                 }
             })
             .catch(err=>{
-                res.status(500).send({message:"Error retrieving task with id"+taskID})
+                res.status(500).send({message:"Error retrieving task with id"+id})
             })
     }else{
         taskDB.find()
@@ -61,11 +60,11 @@ exports.update=(req, res)=>{
             .status(400)
             .send({message:"Data to update can not be empty"})
     }
-    const taskID = req.params.taskID;
-    taskDB.findByIdAndUpdate(taskID, req.body, {useFindAndModify:false})
+    const id = req.params.id;
+    taskDB.findByIdAndUpdate(id, req.body, {useFindAndModify:false})
         .then(data=>{
             if(!data){
-                res.status(404).send({message:`Cannot update task with ${taskID}. Maybe task not found`})
+                res.status(404).send({message:`Cannot update task with ${id}. Maybe task not found`})
             }else{
                 res.send(data)
             }
@@ -77,12 +76,12 @@ exports.update=(req, res)=>{
 
 //delete task
 exports.delete=(req, res)=>{
-    const taskID = req.params.taskID;
+    const id = req.params.id;
 
-    taskDB.findByIdAndDelete(taskID)
+    taskDB.findByIdAndDelete(id)
         .then(data=>{
             if(!data){
-                res.status(404).send({message:`Cannot delete task with id ${taskID}. Maybe id is wrong`})
+                res.status(404).send({message:`Cannot delete task with id ${id}. Maybe id is wrong`})
             }else{
                 res.send({
                     message: "task was deleted successfully!"
@@ -91,7 +90,7 @@ exports.delete=(req, res)=>{
         })
         .catch(err=>{
             res.status(500).send({
-                message:"Could not delete task with id = "+taskID
+                message:"Could not delete task with id = "+id
             });
         });
 }

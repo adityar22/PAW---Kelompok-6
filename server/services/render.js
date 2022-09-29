@@ -16,7 +16,7 @@ exports.add_task = (req, res) =>{
 }
 
 exports.edit_task = (req, res) =>{
-    axios.get('http://localhost:3000/api/tasks',{params:{taskID:req.query.taskID}})
+    axios.get('http://localhost:3000/api/tasks',{params : {id:req.query.id}})
         .then(function(taskdata){
             res.render("edit_task",{task : taskdata.data})
         })
