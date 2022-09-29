@@ -4,28 +4,28 @@
     <div class="container">       
         <div class="box-nav d-flex justify-between">
             <div class="filter">
-                <a href="/"><i class="fas fa-angle-double-left"></i> All Users</a>
+                <a href="/"><i class="fas fa-angle-double-left"></i> All tasks</a>
             </div>
          </div>
          <div class="form-title text-center">
-             <h2 class="text-dark">New User</h2>
-             <span class="text-light">Use the below form to create a new account</span>
+             <h2 class="text-dark">Update Task</h2>
+             <span class="text-light">Use the below form to update task information</span>
          </div>
          <!---->
          <form method="POST" id="edit_task">
             <div class="new_task">
                 <div class="form-group">
                     <label for="name" class="text-light">Task Name</label>
-                    <input type="hidden" name="taskID" value="<%= task.taskID %>">
+                    <input type="hidden" name="id" value="<%= task._id %>">
                     <input type="text" name="taskName" value="<%= task.taskName %>" placeholder="Task Name">
                 </div>
                 <div class="form-group">
                     <label for="Description" class="text-light">Description</label>
-                    <input type="textarea" name="taskDesc" value="<%= task.taskDesc%>" placeholder="Task Description">
+                    <input type="textarea" name="taskDesc" value="<%= task.taskDescription%>" placeholder="Task Description">
                 </div>
                 <div class="form-group">
                     <label for="Deadline" class="text-light">Deadline</label>
-                    <input type="date" name="taskTime" value="<%= task.taskTime%>">
+                    <input type="text" name="taskTime" value="<%= task.taskTime%>">
                 </div>
                 <div class="form-group">
                     <label for="Priority" class="text-light">Priority</label>
