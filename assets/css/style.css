@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 :root{
-    --dark: #2b2d42;
-    --light: #adb5bd;
+    --dark: #2a2a2a;
+    --light: #fafafa;
     --border: #dee2e6;
     --border-btn: #edf2f4;
 }
 
 * {
+    font-family: 'Poppins', sans-serif;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -15,7 +16,6 @@
 
 a {
     text-decoration: none;
-    font-family: 'PT Sans', sans-serif;
 }
 
 .container{
@@ -59,21 +59,20 @@ a {
 }
 
 .text-gradient{
-    background: linear-gradient(to right, #8e2de2, #4a00e0);
+    background: linear-gradient(to right, #95dacb, #285598);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 #header nav{
-    background-color: #06d6a0;
+    background-color: #285598;
     padding: 1em 0;
     width: 100%;
 }
 
 #site-main{
     margin-top: 6em;
-    font-family: 'Barlow', sans-serif;
 }
 
 #site-main .container .box-nav > a{
@@ -104,7 +103,7 @@ table{
 }
 
 .table tr:hover{
-    background-color:#06d6a0 ;
+    background-color:#95dacb ;
 }
 
 .table tr:hover td > a{
@@ -112,9 +111,9 @@ table{
 }
 
 .table .thead-dark th{
-    color: #fff;
-    background-color: var(--dark) ;
-    border-color: #32383e;
+    color: #fafafa;
+    background-color: #fc9e19 ;
+    border-color: #fafafa;
 }
 
 @media only screen and (max-width: 1024px){
@@ -165,7 +164,6 @@ table{
     padding: .6em 1em;
     margin: .5em 0;
     border: 1px solid var(--border);
-    font-family: 'Barlow', sans-serif;
     font-size: 1em;
     border-radius: .2em;
 }
@@ -216,7 +214,6 @@ table{
     padding: .9em 1em;
     background-color:#16db93; 
     border: none;
-    font-family: 'PT Sans', sans-serif;
     font-size: 1em;
     cursor: pointer;
     border-radius: .2em;
