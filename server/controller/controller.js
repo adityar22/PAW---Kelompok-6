@@ -84,13 +84,13 @@ exports.delete=(req, res)=>{
                 res.status(404).send({message:`Cannot delete task with id ${id}. Maybe id is wrong`})
             }else{
                 res.send({
-                    message: "task was deleted successfully!"
+                    message: "Task was deleted successfully!"
                 })
             }
         })
         .catch(err=>{
             res.status(500).send({
-                message:"Could not delete task with id = "+id
+                message:"Couldn't delete task with id = "+id
             });
         });
 }
