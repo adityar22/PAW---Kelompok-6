@@ -1,65 +1,106 @@
 <%-include('include/_header')%>
 <!-- Main Site-->
-<main id="site-main">
-    <div class="container">       
-        <div class="box-nav d-flex justify-between">
-            <div class="filter">
-                <a href="/"><i class="fas fa-angle-double-left"></i> All tasks</a>
+    <!-- Main Site-->
+    <main id="site-main">
+        <div class="container">
+            <div class="sidebar">
+                <div class="side-head">
+                    <div class="side-hlist">
+                        <i id="menuside" class="fa-solid fa-bars icon"></i>
+                        <a href="#">
+                            <!-- <i id="menu" class="fa-sharp fa-solid fa-list icon"></i> -->
+                            <span class="side-hdesc">Task Management</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="side-illust">
+                    <img src="" alt="">
+                </div>
+
+                <div class="side-body">
+                    <div class="side-blist">
+                        <a href="#">
+                            <i class="fa-solid fa-house icon"></i>
+                            <span class="side-bdesc">Home Page</span>
+                        </a>
+                    </div>
+                    <div class="side-blist">
+                        <a href="#">
+                            <i class="fa-solid fa-list-check icon"></i>
+                            <span class="side-bdesc">Task List</span>
+                        </a>
+                    </div>
+                    <div class="side-blist">
+                        <a href="#">
+                            <i class="fa-solid fa-book icon"></i>
+                            <span class="side-bdesc">Notebook</span>
+                        </a>
+                    </div>
+                    <div class="side-blist">
+                        <a href="#">
+                            <i class="fa-solid fa-calendar icon"></i>
+                            <span class="side-bdesc">Calendar</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-         </div>
-         <div class="form-title text-center">
-             <h2 class="text-dark">Update Task</h2>
-             <span class="text-light">Use the below form to update task information</span>
-         </div>
+            <div class="main-site">       
+                <div class="box-nav d-flex justify-between">
+                    <div class="filter">
+                        <a href="/"><i class="fas fa-angle-double-left"></i> All tasks</a>
+                    </div>
+                </div>
+                <div class="form-title text-center">
+                    <h2 class="text-dark">Update Task</h2>
+                    <span class="text-light">Use the below form to update task information</span>
+                </div>
+                <!---->
+                <form method="POST" id="edit_task">
+                    <div class="new_task">
+                        <div class="form-group">
+                            <label for="name" class="text-light">Task Name</label>
+                            <input type="hidden" name="id" value="<%= task._id %>">
+                            <input type="text" name="taskName" value="<%= task.taskName %>" placeholder="Task Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="Description" class="text-light">Description</label>
+                            <input type="textarea" name="taskDesc" value="<%= task.taskDescription%>" placeholder="Task Description">
+                        </div>
+                        <div class="form-group">
+                            <label for="Deadline" class="text-light">Deadline</label>
+                            <input type="text" name="taskTime" value="<%= task.taskTime%>">
+                        </div>
+                        <div class="form-group">
+                            <label for="Priority" class="text-light">Priority</label>
+                            <select name="taskPriority" id="taskPriority" value="<%= task.taskPriority%>">
+                                <option value="High">High</option>
+                                <option value="Normal">Normal</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Priority" class="text-light">Status</label>
+                            <div class="radio inline">
+                                <input type="radio" id="radio-1" name="taskStat" value="Not Started" <%= task.taskStat == 'Not Started' ? 'checked' : '' %>>
+                                <label for="radio-2" class="radio-label">Not Started</label>
+                            </div>
+                            <div class="radio inline">
+                                <input type="radio" id="radio-2" name="taskStat" value="In Progress" <%= task.taskStat == 'In Progress' ? 'checked' : '' %>>
+                                <label for="radio-2" class="radio-label">In Progress</label>
+                            </div>
+                            <div class="radio inline">
+                                <input type="radio" id="radio-3" name="taskStat" value="Completed"  <%= task.taskStat == 'Completed' ? 'checked' : '' %> >
+                                <label for="radio-3" class="radio-label">Completed</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn text-dark update">Save</button>
+                        </div>
+                    </div>
+                </form>
          <!---->
-         <form method="POST" id="edit_task">
-            <div class="new_task">
-                <div class="form-group">
-                    <label for="name" class="text-light">Task Name</label>
-                    <input type="hidden" name="id" value="<%= task._id %>">
-                    <input type="text" name="taskName" value="<%= task.taskName %>" placeholder="Task Name">
-                </div>
-                <div class="form-group">
-                    <label for="Description" class="text-light">Description</label>
-                    <input type="textarea" name="taskDesc" value="<%= task.taskDescription%>" placeholder="Task Description">
-                </div>
-                <div class="form-group">
-                    <label for="Deadline" class="text-light">Deadline</label>
-                    <input type="text" name="taskTime" value="<%= task.taskTime%>">
-                </div>
-                <div class="form-group">
-                    <label for="Priority" class="text-light">Priority</label>
-                    <select name="taskPriority" id="taskPriority" value="<%= task.taskPriority%>">
-                        <option value="High">High</option>
-                        <option value="Normal">Normal</option>
-                        <option value="Low">Low</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="Priority" class="text-light">Status</label>
-                    <div class="radio inline">
-                        <input type="radio" id="radio-1" name="taskStat" value="Not Started" <%= task.taskStat == 'Not Started' ? 'checked' : '' %>>
-                        <label for="radio-2" class="radio-label">Not Started</label>
-                    </div>
-                    <div class="radio inline">
-                        <input type="radio" id="radio-2" name="taskStat" value="In Progress" <%= task.taskStat == 'In Progress' ? 'checked' : '' %>>
-                        <label for="radio-2" class="radio-label">In Progress</label>
-                    </div>
-                    <div class="radio inline">
-                        <input type="radio" id="radio-3" name="taskStat" value="Completed"  <%= task.taskStat == 'Completed' ? 'checked' : '' %> >
-                        <label for="radio-3" class="radio-label">Completed</label>
-                    </div>
-                </div>
-                
-        
-                <div class="form-group">
-                    <button type="submit" class="btn text-dark update">Save</button>
-                </div>
-        
-            </div>
-        </form>
-         <!---->
-    </div>
-</main>
+        </div>
+    </main>
 <!-- Main Site-->
 <%-include('include/_footer')%>

@@ -19,8 +19,107 @@ a {
 }
 
 .container{
-    max-width: 1024px;
+    display: flex;
+    min-height: 100vh;
     margin: auto;
+}
+.sidebar{
+    background-color: #285598;
+    width: 260px;
+    /* width: 87px; */
+    padding: 24px;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    transition: all ease-in .3s;
+}
+
+.sidebar.hide{
+    width: 87px;
+    transition: all ease-out .3s;
+}
+
+.sidebar .side-hdesc{
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: center;
+    color: var(--light);
+    text-decoration: none;
+}
+
+.sidebar.hide .side-hdesc{
+    display: none;
+}
+
+.sidebar .a{
+    text-decoration: none;
+}
+
+.sidebar .side-head .side-hlist{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 10px;
+    border-radius: 8px;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.sidebar .side-head .side-hlist .icon{
+    margin-right: 12px;
+    color: var(--light);
+}
+
+.sidebar .side_head .side-illust{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    margin: 10px 0 22px 0;
+    box-sizing: border-box;
+}
+
+.sidebar.hide .side-illust{
+    display: none;
+}
+
+.sidebar .side-body .side-blist .side-bdesc{
+    text-align: center;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--light);
+}
+
+.sidebar.hide .side-body .side-bdesc{
+    display: none;
+}
+
+.sidebar .side-body .side-blist .icon{
+    margin-right: 12px;
+    color: var(--light);
+}
+
+.sidebar .side-body .side-blist{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 10px;
+    border-radius: 8px;
+    /* width: 212px; */
+    box-sizing: border-box;
+}
+
+.sidebar .side-body .side-blist:hover{
+    background-color: #fc9e19;
+    transition: all ease-in .2s;
+}
+
+.main-site{
+    margin: 1em;
+    max-width: 100%;
+    flex-grow: 1;
 }
 
 .nav-brand{
@@ -65,15 +164,15 @@ a {
     -webkit-text-fill-color: transparent;
 }
 
-#header nav{
+/* #header nav{
     background-color: #285598;
     padding: 1em 0;
     width: 100%;
-}
+} */
 
-#site-main{
+/* #site-main{
     margin-top: 6em;
-}
+} */
 
 #site-main .container .box-nav > a{
     font-size: 1em;
