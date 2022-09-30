@@ -19,7 +19,7 @@ exports.create=(req,res)=>{
         .save(task)
         .then(data => {
             // res.send(data)
-            response.redirect("/add-task")
+            res.redirect('/add_task')
         })
         .catch(err => {res.status(500).send({
             message: err.message || "Some error occured while creating a create operation"
