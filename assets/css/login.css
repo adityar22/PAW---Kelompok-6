@@ -87,6 +87,11 @@ form .txt-field{
     text-decoration: underline;
 }
 
+.pass a{
+    color: #a6a6a6;
+    text-decoration: none;
+}
+
 input[type="submit"]{
     width: 100%;
     height: 50px;
