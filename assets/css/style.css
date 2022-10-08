@@ -28,7 +28,7 @@ a {
     width: 260px;
     /* width: 87px; */
     padding: 24px;
-    display: flex;
+    /* display: flex; */
     box-sizing: border-box;
     flex-direction: column;
     transition: all ease-in .3s;
@@ -117,7 +117,7 @@ a {
 }
 
 .main-site{
-    margin: 1em;
+    margin: 3em;
     max-width: 100%;
     flex-grow: 1;
 }
@@ -133,7 +133,7 @@ a {
 }
 
 .justify-between{
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .text-center{
@@ -163,16 +163,6 @@ a {
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
-/* #header nav{
-    background-color: #285598;
-    padding: 1em 0;
-    width: 100%;
-} */
-
-/* #site-main{
-    margin-top: 6em;
-} */
 
 #site-main .container .box-nav > a{
     font-size: 1em;
@@ -232,7 +222,6 @@ table{
         border: none;
         position: relative;
     }
-
 }
 
 /*  create and edit task */
