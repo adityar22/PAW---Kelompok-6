@@ -1,6 +1,10 @@
 const axios = require("axios");
 
-exports.homeRoutes = (req, res) =>{
+exports.homepage =(req, res)=>{
+    res.render('homepage');
+}
+
+exports.dashboard = (req, res) =>{
     axios.get('http://localhost:3000/api/tasks')
         .then(function(response){
             // console.log(response)
