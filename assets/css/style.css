@@ -23,12 +23,14 @@ a {
     min-height: 100vh;
     margin: auto;
 }
+
 .sidebar{
     background-color: #285598;
     width: 260px;
-    /* width: 87px; */
+    min-height: 100%;
     padding: 24px;
     display: flex;
+    position: fixed;
     box-sizing: border-box;
     flex-direction: column;
     transition: all ease-in .3s;
@@ -49,6 +51,10 @@ a {
 }
 
 .sidebar.hide .side-hdesc{
+    display: none;
+}
+
+.hidden{
     display: none;
 }
 
@@ -107,7 +113,6 @@ a {
     align-items: center;
     padding: 12px 10px;
     border-radius: 8px;
-    /* width: 212px; */
     box-sizing: border-box;
 }
 
@@ -117,9 +122,18 @@ a {
 }
 
 .main-site{
-    margin: 1em;
+    display: flex;
+    margin: 3em;
+    padding-left: 260px;
     max-width: 100%;
+    flex-direction: column;
     flex-grow: 1;
+    transition: all ease-in .3s;
+}
+
+.main-site.hide{
+    padding-left: 87px;
+    transition: all ease-out .3s;
 }
 
 .nav-brand{
@@ -133,7 +147,7 @@ a {
 }
 
 .justify-between{
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .text-center{
@@ -163,16 +177,13 @@ a {
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+#site-main .container .box-nav{
+    margin-bottom: 1rem;
+}
 
-/* #header nav{
-    background-color: #285598;
-    padding: 1em 0;
-    width: 100%;
-} */
-
-/* #site-main{
-    margin-top: 6em;
-} */
+#site-main .container .box-nav i{
+    margin: 10px;
+}
 
 #site-main .container .box-nav > a{
     font-size: 1em;
@@ -182,7 +193,50 @@ a {
 #site-main .container form{
     margin: 2em 0;
 }
+/* start Homepage Section */
+.home{
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* flex-direction: row; */
+    /* flex-wrap: wrap; */
+}
 
+.home .image{
+    flex: 1 1 40rem;
+}
+
+.home .content{
+    flex: 1 1 40rem;
+}
+
+.home .image img{
+    width: 100%;
+}
+
+.home .content h1{
+    font-size: 4rem;
+    color: #fc9e19;
+}
+
+.home .content p{
+    font-size: 0.8rem;
+    padding: 1rem 0;
+}
+
+.home .content .btn{
+    background: #fc9e19;
+    font-size: 2rem;
+    padding: .7rem 3rem;
+    color: #fafafa;
+    margin-top: 1rem;
+    cursor: pointer;
+    border: none;
+}
+/* end homepage section */
+
+/* start table section */
 table{
     border-spacing: 0px;
     width: 100%;
@@ -216,6 +270,24 @@ table{
 }
 
 @media only screen and (max-width: 1024px){
+    .home{
+        flex-wrap: wrap;
+    }
+
+    .home .content{
+        text-align: center;
+    }
+
+    .home .content .btn{
+        font-size: 1rem;
+        padding: .3rem 1rem;
+        margin-top: 1rem;
+    }
+
+    .home .content h1{
+        font-size: 2rem;
+    }
+
     table, thead, tbody, th, td, tr{
         display: block;
     }
@@ -232,7 +304,6 @@ table{
         border: none;
         position: relative;
     }
-
 }
 
 /*  create and edit task */
@@ -324,3 +395,4 @@ table{
     background-color: var(--dark);
     color: var(--border);
 }
+/* end table section */

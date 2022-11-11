@@ -93,3 +93,22 @@ exports.delete=(req, res)=>{
             });
         });
 }
+//search API
+exports.search=async(req, res)=>{
+    let data = await taskDB.find(
+        {
+            "$or":[
+                {taskName:{$regex:req.params.key}}
+            ]
+        }
+    )
+    res.send(data)
+}
+//sorting API
+exports.sort=async(req, res)=>{
+
+}
+//filtering API
+exports.filtering=(req, res)=>{
+    
+}

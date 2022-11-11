@@ -1,53 +1,10 @@
 <%-include('include/_header')%>
     <!-- Main Site-->
-    <main id="site-main">
-        <div class="container">
-            <div class="sidebar">
-                <div class="side-head">
-                    <div class="side-hlist">
-                        <i id="menuside" class="fa-solid fa-bars icon"></i>
-                        <a href="#">
-                            <!-- <i id="menu" class="fa-sharp fa-solid fa-list icon"></i> -->
-                            <span class="side-hdesc">Task Management</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="side-illust">
-                    <img src="" alt="">
-                </div>
-
-                <div class="side-body">
-                    <div class="side-blist">
-                        <a href="#">
-                            <i class="fa-solid fa-house icon"></i>
-                            <span class="side-bdesc">Home Page</span>
-                        </a>
-                    </div>
-                    <div class="side-blist">
-                        <a href="#">
-                            <i class="fa-solid fa-list-check icon"></i>
-                            <span class="side-bdesc">Task List</span>
-                        </a>
-                    </div>
-                    <div class="side-blist">
-                        <a href="#">
-                            <i class="fa-solid fa-book icon"></i>
-                            <span class="side-bdesc">Notebook</span>
-                        </a>
-                    </div>
-                    <div class="side-blist">
-                        <a href="#">
-                            <i class="fa-solid fa-calendar icon"></i>
-                            <span class="side-bdesc">Calendar</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <%- include('include/_sidebar')%>
             <div class="main-site">       
         <div class="box-nav d-flex justify-between">
             <div class="filter">
-                <a href="/"><i class="fas fa-angle-double-left"></i> All Users</a>
+                <a href="/dashboard"><i class="fas fa-angle-double-left"></i> All Users</a>
             </div>
          </div>
          <div class="form-title text-center">
@@ -55,7 +12,7 @@
              <span class="text-light">Use the below form to create a new account</span>
          </div>
          <%-include('include/_form')%>
-    </div>
-</main>
+        </div>
+    </main>
 <!-- Main Site-->
 <%-include('include/_footer')%>

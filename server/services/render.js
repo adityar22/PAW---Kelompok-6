@@ -1,6 +1,10 @@
 const axios = require("axios");
 
-exports.homeRoutes = (req, res) =>{
+exports.homepage =(req, res)=>{
+    res.render('homepage');
+}
+
+exports.dashboard = (req, res) =>{
     axios.get('http://localhost:3000/api/tasks')
         .then(function(response){
             // console.log(response)
@@ -13,6 +17,16 @@ exports.homeRoutes = (req, res) =>{
 
 exports.add_task = (req, res) =>{
     res.render('add_task');
+}
+
+exports.notebook=(req,res)=>{
+    axios.get('http://localhost:3000/api/note')
+        .then(function(response){
+            res.render('notebook', {notes:response.data});
+        })
+        .catch(err=>{
+            res.send(err);
+        })
 }
 
 exports.edit_task = (req, res) =>{
