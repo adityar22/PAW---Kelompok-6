@@ -28,6 +28,12 @@ route.get('/add_task', services.add_task);
  */
 route.get('/edit_task',services.edit_task);
 
+/**
+ * @description edit task
+ * @method GET/notebook
+ */
+ route.get('/notebook',services.notebook);
+
 //API for CRUD Task
 route.post('/api/tasks',controller.create);
 route.get('/api/tasks',controller.find);
