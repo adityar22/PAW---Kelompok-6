@@ -37,7 +37,8 @@ route.get('/edit_task',services.edit_task);
 //API for CRUD Task
 route.post('/api/tasks',controller.create);
 route.get('/api/tasks',controller.find);
-route.get('/api/tasks/search/:key',controller.search);
+route.get('/api/tasks/:id',controller.find);
+route.get('/api/tasks/filter',controller.filtering);
 route.put('/api/tasks/:id',controller.update);
 route.delete('/api/tasks/:id',controller.delete);
 
