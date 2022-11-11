@@ -13,7 +13,7 @@ Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengel
 
 ## 👥 Anggota Kelompok 6 
 - [Aditya Ramadhan (20/460535/TK/51124)](https://www.github.com/adityar22)
-- Fachrizal Bayu Nugroho (19/446775/TK/49880)
+- [Fachrizal Bayu Nugroho (19/446775/TK/49880)](https://github.com/fachrizalbayunugroho0
 - [Richard Harryson (20/456378/TK/50508)](https://www.github.com/RichardC0de)
 - [Rizky Intan Nurlita (20/456379/TK/50509)](https://www.github.com/rizkyintan)
 - [Saddan Syah Akbar (20/460566/TK/51155)](https://www.github.com/saddansyah)
