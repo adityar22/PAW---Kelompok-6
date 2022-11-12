@@ -7,6 +7,7 @@ import Calendar from './pages/Calendar';
 import Notes from './pages/Notes';
 import About from './pages/About';
 import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 
 
 function App() {
@@ -15,12 +16,13 @@ function App() {
       <div className="flex">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />}/>
+          <Route exact path="/" element={<Home />}/>
           <Route path="task" element={<Task />}/>
           <Route path='calendar' element={<Calendar />}/>
-          <Route path='notes' element={<Calendar />} />
+          <Route path='notes' element={<Notes />} />
           <Route path='about' element={<About />} />
           <Route path='profile' element={<Profile />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </div>
     </BrowserRouter>
