@@ -1,9 +1,9 @@
 const Home = () => {
-    return ( 
+    return (
         <div className="p-7 h-screen">
-        <h1 className="underline">This is homepage</h1>
+            <h1 className="mx-auto mt-12 text-2xl font-bold">This is homepage</h1>
         </div>
-     );
+    );
 }
- 
+
 export default Home;

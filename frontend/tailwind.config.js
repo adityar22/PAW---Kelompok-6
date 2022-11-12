@@ -12,6 +12,9 @@ module.exports = {
         "orange":"#FC9E19",
         "white":"#fafafa",
       },
+      fontFamily: {
+        'poppins': ['"Poppins"'],
+      },
     },
   },
   plugins: [],
