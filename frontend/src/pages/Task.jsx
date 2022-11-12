@@ -1,7 +1,14 @@
+import { useEffect, useState } from 'react';
+
 import TaskList from '../component/TaskList';
 
 const Task = () => {
     const Tasks = [];
+
+    useEffect(()=>{
+
+    }, [])
+
     return (
         <div className="bg-white justify-center items-center h-screen w-full m-9">
             <div className="text-4xl font-bold text-orange my-9">
