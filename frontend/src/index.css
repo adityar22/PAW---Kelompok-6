@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    @apply font-poppins;
+  }
+}
+
+@layer components {
+  .btn-blue {
+    @apply bg-gray-100 hover:bg-gray-300 text-black p-4 rounded-xl transition-all duration-500 selection:bg-slate-400 flex flex-col justify-between;
+  }
+  .badges {
+    @apply bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full dark:bg-blue-200 dark:text-blue-800 max-w-max; 
+  }
+  .button {
+    @apply bg-orange hover:bg-yellow-700 text-white font-bold py-2 px-4 border-b-4 border-yellow-600 hover:border-yellow-800 rounded-full drop-shadow-lg;
+  }
+  .overlay {
+    @apply bg-black opacity-40 fixed w-full h-full top-0 bottom-0 right-0 left-0 transition-all;
+  }
+}
