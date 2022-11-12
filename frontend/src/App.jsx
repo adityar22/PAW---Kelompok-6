@@ -6,7 +6,7 @@ import Home from './component/pages/Home';
 
 function App() {
   return (
-    <div className="">
+    <div className="flex">
       <Navbar/>
       <Home/>
     </div>
