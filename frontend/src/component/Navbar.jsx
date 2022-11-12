@@ -14,12 +14,12 @@ import menu_task from "../asset/menu_task.png";
 const Navbar = () => {
     const [open, setOpen] = useState(false);
     const Menus = [
-        { title: "Home", src: menu_home, link:"/"},
-        { title: "Task ", src: menu_task, link:"/task" },
-        { title: "Schedule ", src: menu_calendar, link:"/calendar" },
-        { title: "Notes ", src: menu_notes, link:"/notes" },
-        { title: "About", src: menu_about, gap: true, link:"/about" },
-        { title: "Accounts", src: menu_account, gap: true, link:"/profile" },
+        { title: "Home", src: menu_home, link: "/" },
+        { title: "Task ", src: menu_task, link: "/task" },
+        { title: "Schedule ", src: menu_calendar, link: "/calendar" },
+        { title: "Notes ", src: menu_notes, link: "/notes" },
+        { title: "About", src: menu_about, gap: true, link: "/about" },
+        { title: "Accounts", src: menu_account, gap: true, link: "/profile" },
     ];
 
     return (
@@ -44,9 +44,7 @@ const Navbar = () => {
                             <li
                                 key={index}
                                 className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-                        ${menu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"
-                                    } `}
-                            // onClick={()=>}
+                                ${menu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"} `}
                             >
                                 <img src={menu.src} className="w-4" alt="" />
                                 <span className={`${!open && "hidden"} origin-left duration-200`}>

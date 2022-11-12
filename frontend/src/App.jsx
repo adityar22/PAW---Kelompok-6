@@ -15,8 +15,8 @@ function App() {
       <div className="flex">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="task" element={<Task />}/>
+          <Route path="home" element={<Home />}/>
+          <Route path="/" element={<Task />}/>
           <Route path='calendar' element={<Calendar />}/>
           <Route path='notes' element={<Calendar />} />
           <Route path='about' element={<About />} />
