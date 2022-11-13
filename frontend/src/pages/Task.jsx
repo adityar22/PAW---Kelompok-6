@@ -5,7 +5,7 @@ import useFetch from '../hooks/useFetch';
 import TaskList from '../component/TaskList';
 import Loading from '../component/Loading';
 
-import Seacrhbar from '../component/Searchbar'
+import Searchbar from '../component/Searchbar'
 
 const Task = () => {
     const { tasks, dispatch, isPending, error, setLoading, setError } = useTasksContext();
@@ -16,7 +16,7 @@ const Task = () => {
         setPopup(!popup);
     }
 
-    useFetch({ url, dispatch, setError, setLoading, type:'GET_TASKS' });
+    useFetch({ url, dispatch, setError, setLoading, type: 'GET_TASKS' });
 
     return (
         <div className="bg-white justify-center items-center p-7 h-screen">
@@ -27,7 +27,17 @@ const Task = () => {
                 <div className="align-middle">
                     <button type="button" className="button mb-5">Add Task</button>
                 </div>
-                <Seacrhbar />
+                <Searchbar />
+            </div>
+            <div className='justify-end flex'>
+                <p>Sort by:</p>
+                <select>
+                    <option>Test</option>
+                    <option>Test</option>
+                    <option>Test</option>
+                    <option>Test</option>
+                    <option>Test</option>
+                </select>
             </div>
             <table className="shadow-2xl border-2 border-dark-blue-200 text-center w-full my-9">
                 <thead className="bg-dark-blue text-white">
@@ -42,9 +52,7 @@ const Task = () => {
                 <tbody>
                     {error && <div>Somehing error is occured 🙀</div>}
                     {isPending && <Loading />}
-                    {tasks && <div className="">{tasks.map(task => (
-                        <TaskList key={task._id} task={task} />
-                    ))}</div>}
+                    {tasks && tasks.map(task => (<TaskList key={task._id} task={task} />))}
                 </tbody>
             </table>
         </div>
