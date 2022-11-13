@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTasksContext } from '../hooks/useTasksContext';
 import useFetch from '../hooks/useFetch';
 
@@ -6,6 +6,8 @@ import TaskList from '../component/TaskList';
 import Loading from '../component/Loading';
 
 import Searchbar from '../component/Searchbar'
+import SortSelection from '../component/SortSelection';
+import Pagination from '../component/Pagination';
 
 const Task = () => {
     const { tasks, dispatch, isPending, error, setLoading, setError } = useTasksContext();
@@ -17,6 +19,15 @@ const Task = () => {
     }
 
     useFetch({ url, dispatch, setError, setLoading, type: 'GET_TASKS' });
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postPerPage, setPostPerPage] = useState(5);
+
+    const indexOfLastTask = currentPage*postPerPage;
+    const indexOfFirstTask = indexOfLastTask-postPerPage;
+    const currentTask = tasks && tasks.slice(indexOfFirstTask, indexOfLastTask);
+
+    const paginate =(pageNumber)=> setCurrentPage(pageNumber);
 
     return (
         <div className="bg-white justify-center items-center p-7 h-screen">
@@ -30,14 +41,7 @@ const Task = () => {
                 <Searchbar />
             </div>
             <div className='justify-end flex'>
-                <p>Sort by:</p>
-                <select>
-                    <option>Test</option>
-                    <option>Test</option>
-                    <option>Test</option>
-                    <option>Test</option>
-                    <option>Test</option>
-                </select>
+                <SortSelection />
             </div>
             <table className="shadow-2xl border-2 border-dark-blue-200 text-center w-full my-9">
                 <thead className="bg-dark-blue text-white">
@@ -52,9 +56,11 @@ const Task = () => {
                 <tbody>
                     {error && <div>Somehing error is occured 🙀</div>}
                     {isPending && <Loading />}
-                    {tasks && tasks.map(task => (<TaskList key={task._id} task={task} />))}
+
+                    {currentTask && currentTask.map(task => (<TaskList key={task._id} task={task} />))}
                 </tbody>
             </table>
+            {tasks && <Pagination postPerPage={postPerPage} totalPost={tasks.length} paginate={paginate}/>}
         </div>
     );
 }
