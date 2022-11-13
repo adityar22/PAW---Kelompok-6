@@ -16,7 +16,6 @@ const Notes = () => {
     const togglePopup = () => {
         setPopup(!popup);
     }
-
     useFetch({ url, dispatch, setError, setLoading, type: 'GET_NOTES' });
 
     return (
