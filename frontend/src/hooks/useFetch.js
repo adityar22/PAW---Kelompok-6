@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const useFetch = ({url, dispatch, setError, setLoading}) => {
+const useFetch = ({url, type, dispatch, setError, setLoading}) => {
     useEffect(() => {
         const getData = async () => {
             try {
@@ -8,7 +8,7 @@ const useFetch = ({url, dispatch, setError, setLoading}) => {
                 const data = await response.json();
         
                 if (response.ok) {
-                    dispatch({ type: 'GET_NOTES', payload: data });
+                    dispatch({ type, payload: data });
                     setLoading(false);
                     setError(null);
                 }

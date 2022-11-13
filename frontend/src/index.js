@@ -5,12 +5,15 @@ import './style.css';
 import './component/Loading.css'
 import App from './App';
 import NotesContextProvider from './contexts/NotesContext';
+import TasksContextProvider from './contexts/TasksContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <NotesContextProvider>
-      <App />
+      <TasksContextProvider>
+        <App />
+      </TasksContextProvider>
     </NotesContextProvider>
   </React.StrictMode>
 );
