@@ -2,8 +2,16 @@ const express = require('express');
 const route = express.Router()
 
 const services = require('../services/render');
-const controller = require('../controller/controller');
-const usercontroller = require('../controller/user-controller');
+const controller = require('../controller/taskController');
+
+//API for CRUD Task
+route.post('/',controller.create);
+route.get('/',controller.find);
+route.get('/:id',controller.find);
+route.get('/filter',controller.filtering);
+route.put('/:id',controller.update);
+route.delete('/:id',controller.delete);
+
 /**
  * @description Root Route
  * @method GET/
@@ -34,17 +42,5 @@ route.get('/edit_task',services.edit_task);
  */
  route.get('/notebook',services.notebook);
 
-//API for CRUD Task
-route.post('/api/tasks',controller.create);
-route.get('/api/tasks',controller.find);
-route.get('/api/tasks/:id',controller.find);
-route.get('/api/tasks/filter',controller.filtering);
-route.put('/api/tasks/:id',controller.update);
-route.delete('/api/tasks/:id',controller.delete);
-
-//API for CRUD User
-route.post('/api/tasks/auth/register',usercontroller.createUser);
-route.post('/api/tasks/auth/register',usercontroller.authUser);
-route.put('/api/tasks/auth/register',usercontroller.editUser);
 
 module.exports = route
