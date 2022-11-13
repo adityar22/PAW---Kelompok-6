@@ -1,12 +1,13 @@
-const TaskList = () => {
+import { tasksReducer } from "../contexts/TasksContext";
+
+const TaskList = ({task}) => {
     return (
         <div>
-            <tr>
-                <td>No.</td>
-                <td>Task Title</td>
-                <td>Status</td>
-                <td>Priority</td>
-                <td>Deadline</td>
+            <tr key={task._id}>
+                <td>{task.taskName}</td>
+                <td>{task.taskStat}</td>
+                <td>{task.taskPriority}</td>
+                <td>{task.taskTime}</td>
                 <td>
                     
                 </td>

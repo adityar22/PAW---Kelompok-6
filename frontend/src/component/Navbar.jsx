@@ -23,9 +23,9 @@ const Navbar = () => {
     ];
 
     return (
-        <div>
+        <div className="">
             <div className={` ${open ? "w-64" : "w-20"} 
-            bg-dark-blue h-screen p-5  pt-8 relative duration-300`}>
+            bg-dark-blue h-screen p-5  pt-8  duration-300 relative`}>
                 <img src={controller} className={`absolute cursor-pointer -right-3 top-9 w-6 scale-150 rounded-full rotate-180  ${!open && "rotate-0"}`}
                     onClick={() => setOpen(!open)} alt=""
                 />

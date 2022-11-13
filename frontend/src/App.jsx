@@ -11,19 +11,22 @@ import NotFound from './pages/NotFound';
 
 
 function App() {
+  
   return (
     <BrowserRouter>
       <div className="flex">
         <Navbar />
-        <Routes>
-          <Route exact path="/" element={<Home />}/>
-          <Route path="task" element={<Task />}/>
-          <Route path='calendar' element={<Calendar />}/>
-          <Route path='notes' element={<Notes />} />
-          <Route path='about' element={<About />} />
-          <Route path='profile' element={<Profile />} />
-          <Route path='*' element={<NotFound />} />
-        </Routes>
+        <div className='w-full max-h-screen overflow-y-scroll'>
+          <Routes>
+            <Route exact path="/" element={<Home />}/>
+            <Route path="task" element={<Task />}/>
+            <Route path='calendar' element={<Calendar />}/>
+            <Route path='notes' element={<Notes />} />
+            <Route path='about' element={<About />} />
+            <Route path='profile' element={<Profile />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   );
