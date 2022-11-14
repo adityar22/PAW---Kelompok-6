@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react';
 import { useTasksContext } from '../hooks/useTasksContext';
 import useFetch from '../hooks/useFetch';
 
+//Initiate Component
 import TaskList from '../component/TaskList';
 import Loading from '../component/Loading';
-
 import Searchbar from '../component/Searchbar'
 import SortSelection from '../component/SortSelection';
 import Pagination from '../component/Pagination';
 
+//Init Task Page
 const Task = () => {
-    const { tasks, dispatch, isPending, error, setLoading, setError } = useTasksContext();
+    //Fetch API
+    const { tasks, dispatch, isPending, error, setLoading, setError, setTasks } = useTasksContext();
     const [popup, setPopup] = useState(false);
     const url = '/api/tasks';
 
@@ -20,8 +22,9 @@ const Task = () => {
 
     useFetch({ url, dispatch, setError, setLoading, type: 'GET_TASKS' });
 
+    //Pagination
     const [currentPage, setCurrentPage] = useState(1);
-    const [postPerPage, setPostPerPage] = useState(5);
+    const [postPerPage] = useState(5);
 
     const indexOfLastTask = currentPage*postPerPage;
     const indexOfFirstTask = indexOfLastTask-postPerPage;
@@ -29,6 +32,11 @@ const Task = () => {
 
     const paginate =(pageNumber)=> setCurrentPage(pageNumber);
 
+    //Sorting
+    
+    //Seacrhing
+
+    //Return Task Page
     return (
         <div className="bg-white justify-center items-center p-7 h-screen">
             <div className="text-4xl font-bold text-orange my-9">
@@ -41,8 +49,10 @@ const Task = () => {
                 <Searchbar />
             </div>
             <div className='justify-end flex'>
-                <SortSelection />
+                <SortSelection/>
             </div>
+
+            {/* create table */}
             <table className="shadow-2xl border-2 border-dark-blue-200 text-center w-full my-9">
                 <thead className="bg-dark-blue text-white">
                     <tr>
@@ -54,12 +64,14 @@ const Task = () => {
                     </tr>
                 </thead>
                 <tbody>
+                    {/*Call Task List Component into Table Row*/}
                     {error && <div>Somehing error is occured 🙀</div>}
                     {isPending && <Loading />}
-
                     {currentTask && currentTask.map(task => (<TaskList key={task._id} task={task} />))}
                 </tbody>
             </table>
+
+            {/*Call Pagination Component*/}
             {tasks && <Pagination postPerPage={postPerPage} totalPost={tasks.length} paginate={paginate}/>}
         </div>
     );
