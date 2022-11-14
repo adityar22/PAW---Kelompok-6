@@ -5,10 +5,10 @@
 
 ## ❓ Tentang Aplikasi
 Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengelola task berdasarkan skala prioritas dan deadline. Fitur utama dalam aplikasi ini yaitu adalah CRUD
-C (Create) -> Membuat task User yang terdiri dari Nama task, Deskripsi task, Deadline, dan Prioritas
-R (Read)   -> Menampilkan daftar task User yang sudah ditambahkan
-U (Update) -> Memperbarui task User yang dipilih
-D (Delete) -> Menghapus task User yang dipilih
+- C (Create) -> Membuat task User yang terdiri dari Nama task, Deskripsi task, Deadline, dan Prioritas
+- R (Read)   -> Menampilkan daftar task User yang sudah ditambahkan
+- U (Update) -> Memperbarui task User yang dipilih
+- D (Delete) -> Menghapus task User yang dipilih
 
 ## 👥 Anggota Kelompok 6 
 - [Aditya Ramadhan (20/460535/TK/51124)](https://www.github.com/adityar22)
