@@ -38,8 +38,8 @@ const Task = () => {
 
     //Return Task Page
     return (
-        <div className="bg-white justify-center items-center p-7 h-screen">
-            <div className="text-4xl font-bold text-orange my-9">
+        <div className="bg-white justify-center items-center py-10 px-28 h-screen">
+            <div className="text-4xl font-bold text-orange my-12">
                 <h1>Add Your Task Here</h1>
             </div>
             <div className="justify-between flex">
@@ -65,7 +65,7 @@ const Task = () => {
                 </thead>
                 <tbody>
                     {/*Call Task List Component into Table Row*/}
-                    {error && <div>Somehing error is occured 🙀</div>}
+                    {error && <div className='font-semibold text-lg text-red-400 my-4'>Somehing error is occured 🙀</div>}
                     {isPending && <Loading />}
                     {currentTask && currentTask.map(task => (<TaskList key={task._id} task={task} />))}
                 </tbody>
