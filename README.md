@@ -2,7 +2,6 @@
   📝 Task Management System
 </h1>
 <p align="center">API CRUD using Express + MongoDB | Pengembangan Aplikasi Web</p>
-<hr/>
 
 ## ❓ Tentang Aplikasi
 Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengelola task berdasarkan skala prioritas dan deadline. Saat ini, terdapat 4 fitur dalam aplikasi kami yaitu:
