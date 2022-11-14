@@ -14,7 +14,7 @@ const useFetch = ({url, type, dispatch, setError, setLoading}) => {
                 }
             }
             catch (err) {
-                setLoading(true);
+                setLoading(false);
                 setError(err);
             }
         }
