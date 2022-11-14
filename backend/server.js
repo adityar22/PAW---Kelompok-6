@@ -3,13 +3,14 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const path = require('path');
 
+const connectDB = require('./server/database/connection');
 const taskRouter = require('./server/routes/taskRouter');
 const userRouter = require('./server/routes/userRouter');
-const connectDB = require('./server/database/connection');
+const notesRouter = require('./server/routes/notesRouter');
 
 const app = express();
 dotenv.config({ path: "config.env" })
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8000
 
 //tag req
 app.use(morgan('tiny'));
@@ -32,5 +33,6 @@ app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
 
 app.use('/api/tasks', taskRouter);
 app.use('/api/user', userRouter);
+app.use('/api/notes', notesRouter);
 
 app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`) });
