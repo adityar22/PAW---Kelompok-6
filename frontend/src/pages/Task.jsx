@@ -35,6 +35,7 @@ const Task = () => {
     //Sorting
     
     //Seacrhing
+    const [searchTerm, setSearchTerm] = useState("");
 
     //Return Task Page
     return (
@@ -46,7 +47,7 @@ const Task = () => {
                 <div className="align-middle">
                     <button type="button" className="button mb-5">Add Task</button>
                 </div>
-                <Searchbar />
+                <Searchbar search={search}/>
             </div>
             <div className='justify-end flex'>
                 <SortSelection/>
