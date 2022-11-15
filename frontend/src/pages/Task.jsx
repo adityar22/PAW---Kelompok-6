@@ -47,7 +47,7 @@ const Task = () => {
                 <div className="align-middle">
                     <button type="button" className="button mb-5">Add Task</button>
                 </div>
-                <Searchbar search={search}/>
+                <Searchbar/>
             </div>
             <div className='justify-end flex'>
                 <SortSelection/>
