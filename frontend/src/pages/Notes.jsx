@@ -19,14 +19,14 @@ const Notes = () => {
     useFetch({ url, dispatch, setError, setLoading, type: 'GET_NOTES' });
 
     return (
-        <div className="p-7 h-screen">
-            <div className="container p-12 mx-auto">
+        <div className="py-10 px-28 h-screen">
+            <div className="my-12 mx-auto">
                 <h1 className='text-5xl font-bold mb-12 text-dark-blue' >Write your note here! 📝</h1>
                 <div className='justify-between flex'>
                     <button type="button" className="button mb-5" onClick={togglePopup}>Add Notes +</button>
                     <Searchbar/>
                 </div>
-                {error && <div>Somehing error is occured 🙀</div>}
+                {error && <div className='font-semibold text-lg text-red-400 mt-4'>Somehing error is occured 🙀</div>}
                 {isPending && <Loading />}
                 {notes && <div className="mb-5 flex flex-wrap">{notes.map(note => (
                     <NotesDetails key={note._id} note={note} />

@@ -1,9 +1,26 @@
+import { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+
 const About = () => {
+    const [markdown, setMarkdown] = useState('')
+
+    useEffect(() => {
+        const getData = async () => {
+            const response = await fetch('https://raw.githubusercontent.com/adityar22/PAW---Kelompok-6/master/README.md');
+            const data = await response.text();
+            console.log(data);
+            setMarkdown(data);
+        }
+        getData();
+    }, [markdown]);
+
     return (
-        <div className="p-7 h-screen">
-            <h1 className="mx-auto mt-12 text-2xl font-bold">About</h1>
-            <p>Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengelola task berdasarkan skala prioritas dan deadline</p>
-        </div>
+        <>
+            <ReactMarkdown className="prose py-20 pl-28 h-screen max-w-full" rehypePlugins={[rehypeRaw]}>
+                {markdown}
+            </ReactMarkdown>
+        </>
     );
 }
 

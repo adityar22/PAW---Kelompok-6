@@ -1,15 +1,14 @@
 <h1 align="center">
   📝 Task Management System
 </h1>
-
-<p align="center">API CRUD using Express + MongoDB | Pengembangan Aplikasi Web</p><br>
+<p align="center">API CRUD using Express + MongoDB | Pengembangan Aplikasi Web</p>
 
 ## ❓ Tentang Aplikasi
-Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengelola task berdasarkan skala prioritas dan deadline. Saat ini, terdapat 4 fitur dalam aplikasi kami yaitu:
-1. Membuat task User yang terdiri dari Nama task, Deskripsi task, Deadline, dan Prioritas
-2. Menampilkan daftar task User yang sudah ditambahkan
-3. Memperbarui task User yang dipilih
-4. Menghapus task User yang dipilih
+Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengelola task berdasarkan skala prioritas dan deadline. Fitur utama dalam aplikasi ini yaitu adalah CRUD
+- C (Create) -> Membuat task User yang terdiri dari Nama task, Deskripsi task, Deadline, dan Prioritas
+- R (Read)   -> Menampilkan daftar task User yang sudah ditambahkan
+- U (Update) -> Memperbarui task User yang dipilih
+- D (Delete) -> Menghapus task User yang dipilih
 
 ## 👥 Anggota Kelompok 6 
 - [Aditya Ramadhan (20/460535/TK/51124)](https://www.github.com/adityar22)
