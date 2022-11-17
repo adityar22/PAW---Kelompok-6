@@ -10,17 +10,17 @@ const requireAuth = async (req, res, next) => {
     }
     
     const token = authorization.split(" ")[1];
-    console.log(token)
+    // console.log(token)
 
     try{
         const {_id} = jwt.verify(token, process.env.SECRET);
-        console.log(_id);
+        // console.log(_id);
         //console.log(req.user); --> masih null soalnya belum disertain diassign dari modelUser
         
         // findOne returning document, select returning document with selected attribute
         // req.user instead of user because it's middleware, dan sebelumnya ga ada di req jadi ditambahin sendiri
         req.user = await User.findOne({_id}).select('_id');
-        console.log("Inside try", req.user);
+        // console.log("Inside try", req.user);
 
         next();
     }
