@@ -100,7 +100,7 @@ const AddTask = ({ togglePopup, setLoading, url, setError }) => {
                         <label className="block text-gray-700 text-sm font-bold mb-2">
                             Priority
                         </label>
-                        <div className="flex-row justify-between">
+                        <div className="flex-column justify-between">
                             <div>
                                 <input
                                     type="radio"
