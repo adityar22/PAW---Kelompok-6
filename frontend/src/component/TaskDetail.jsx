@@ -33,6 +33,16 @@ const TaskDetail = ({task, togglePopup, setLoading, url, setError }) => {
                             value={taskName}
                         />
                     </div>
+                    <div className="mb-4">
+                        <input
+                            required
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="taskTime"
+                            type="date"
+                            onChange={(e) => setTaskTime(e.target.value)}
+                            value={taskTime}
+                        />
+                    </div>
                     <div>
                         <textarea
                             required
@@ -45,7 +55,7 @@ const TaskDetail = ({task, togglePopup, setLoading, url, setError }) => {
                     </div>
                     <div className="flex-row items-end">
                         <button
-                            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus :outline-none focus:shadow-outline"
+                            className="bg-yellow-500 hover:bg-yellow-700 mr-3 text-white font-bold py-2 px-4 rounded focus :outline-none focus:shadow-outline"
                             type="submit">
                             Save
                         </button>
