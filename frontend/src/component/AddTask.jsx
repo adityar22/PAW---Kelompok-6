@@ -100,8 +100,8 @@ const AddTask = ({ togglePopup, setLoading, url, setError }) => {
                         <label className="block text-gray-700 text-sm font-bold mb-2">
                             Priority
                         </label>
-                        <div className="flex-column justify-between">
-                            <div>
+                        <div className="mb-3">
+                            <div className="inline-block mr-3">
                                 <input
                                     type="radio"
                                     id="taskPriority1"
@@ -110,7 +110,7 @@ const AddTask = ({ togglePopup, setLoading, url, setError }) => {
                                     onClick={(e) => setTaskPriority(e.target.value)} />
                                 <label for="taskPriority1">Low</label>
                             </div>
-                            <div>
+                            <div className="inline-block mr-3">
                                 <input
                                     type="radio"
                                     id="taskPriority2"
@@ -119,7 +119,7 @@ const AddTask = ({ togglePopup, setLoading, url, setError }) => {
                                     onClick={(e) => setTaskPriority(e.target.value)} />
                                 <label for="taskPriority2">Normal</label>
                             </div>
-                            <div>
+                            <div className="inline-block mr-3">
                                 <input
                                     type="radio"
                                     id="taskPriority3"

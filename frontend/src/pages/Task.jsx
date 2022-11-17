@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useTasksContext } from '../hooks/useTasksContext';
 import useFetch from '../hooks/useFetch';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 //Initiate Component
 import TaskList from '../component/TaskList';
 import Loading from '../component/Loading';
@@ -15,12 +18,15 @@ const Task = () => {
     //Fetch API
     const { tasks, dispatch, isPending, error, setLoading, setError } = useTasksContext();
     const [popup, setPopup] = useState(false);
+
+    //Backend URL
     const url = '/api/tasks';
 
     const togglePopup = () => {
         setPopup(!popup);
     }
 
+    //Get Data Hooks
     useFetch({ url, dispatch, setError, setLoading, type: 'GET_TASKS' });
 
     //Pagination
@@ -56,11 +62,51 @@ const Task = () => {
     const getSearchTerm = () => {
         searchHandler(inputEl.current.value);
     };
-
     const listTasks = searchTerm < 1 ? currentTask : searchResult
+
+    //Set Notification
+    const notify={
+        info : (msg)=>{
+            toast.info(msg,{
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        },
+        error:(msg)=>{
+            toast.error(msg, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+    }
+
     //Return Task Page
     return (
         <>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             {popup && <AddTask togglePopup={togglePopup} setLoading={setLoading} url={url}/>}
             <div className="bg-white justify-center items-center py-10 px-28 h-screen">
                 <div className="text-4xl font-bold text-orange my-8">
@@ -92,7 +138,7 @@ const Task = () => {
                         {error && <div className='font-semibold text-lg text-red-400 my-4'>Somehing error is occured 🙀</div>}
                         {isPending && <Loading />}
 
-                        {listTasks && listTasks.map(task => (<TaskList key={task._id} task={task} />))}
+                        {listTasks && listTasks.map(task => (<TaskList key={task._id} task={task} notify={notify} setLoading={setLoading} setError={setError} />))}
                     </tbody>
                 </table>
 
