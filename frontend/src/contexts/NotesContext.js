@@ -3,7 +3,7 @@ import { createContext, useReducer, useState } from "react";
 export const NotesContext = createContext();
 
 export const notesReducer = (state, action) => {
-    switch (action.type){
+    switch (action.type) {
         case 'GET_NOTES':
             return {
                 notes: action.payload
@@ -12,30 +12,35 @@ export const notesReducer = (state, action) => {
             return {
                 notes: [action.payload, ...state.notes]
             }
+        case 'DELETE_NOTES':
+            return {
+                notes: state.notes.filter((item) => {return item._id !== action.payload._id})
+            }
         default:
             return state
     }
 }
 
-const NotesContextProvider = ({children}) => {
+const NotesContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(notesReducer, {
+        // notes -> object
         notes: null
     })
 
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState("");
-    
+
     const setLoading = (state) => {
         setIsPending(state);
     }
 
-    return ( 
-        <NotesContext.Provider value={{...state, dispatch, isPending, error, setLoading, setError}}>
+    return (
+        <NotesContext.Provider value={{ ...state, dispatch, isPending, error, setLoading, setError }}>
             {children}
         </NotesContext.Provider>
-     );
+    );
 }
- 
+
 export default NotesContextProvider;
 
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTasksContext } from '../hooks/useTasksContext';
 import useFetch from '../hooks/useFetch';
 
@@ -8,11 +8,12 @@ import Loading from '../component/Loading';
 import Searchbar from '../component/Searchbar'
 import SortSelection from '../component/SortSelection';
 import Pagination from '../component/Pagination';
+import AddTask from '../component/AddTask';
 
 //Init Task Page
 const Task = () => {
     //Fetch API
-    const { tasks, dispatch, isPending, error, setLoading, setError, setTasks } = useTasksContext();
+    const { tasks, dispatch, isPending, error, setLoading, setError } = useTasksContext();
     const [popup, setPopup] = useState(false);
     const url = '/api/tasks';
 
@@ -26,55 +27,79 @@ const Task = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [postPerPage] = useState(5);
 
-    const indexOfLastTask = currentPage*postPerPage;
-    const indexOfFirstTask = indexOfLastTask-postPerPage;
+    const indexOfLastTask = currentPage * postPerPage;
+    const indexOfFirstTask = indexOfLastTask - postPerPage;
     const currentTask = tasks && tasks.slice(indexOfFirstTask, indexOfLastTask);
 
-    const paginate =(pageNumber)=> setCurrentPage(pageNumber);
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     //Sorting
-    
+
     //Seacrhing
     const [searchTerm, setSearchTerm] = useState("");
+    const inputEl = useRef("");
+    const [searchResult, setSearchresult] = useState([]);
+    const searchHandler = (searchTerm) => {
+        setSearchTerm(searchTerm);
+        if (searchTerm !== "") {
+            const newTasksList = tasks.filter((task) => {
+                return Object.values(task)
+                    .join(" ")
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase());
+            });
+            setSearchresult(newTasksList);
+        } else {
+            setSearchresult(tasks);
+        }
+    };
+    const getSearchTerm = () => {
+        searchHandler(inputEl.current.value);
+    };
 
+    const listTasks = searchTerm < 1 ? currentTask : searchResult
     //Return Task Page
     return (
-        <div className="bg-white justify-center items-center py-10 px-28 h-screen">
-            <div className="text-4xl font-bold text-orange my-12">
-                <h1>Add Your Task Here</h1>
-            </div>
-            <div className="justify-between flex">
-                <div className="align-middle">
-                    <button type="button" className="button mb-5">Add Task</button>
+        <>
+            {popup && <AddTask togglePopup={togglePopup} setLoading={setLoading} url={url}/>}
+            <div className="bg-white justify-center items-center py-10 px-28 h-screen">
+                <div className="text-4xl font-bold text-orange my-8">
+                    <h1>Add Your Task Here</h1>
                 </div>
-                <Searchbar/>
-            </div>
-            <div className='justify-end flex'>
-                <SortSelection/>
-            </div>
+                <div className="justify-between flex">
+                    <div className="align-middle">
+                        <button type="button" className="button mb-3" onClick={togglePopup}>Add Task</button>
+                    </div>
+                    <Searchbar term={searchTerm} getSearchTerm={getSearchTerm} inputEl={inputEl} />
+                </div>
+                <div className='justify-end flex'>
+                    <SortSelection />
+                </div>
 
-            {/* create table */}
-            <table className="shadow-2xl border-2 border-dark-blue-200 text-center w-full my-9">
-                <thead className="bg-dark-blue text-white">
-                    <tr>
-                        <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Task Title</th>
-                        <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Status</th>
-                        <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Priority</th>
-                        <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Deadline</th>
-                        <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {/*Call Task List Component into Table Row*/}
-                    {error && <div className='font-semibold text-lg text-red-400 my-4'>Somehing error is occured 🙀</div>}
-                    {isPending && <Loading />}
-                    {currentTask && currentTask.map(task => (<TaskList key={task._id} task={task} />))}
-                </tbody>
-            </table>
+                {/* create table */}
+                <table className="shadow-2xl border-2 border-dark-blue-200 text-center w-full my-6">
+                    <thead className="bg-dark-blue text-white">
+                        <tr>
+                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Task Title</th>
+                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Status</th>
+                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Priority</th>
+                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Deadline</th>
+                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/*Call Task List Component into Table Row*/}
+                        {error && <div className='font-semibold text-lg text-red-400 my-4'>Somehing error is occured 🙀</div>}
+                        {isPending && <Loading />}
 
-            {/*Call Pagination Component*/}
-            {tasks && <Pagination postPerPage={postPerPage} totalPost={tasks.length} paginate={paginate}/>}
-        </div>
+                        {listTasks && listTasks.map(task => (<TaskList key={task._id} task={task} />))}
+                    </tbody>
+                </table>
+
+                {/*Call Pagination Component*/}
+                {tasks && <Pagination postPerPage={postPerPage} totalPost={tasks.length} paginate={paginate} />}
+            </div>
+        </>
     );
 }
 
