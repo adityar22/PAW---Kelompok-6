@@ -1,4 +1,4 @@
-var taskDB = require('../model/model');
+var taskDB = require('../model/taskModel');
 
 //create and save new task
 exports.create = (req, res) => {

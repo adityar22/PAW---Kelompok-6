@@ -1,31 +1,20 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Navbar from './component/Navbar';
+import { useAuthContext } from './hooks/useAuthContext';
+
+import SignUp from './pages/SignUp';
+import Login from './pages/Login';
 import Home from './pages/Home';
-import Task from './pages/Task';
-import Calendar from './pages/Calendar';
-import Notes from './pages/Notes';
-import About from './pages/About';
-import Profile from './pages/Profile';
-import NotFound from './pages/NotFound';
 
 function App() {
+  const { user } = useAuthContext();
   return (
     <BrowserRouter>
-      <div className="flex">
-        <Navbar />
-        <div className='w-full max-h-screen overflow-y-scroll'>
-          <Routes>
-            <Route exact path="/" element={<Home />}/>
-            <Route path="task" element={<Task />}/>
-            <Route path='calendar' element={<Calendar />}/>
-            <Route path='notes' element={<Notes />} />
-            <Route path='about' element={<About />} />
-            <Route path='profile' element={<Profile />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-        </div>
-      </div>
+        <Routes>
+          <Route exact path="/*" element={!user ? <Login /> : <Home />}/>
+          <Route exact path="/signup/*" element={!user ? <SignUp /> : <Home />} />
+          <Route exact path="/login/*" element={!user ? <Login /> : <Home />} />
+        </Routes>
     </BrowserRouter>
   );
 }
