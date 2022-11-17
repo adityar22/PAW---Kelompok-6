@@ -9,9 +9,7 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
-
 function App() {
-  
   return (
     <BrowserRouter>
       <div className="flex">
