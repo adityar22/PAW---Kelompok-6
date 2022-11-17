@@ -22,8 +22,7 @@ const Notes = () => {
     useFetch({ url, dispatch, setError, setLoading, type: 'GET_NOTES' });
 
     return (
-        <>
-            {addPopup && <AddForm toggleAddPopup={toggleAddPopup} setLoading={setLoading} url={url} setError={setError} />}
+        <>       
             <div className="py-10 px-28 h-screen">
                 <div className="my-12 mx-auto">
                     <h1 className='text-5xl font-bold mb-12 text-dark-blue' >Write your note here! 📝</h1>
@@ -38,6 +37,7 @@ const Notes = () => {
                     ))}</div>}
                 </div>
             </div>
+            {addPopup && <AddForm toggleAddPopup={toggleAddPopup} setLoading={setLoading} url={url} setError={setError} />}
         </>
     );
 }

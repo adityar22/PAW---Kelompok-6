@@ -42,7 +42,7 @@ const Note = ({ note, setLoading, setError }) => {
         }
         if (!response.ok) {
             setLoading(false);
-            setError('There is something wrong when deleting, try again');
+            setError(json.error);
         }
 
     }
@@ -76,7 +76,7 @@ const Note = ({ note, setLoading, setError }) => {
                 </div>
             </div>
             {/* Just show last modal */}
-            {(detailPopup) && <NoteModal toggleDetailPopup={toggleDetailPopup} note={note} handleDelete={handleDelete} />}
+            {(detailPopup) && <NoteModal toggleDetailPopup={toggleDetailPopup} note={note} handleDelete={handleDelete} setLoading={setLoading} setError={setError} />}
         </>
     );
 }

@@ -20,10 +20,9 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
             return;
         }
 
-        const newTodos = { title, content, isPinned, tag };
-
         setLoading(true);
-
+        
+        const newTodos = { title, content, isPinned, tag };
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -36,7 +35,6 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
         const notes = await response.json();
 
         if(response.ok){
-            console.log('New todos added!');
             setTitle('');
             setContent('');
             setLoading(false);
@@ -45,7 +43,8 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
         }
 
         if(!response.ok){
-            throw Error('Could not fetch the data for that resource');
+            setLoading(false);
+            setError(notes.error);
         }
     }
 
@@ -53,10 +52,10 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
     return (
         <>
             <div className="overlay z-10"></div>
-            <div className="container w-fit mx-auto absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
+            <div className="container w-fit mx-auto absolute z-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
                 <form className="create w-screen max-w-xl mx-8 bg-white shadow-xl rounded-3xl px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
                     <button className="button absolute bg-red-500 border-red-700 -top-4 right-4 hover:bg-red-700" onClick={toggleAddPopup}>x</button>
-                    <h3 className="text-center text-2xl font -bold mb-12"> Add New Notes </h3>
+                    <h3 className="text-center text-2xl font-semibold mb-12"> Add New Notes </h3>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">
                             Title

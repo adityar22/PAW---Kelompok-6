@@ -22,9 +22,9 @@
     @apply bg-black opacity-40 fixed w-full h-full top-0 bottom-0 right-0 left-0 transition-all;
   }
   .btn-red {
-    @apply bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:bg-red-800 rounded-full drop-shadow-lg;
+    @apply bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 border-b-4 border-red-700  rounded-full drop-shadow-lg;
   }
   .btn-white {
-    @apply bg-white hover:bg-gray-300 text-red-500 font-bold py-2 px-4 border-b-4 border-red-300 hover:bg-gray-300 rounded-full drop-shadow-lg;
+    @apply bg-white hover:bg-gray-300 text-red-500 font-bold py-2 px-4 border-b-4 border-red-300  rounded-full drop-shadow-lg;
   }
 }
