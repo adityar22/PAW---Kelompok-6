@@ -1,100 +1,106 @@
-var taskDB = require('../model/taskModel');
+const taskDB = require('../model/taskModel');
+const mongoose = require('mongoose');
 
 //create and save new task
-exports.create = (req, res) => {
-    if (!req.body) {
-        res.status(400).send({ message: "Content can be empty" });
-        return;
-    }
-    const task = taskDB({
-        taskName: req.body.taskName,
-        taskDescription: req.body.taskDescription,
-        taskTime: req.body.taskTime,
-        taskPriority: req.body.taskPriority,
-        taskStat: req.body.taskStat
-    });
+exports.create = async (req, res) => {
+    const {taskName, taskDescription, taskTime, taskPriority, taskStat} = req.body;
+    const taskUser = req.user._id;
 
-    task
-        .save(task)
-        .then(data => {
-            // res.send(data)
-            res.redirect('/add_task')
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occured while creating a create operation"
-            });
+    try{
+        const newTask = await taskDB.create({taskUser, taskName, taskDescription, taskTime, taskPriority, taskStat});
+        res.status(200).json({
+            message:"Task added successfully",
+            data : newTask
         });
+    }
+    catch(err){
+        res.status(400).json({error: err.message});
+    };
 }
 
 //retrieve and return all tasks
-exports.find = (req, res) => {
+exports.getTask = async (req, res) => {
+    const taskUser = req.user.id;
 
-    if (req.params.id) {
-        const id = req.params.id;
+    try{
+        const task = await taskDB.find({taskUser}).sort({createdAt:-1}).exec();
 
-        taskDB.findById(id)
-            .then(data => {
-                if (!data) {
-                    res.status(404).send({ message: "Not Found task with id" + id })
-                } else {
-                    res.send(data)
-                }
-            })
-            .catch(err => {
-                res.status(500).send({ message: "Error retrieving task with id" + id })
-            })
-    } else {
-        taskDB.find()
-            .then(task => {
-                res.send(task)
-            })
-            .catch(err => {
-                res.status(500).send({ message: err.message || "Error occured while retrieving task information" })
-            })
+        if(!task){
+            return res.status(404).json({error: 'No such tasks'});
+        }
+        res.status(200).json(task);
+    }
+    catch(err){
+        res.status(400).json({error: err.message});
+    }
+}
+
+//find by id
+exports.findById = async(req,res)=>{
+    const id = mongoose.Types.ObjectId(req.params.id);
+    const taskUser=req.user._id;
+
+    try{
+        const task = await taskDB.find({taskUSer}).findOne({_id: id}).exec();
+        if(!task){
+            return res.status(404).json({error: 'No such task'});
+        }
+        res.status(200).json(task)
+    }
+    catch(err){
+        return res.status(400).json({error: err.message});
     }
 }
 
 //update a new task by id
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
     if (!req.body) {
         return res
             .status(400)
             .send({ message: "Data to update can not be empty" })
     }
-    const id = req.params.id;
-    taskDB.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-        .then(data => {
-            if (!data) {
-                res.status(404).send({ message: `Cannot update task with ${id}. Maybe task not found` })
-            } else {
-                res.send(data)
-            }
+    const id = mongoose.Types.ObjectId(req.params.id);
+
+    try{
+        if(!mongoose.Types.ObjectId.isValid(id)){
+            return res.status(404).json({error: 'No such task'});
+        }
+
+        const task = await taskDB.findOneAndUpdate({_id: id},{...req.body}).exec();
+
+        if(!task){
+            return res.status(404).json({error: 'No such task'});
+        }
+
+        res.status(200).json({
+            message:"Task updated successfully",
+            data: task
         })
-        .catch(err => {
-            res.status(500).send({ message: "Error update task information" })
-        })
+    }
+    catch(err){
+        res.status(400).json({error: err.message});
+    }
 }
 
 //delete task
-exports.delete = (req, res) => {
-    const id = req.params.id;
-
-    taskDB.findByIdAndDelete(id)
-        .then(data => {
-            if (!data) {
-                res.status(404).send({ message: `Cannot delete task with id ${id}. Maybe id is wrong` })
-            } else {
-                res.send({
-                    message: "Task was deleted successfully!"
-                })
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Couldn't delete task with id = " + id
-            });
+exports.delete = async (req, res) => {
+    const id = mongoose.Types.ObjectId(req.params.id);
+    try{
+        if(!mongoose.Types.ObjectId.isValid(id)){
+            return res.status(404).json({error: 'No such task'});
+        }
+        const task = await taskDB.findOneAndDelete({_id: id}).exec();
+        if(!task){
+            return res.status(404).json({error: 'No such task'});
+        }
+        res.status(200).json({
+            message:"Task deleted successfully",
+            data: task
         });
+    }
+    catch(err){
+        res.status(400).json({error: err.message});
+    }
 }
 
 //sorting API

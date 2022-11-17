@@ -8,7 +8,7 @@ export const tasksReducer = (state, action)=>{
             return{
                 tasks: action.payload
             }
-        case 'ADD_TASKS':
+        case 'ADD_TASK':
             return{
                 tasks: [action.payload, ...state.tasks]
             }

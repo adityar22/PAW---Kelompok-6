@@ -10,13 +10,13 @@ const useFetch = ({ url, type, dispatch, setError, setLoading }) => {
             try {
                 const response = await fetch(url, {
                     headers: {
-                        'authorization': `Bearer ${user.token}`
+                        'Authorization': `Bearer ${user.token}`
                     }
                 });
-                const data = await response.json();
+                const json = await response.json();
 
                 if (response.ok) {
-                    dispatch({ type, payload: data });
+                    dispatch({ type, payload: json });
                     setLoading(false);
                     setError(null);
                 }

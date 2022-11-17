@@ -9,7 +9,7 @@ const TaskList = ({ task }) => {
     }
     return (
         <>
-            {popup && <TaskDetail />}
+            {popup && <TaskDetail togglePopup={togglePopup} task={task}/>}
             <tr key={task._id} className="">
                 <td className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">{task.taskName}</td>
                 <td className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">{task.taskStat}</td>
