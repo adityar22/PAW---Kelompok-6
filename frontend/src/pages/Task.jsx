@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTasksContext } from '../hooks/useTasksContext';
 import useFetch from '../hooks/useFetch';
 
@@ -12,7 +12,7 @@ import Pagination from '../component/Pagination';
 //Init Task Page
 const Task = () => {
     //Fetch API
-    const { tasks, dispatch, isPending, error, setLoading, setError, setTasks } = useTasksContext();
+    const { tasks, dispatch, isPending, error, setLoading, setError} = useTasksContext();
     const [popup, setPopup] = useState(false);
     const url = '/api/tasks';
 
@@ -36,25 +36,45 @@ const Task = () => {
     
     //Seacrhing
     const [searchTerm, setSearchTerm] = useState("");
+    const inputEl = useRef("");
+    const [searchResult, setSearchresult ] = useState([]);
+    const searchHandler=(searchTerm)=>{
+        setSearchTerm(searchTerm);
+        if(searchTerm !== ""){
+            const newTasksList = tasks.filter((task)=>{
+                return Object.values(task)
+                    .join(" ")
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase());
+            });
+            setSearchresult(newTasksList);
+        }else{
+            setSearchresult(tasks);
+        }
+    };
+    const getSearchTerm=()=>{
+        searchHandler(inputEl.current.value);
+    };
 
+    const listTasks = searchTerm <1 ? currentTask : searchResult
     //Return Task Page
     return (
         <div className="bg-white justify-center items-center py-10 px-28 h-screen">
-            <div className="text-4xl font-bold text-orange my-12">
+            <div className="text-4xl font-bold text-orange my-8">
                 <h1>Add Your Task Here</h1>
             </div>
             <div className="justify-between flex">
                 <div className="align-middle">
-                    <button type="button" className="button mb-5">Add Task</button>
+                    <button type="button" className="button mb-3">Add Task</button>
                 </div>
-                <Searchbar/>
+                <Searchbar term={searchTerm} getSearchTerm={getSearchTerm} inputEl={inputEl}/>
             </div>
             <div className='justify-end flex'>
                 <SortSelection/>
             </div>
 
             {/* create table */}
-            <table className="shadow-2xl border-2 border-dark-blue-200 text-center w-full my-9">
+            <table className="shadow-2xl border-2 border-dark-blue-200 text-center w-full my-6">
                 <thead className="bg-dark-blue text-white">
                     <tr>
                         <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Task Title</th>
@@ -68,7 +88,8 @@ const Task = () => {
                     {/*Call Task List Component into Table Row*/}
                     {error && <div className='font-semibold text-lg text-red-400 my-4'>Somehing error is occured 🙀</div>}
                     {isPending && <Loading />}
-                    {currentTask && currentTask.map(task => (<TaskList key={task._id} task={task} />))}
+                    
+                    {listTasks && listTasks.map(task => (<TaskList key={task._id} task={task} />))}
                 </tbody>
             </table>
 
