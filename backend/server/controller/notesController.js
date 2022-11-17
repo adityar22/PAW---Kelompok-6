@@ -71,7 +71,10 @@ const createNotes = async (req, res) => {
 
     try {
         const newNotes = await notesModel.create({ title, content, user_id, isPinned, tag });
-        res.status(200).json(newNotes);
+        res.status(200).json({
+            message: "Notes created succesfully",
+            data: newNotes
+        });
     }
     catch (err) {
         res.status(400).json({ error: err.message });
@@ -114,7 +117,7 @@ const deleteNotes = async (req, res) => {
             return res.status(404).json({ error: 'No such notes' });
         }
 
-        res.status(200).json({message: "Notes updated succesfully"});
+        res.status(200).json({message: "Notes deleted succesfully"});
     }
     catch (err) {
         res.status(400).json({ error: err.message });
