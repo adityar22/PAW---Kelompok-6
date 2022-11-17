@@ -21,7 +21,7 @@ const InputTag = ({ tag, setTag }) => {
     return (
         <div className="">
             {tag.map((tag, index) => (
-                <div className="inline-block badges text-base mb-3" key={index}>
+                <div className="inline-block badges text-sm mb-2" key={index}>
                     <span
                         className="">
                         {tag}
@@ -29,7 +29,7 @@ const InputTag = ({ tag, setTag }) => {
                     <span className="font-extrabold ml-3 cursor-pointer" onClick={() => removeTag(index)}>x</span>
                 </div>
             ))}
-            <input onKeyDown={handleKeyDown} type="text" className="shadow appearance-none border rounded w-full py-2 px-3 mt-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Type somthing" />
+            <input onKeyDown={handleKeyDown} type="text" className="shadow appearance-none border rounded w-full py-2 px-3 mt-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Type and press enter to add tag" />
         </div>
     )
 }

@@ -11,7 +11,7 @@ const Pagination = ({postPerPage, totalPost, paginate}) => {
             <ul className="pagination flex items-center justify-center">
                 {pageNumber.map(number =>(
                     <li key={number} className="page-item mx-3">
-                        <p onClick={()=>paginate(number)} className="page-link">
+                        <p onClick={()=>paginate(number)} className="page-link cursor-pointer">
                             {number}
                         </p>
                     </li>
