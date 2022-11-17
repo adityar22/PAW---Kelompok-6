@@ -63,7 +63,7 @@ const Navbar = () => {
                                 ${menu.gap ? "mt-4" : "mt-2"} ${index === 0 && "bg-light-white"} `}>
                                     <Link className="flex gap-3" to={menu.link}>
                                         <img src={menu.src} className="w-4 h-4" alt="" />
-                                        <span className={`${!open && "hidden"} origin-left duration-200`}>
+                                        <span className={`${!open && "hidden"} origin-left duration-200 text-base`}>
                                             {menu.title}
                                         </span>
                                     </Link>

@@ -49,7 +49,7 @@ const Note = ({ note, setLoading, setError }) => {
 
     return (
         <>
-            <div className="notes-card mb-7 mr-7 max-h-fit max-w-xl" onClick={toggleDetailPopup}>
+            <div className="notes-card mb-7 mr-7 max-h-fit max-w-xl " onClick={toggleDetailPopup}>
                 <div className="content-top">
                     <div className='flex flex-row justify-between'>
                         <h2 className='text-xl font-bold text-cyan-700 mb-2'>{note.title}</h2>
