@@ -89,7 +89,7 @@ const updateNotes = async (req, res) => {
             return res.status(404).json({ error: 'No such notes' })
         }
 
-        const notes = await notesModel.findOneAndUpdate({ _id: id }, { ...req.body }).exec();
+        const notes = await notesModel.findOneAndUpdate({ _id: id }, { ...req.body }, { returnDocument: 'after' }).exec();
 
         if (!notes) {
             return res.status(404).json({ error: 'No such notes' });
@@ -120,9 +120,9 @@ const deleteNotes = async (req, res) => {
             return res.status(404).json({ error: 'No such notes' });
         }
 
-        res.status(200).json({ 
+        res.status(200).json({
             message: "Notes deleted succesfully",
-            data: notes 
+            data: notes
         });
     }
     catch (err) {
