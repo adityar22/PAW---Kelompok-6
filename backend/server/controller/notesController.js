@@ -5,7 +5,6 @@ const createNotes = async (req, res) => {
     const user_id = req.user._id; // diambil dari requireAuth yang sudah menyimpan id sebelumnya
 
     try {
-
         const newNotes = await notesModel.create({ title, content, user_id, isPinned, tag });
         res.status(200).json(newNotes);
     }
@@ -15,18 +14,44 @@ const createNotes = async (req, res) => {
 }
 
 const updateNotes = async (req, res) => {
+    const { id } = req.params
 
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such notes' })
+    }
+
+    const workout = await Workout.findOneAndUpdate({ _id: id }, {
+        ...req.body
+    })
+
+    if (!workout) {
+        return res.status(400).json({ error: 'No such notes' })
+    }
+
+    res.status(200).json(workout)
 };
 
 const deleteNotes = async (req, res) => {
+    const { id } = req.params
 
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such notes' })
+    }
+
+    const workout = await Workout.findOneAndDelete({ _id: id })
+
+    if (!workout) {
+        return res.status(400).json({ error: 'No such notes' })
+    }
+
+    res.status(200).json(workout)
 };
 
 const getAllNotes = async (req, res) => {
     const user_id = req.user._id; // diambil dari requireAuth yang sudah menyimpan id sebelumnya
 
     try {
-        const notes = await notesModel.find({ user_id }).sort({ createdAt: -1 });
+        const notes = await notesModel.find({ user_id }).sort({ createdAt: -1 }).exec();
         res.status(200).json(notes);
     }
     catch (err) {

@@ -1,22 +1,29 @@
-import vector_home from "../asset/vector_home.png";
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+
+import Navbar from '../component/Navbar';
+import LandingPage from '../pages/LandingPage';
+import Task from '../pages/Task';
+import Calendar from '../pages/Calendar';
+import Notes from '../pages/Notes';
+import About from '../pages/About';
+import Profile from '../pages/Profile';
+import NotFound from '../pages/NotFound';
 
 const Home = () => {
     return (
-        <div className="p-7 h-screen">
-            <div class="flex items-center"> 
-                <div className="py-8 pl-8">
-                    <h1 className="text-6xl font-bold text-orange">Welcome back,</h1>
-                    <h1 className="text-6xl font-bold text-dark-blue py-6">Buddy!</h1>
-                    <h1 className="pb-6">Let's organize your daily college tasks with us ✨</h1>
-                    <button 
-                        text="py-10" className="button">Get Started
-                    </button>
-                </div>
-               
-                <div className="relative flex justify-end items-center pl-40"> 
-                    <img src={vector_home} className="" alt="Task PNG"/>
-                </div>
-            </div>    
+        <div className="flex">
+            <Navbar />
+            <div className='w-full max-h-screen overflow-y-scroll'>
+                <Routes>
+                    <Route path='task' element={<Task />} />
+                    <Route path='calendar' element={<Calendar />} />
+                    <Route path='notes' element={<Notes />} />
+                    <Route path='about' element={<About />} />
+                    <Route path='profile' element={<Profile />} />
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path='*' element={<NotFound />} />
+                </Routes>
+            </div>
         </div>
     );
 }

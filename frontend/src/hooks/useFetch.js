@@ -1,12 +1,20 @@
 import { useEffect } from "react";
+import { useAuthContext } from "./useAuthContext";
 
-const useFetch = ({url, type, dispatch, setError, setLoading}) => {
+const useFetch = ({ url, type, dispatch, setError, setLoading }) => {
+
+    const { user } = useAuthContext();
+
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await fetch(url);
+                const response = await fetch(url, {
+                    headers: {
+                        'authorization': `Bearer ${user.token}`
+                    }
+                });
                 const data = await response.json();
-        
+
                 if (response.ok) {
                     dispatch({ type, payload: data });
                     setLoading(false);
@@ -19,7 +27,7 @@ const useFetch = ({url, type, dispatch, setError, setLoading}) => {
             }
         }
         getData();
-    }, [url]);
+    }, [dispatch]);
 }
 
 export default useFetch;

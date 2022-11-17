@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const path = require('path');
+const cors = require('cors');
 
 const connectDB = require('./server/database/connection');
 const taskRouter = require('./server/routes/taskRouter');
@@ -19,6 +20,7 @@ app.use(morgan('tiny'));
 connectDB();
 
 //parse req
+app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
