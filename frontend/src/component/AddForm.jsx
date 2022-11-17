@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNotesContext } from "../hooks/useNotesContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+import InputTag from "./InputTag";
+
 const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
     const { dispatch } = useNotesContext();
     const { user } = useAuthContext();
@@ -9,7 +11,7 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [isPinned, setIsPinned] = useState(false);
-    const [tag, setTag] = useState(['Important', 'Foods']);
+    const [tag, setTag] = useState([]);
 
     // Add Notes form handling
     const handleSubmit = async (e) => {
@@ -21,7 +23,7 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
         }
 
         setLoading(true);
-        
+
         const newTodos = { title, content, isPinned, tag };
         const response = await fetch(url, {
             method: 'POST',
@@ -34,7 +36,7 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
 
         const notes = await response.json();
 
-        if(response.ok){
+        if (response.ok) {
             setTitle('');
             setContent('');
             setLoading(false);
@@ -42,7 +44,7 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
             dispatch({ type: 'ADD_NOTES', payload: notes.data });
         }
 
-        if(!response.ok){
+        if (!response.ok) {
             setLoading(false);
             setError(notes.error);
         }
@@ -52,41 +54,53 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
     return (
         <>
             <div className="overlay z-10"></div>
-            <div className="container w-fit mx-auto absolute z-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
-                <form className="create w-screen max-w-xl mx-8 bg-white shadow-xl rounded-3xl px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-                    <button className="button absolute bg-red-500 border-red-700 -top-4 right-4 hover:bg-red-700" onClick={toggleAddPopup}>x</button>
-                    <h3 className="text-center text-2xl font-semibold mb-12"> Add New Notes </h3>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">
-                            Title
-                        </label>
-                        <input
-                            required
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="title"
-                            type="text"
-                            placeholder="Write your title here"
-                            onChange={(e) => setTitle(e.target.value)}
-                            value={title}
-                        />
-                    </div>
-                    <div className="mb-6">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">
-                            Content
-                        </label>
-                        <textarea
-                            required
-                            className="resize-none shadow border appearance-none rounded w-full h-48 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                            id="content"
-                            placeholder="Write your note here"
-                            onChange={(e) => setContent(e.target.value)}
-                            value={content}
-                        />
-                    </div>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        Add New Note
-                    </button>
-                </form>
+            <div className="w-screen h-screen">
+                <div className="container w-fit mx-auto absolute z-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
+                    <form className="create w-screen max-w-xl mx-8 bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+                        <div className="flex flex-row justify-between mb-12">
+                            <h3 className="text-2xl font-semibold"> Add New Notes </h3>
+                            <button onClick={toggleAddPopup} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center ml-4" data-modal-toggle="staticModal">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                            </button>
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">
+                                Title
+                            </label>
+                            <input
+                                required
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="title"
+                                type="text"
+                                placeholder="Write your title here"
+                                onChange={(e) => setTitle(e.target.value)}
+                                value={title}
+                            />
+                        </div>
+                        <div className="mb-6">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">
+                                Content
+                            </label>
+                            <textarea
+                                required
+                                className="resize-none shadow border appearance-none rounded w-full h-48 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="content"
+                                placeholder="Write your note here"
+                                onChange={(e) => setContent(e.target.value)}
+                                value={content}
+                            />
+                        </div>
+                        <div className="mb-6">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">
+                                Tags
+                            </label>
+                            <InputTag tag={tag} setTag={setTag} />
+                        </div>
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            Add New Note
+                        </button>
+                    </form>
+                </div>
             </div>
         </>
     );
