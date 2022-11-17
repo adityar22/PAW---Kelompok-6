@@ -25,7 +25,7 @@ const getNotesById = async (req, res) => {
     console.log(id);
 
     try {
-        const notes = await notesModel.find({ user_id }).findOne({_id: id}).exec();
+        const notes = await notesModel.find({ user_id }).findOne({ _id: id }).exec();
 
         if (!notes) {
             return res.status(404).json({ error: 'No such notes' });
@@ -89,13 +89,16 @@ const updateNotes = async (req, res) => {
             return res.status(404).json({ error: 'No such notes' })
         }
 
-        const notes = await notesModel.findOneAndUpdate({ _id: id }, {...req.body}).exec();
+        const notes = await notesModel.findOneAndUpdate({ _id: id }, { ...req.body }).exec();
 
         if (!notes) {
             return res.status(404).json({ error: 'No such notes' });
         }
 
-        res.status(200).json({message: "Notes updated succesfully"})
+        res.status(200).json({
+            message: "Notes updated succesfully",
+            data: notes
+        })
     }
     catch (err) {
         res.status(400).json({ error: err.message });
@@ -117,7 +120,10 @@ const deleteNotes = async (req, res) => {
             return res.status(404).json({ error: 'No such notes' });
         }
 
-        res.status(200).json({message: "Notes deleted succesfully"});
+        res.status(200).json({ 
+            message: "Notes deleted succesfully",
+            data: notes 
+        });
     }
     catch (err) {
         res.status(400).json({ error: err.message });
