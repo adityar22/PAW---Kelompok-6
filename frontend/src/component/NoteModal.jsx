@@ -5,7 +5,7 @@ import { useNotesContext } from "../hooks/useNotesContext";
 
 import InputTag from "./InputTag";
 
-const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError }) => {
+const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError, notify }) => {
     const { user } = useAuthContext();
     const { dispatch } = useNotesContext();
 
@@ -43,16 +43,17 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
         });
 
         const json = await response.json();
-        console.log("fetch", json);
 
         if (response.ok) {
             setLoading(false);
             toggleDetailPopup();
-            dispatch({ type: 'EDIT_NOTES', payload: json.data })
+            dispatch({ type: 'EDIT_NOTES', payload: json.data });
+            notify.info(json.message);
         }
         if (!response.ok) {
             setLoading(false);
-            setError(json.error);
+            // setError(json.error);
+            notify.info(json.error);
         }
         setLoading(false);
     }
@@ -99,8 +100,8 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
                         <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
                             {isEdited ?
                                 <>
-                                    <InputTag tag={tag} setTag={setTag}/>
-                                    
+                                    <InputTag tag={tag} setTag={setTag} />
+
                                 </>
                                 :
                                 <>

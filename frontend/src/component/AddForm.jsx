@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useNotesContext } from "../hooks/useNotesContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+
+
 import InputTag from "./InputTag";
 
-const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
+const AddForm = ({ toggleAddPopup, setLoading, url, setError, notify }) => {
     const { dispatch } = useNotesContext();
     const { user } = useAuthContext();
 
@@ -18,7 +23,8 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
         e.preventDefault();
 
         if (!user) {
-            setError('You must be logged in');
+            // setError('You must be logged in');
+            notify.info('You must be logged in');
             return;
         }
 
@@ -34,22 +40,23 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError }) => {
             body: JSON.stringify(newTodos),
         })
 
-        const notes = await response.json();
+        const json = await response.json();
 
         if (response.ok) {
             setTitle('');
             setContent('');
             setLoading(false);
             toggleAddPopup();
-            dispatch({ type: 'ADD_NOTES', payload: notes.data });
+            dispatch({ type: 'ADD_NOTES', payload: json.data });
+            notify.info(json.message);
         }
 
         if (!response.ok) {
             setLoading(false);
-            setError(notes.error);
+            // setError(notes.error);
+            notify.error(json.error);
         }
     }
-
 
     return (
         <>

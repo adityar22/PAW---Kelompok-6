@@ -7,7 +7,7 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import NoteModal from './NoteModal';
 import ModalConfirm from './ModalConfirm';
 
-const Note = ({ note, setLoading, setError }) => {
+const Note = ({ note, setLoading, setError, notify}) => {
     const { dispatch } = useNotesContext();
     const { user } = useAuthContext();
     const wordLimit = 200;
@@ -38,11 +38,13 @@ const Note = ({ note, setLoading, setError }) => {
 
         if (response.ok) {
             setLoading(false);
-            dispatch({ type: 'DELETE_NOTES', payload: json.data })
+            dispatch({ type: 'DELETE_NOTES', payload: json.data });
+            notify.info(json.message);
         }
         if (!response.ok) {
             setLoading(false);
-            setError(json.error);
+            // setError(json.error);
+            notify.error(json.error);
         }
 
     }
@@ -76,7 +78,7 @@ const Note = ({ note, setLoading, setError }) => {
                 </div>
             </div>
             {/* Just show last modal */}
-            {(detailPopup) && <NoteModal toggleDetailPopup={toggleDetailPopup} note={note} handleDelete={handleDelete} setLoading={setLoading} setError={setError} />}
+            {(detailPopup) && <NoteModal toggleDetailPopup={toggleDetailPopup} note={note} handleDelete={handleDelete} setLoading={setLoading} setError={setError} notify={notify}/>}
         </>
     );
 }
