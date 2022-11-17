@@ -23,11 +23,15 @@ Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengel
 ## Setting Up Project
 - Install required dependencies:
 
-`npm install`
+```````````
+npm install
+```````````
 
 - Run the program:
 
-`npm start`
+```````````
+npm start
+```````````
 
 ## Folder Structure (frontend)
 ``````````
