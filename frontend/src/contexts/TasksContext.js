@@ -10,7 +10,7 @@ export const tasksReducer = (state, action)=>{
             }
         case 'ADD_TASKS':
             return{
-                notes: [action.payload, ...state.tasks]
+                tasks: [action.payload, ...state.tasks]
             }
         default:
             return state
