@@ -17,25 +17,25 @@ const Profile = () => {
 
     return (
         <Fragment>
-        <div className="px-28 py-10 h-screen">
-            <h1 className='text-5xl font-bold mb-12 text-dark-blue' >Account</h1>
-            <h1 className='text-2xl font-bold mb-5 text-black' >Personal Info</h1>
-            <p className='text-lg text-black' >Name</p>
-            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full p-2.5 mb-8 focus:outline-orange" placeholder={user.username}></input>
-            <p className='text-lg text-black' >Email</p>
-            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full p-2.5 mb-8 focus:outline-orange" placeholder={user.email}></input>
-            <p className='text-lg text-black' >Password</p>
-            <button className='text-lg mb-8 text-gray-400 hover:text-gray-300' onClick={() => setShowModal(true) }>Change Password</button>
+        <div className="px-8 py-6 sm:px-28 sm:py-10 h-screen">
+            <h1 className='sm:text-5xl font-bold mb-8 sm:mb-12 text-dark-blue text-4xl' >Account</h1>
+            <h1 className='sm:text-2xl font-bold mb-5 text-black text-xl' >Personal Info</h1>
+            <p className='sm:text-lg text-black' >Name</p>
+            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block sm:w-1/2 md:1/3 p-2.5 mb-8 focus:outline-orange" placeholder={user.username}></input>
+            <p className='sm:text-lg text-black' >Email</p>
+            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block sm:w-1/2 md:1/3 p-2.5 mb-8 focus:outline-orange" placeholder={user.email}></input>
+            <p className='sm:text-lg text-black' >Password</p>
+            <button className='sm:text-lg mb-8 text-gray-400 hover:text-gray-300' onClick={() => setShowModal(true) }>Change Password</button>
         
             <div> 
-                <button text="py-10" className="button px-10">Update</button>
-                <button text="py-10" className="button px-10 ml-10">Cancel</button>
+                <button text="py-10" className="button text-sm px-2 sm:px-10">Update</button>
+                <button text="py-10" className="button text-sm px-2 ml-8 sm:px-10 sm:ml-10">Cancel</button>
             </div>
             <div className="pt-8"> 
-                <button text="py-20" className="btn-white px-24" onClick={() => setShowModal1(true)}>Delete Account</button>
+                <button text="py-20" className="btn-white text-sm px-8 sm:px-24" onClick={() => setShowModal1(true)}>Delete Account</button>
             </div>
             <div>
-                <button text="py-20" className="btn-red mt-8 px-32" onClick={() => setShowModal2(true)}>Log Out</button>
+                <button text="py-20" className="btn-red text-sm mt-4 px-14 sm:px-32" onClick={() => setShowModal2(true)}>Log Out</button>
             </div> 
         </div>
 
