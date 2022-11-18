@@ -1,5 +1,6 @@
 import vector_home from "../asset/vector_home.png";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { Link } from "react-router-dom";
 
 const Home = () => {
     const { user } = useAuthContext();
@@ -13,7 +14,7 @@ const Home = () => {
                     <h1 className="pb-6">Let's organize your daily college tasks with us ✨</h1>
                     <button 
                         text="p-10" className="button text-xl">
-                            Get Started
+                        <Link to="/task">Get Started</Link>
                     </button>
                 </div>
                
