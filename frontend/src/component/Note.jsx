@@ -81,7 +81,7 @@ const Note = ({ note, setLoading, setError, notify }) => {
                         </div>
                     </div>
                     <div>
-                        <p className="mb-6">
+                        <p className="mb-6 whitespace-pre-wrap">
                             {note.content.length > wordLimit ?
                                 <p>{note.content.substr(0, wordLimit)} . . .<span className="ml-3 cursor-pointer underline text-blue-400 inline-block">Click to read more</span></p>
                                 :
