@@ -19,7 +19,7 @@ const Calendar = () => {
     useFetch({ url, dispatch, setError, setLoading, type: "GET_TASKS" });
 
     return (
-        <div className="py-10 px-28 h-screen" >
+        <div className="py-10 px-28" >
             <div className="text-4xl font-bold text-orange my-12 mx-auto">
                 <h1 className='text-5xl font-bold mb-12 text-dark-blue' >Add your daily task here! 📃</h1>
             </div>
