@@ -3,8 +3,8 @@ import React from "react";
 const ModalDelete = ({handleDelete, togglePopup}) => {
     return ( 
         <div>
-            <div className="overlay z-10"></div>
-            <div className="container w-fit mx-auto absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
+            <div className="overlay z-30"></div>
+            <div className="container w-fit mx-auto absolute z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
                 <div className="w-screen max-w-xl mx-8 bg-white shadow-xl rounded-3xl px-8 pt-6 pb-8 mb-4">
                     <h3>Are you sure to delete?</h3>
                     <div className="">
