@@ -1,11 +1,17 @@
 import { Fragment, useState } from "react";
+import { useLogout } from "../hooks/useLogout";
 import Modal from "../component/Modal";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const Profile = () => {
     const [showModal, setShowModal] = useState(false);
     const [showModal1, setShowModal1] = useState(false);
+    const { logout } = useLogout();
     const { user } = useAuthContext();
+    const handleClick = (e) => {
+        e.preventDefault();
+        logout();
+    };
 
     return (
         <Fragment>
@@ -27,7 +33,7 @@ const Profile = () => {
                 <button text="py-20" className="btn-white px-24" onClick={() => setShowModal1(true) }>Delete Account</button>
             </div>
             <div>
-                <button text="py-20" className="btn-red mt-8 px-32">Log Out</button>
+                <button text="py-20" onClick={handleClick} className={'logout btn-red mt-8 px-32 ${!open && "scale-0"}'}>Log Out</button>
             </div> 
         </div>
 
