@@ -9,6 +9,7 @@ const Profile = () => {
     const [showModal2, setShowModal2] = useState(false);
     const { logout } = useLogout();
     const { user } = useAuthContext();
+    
     const handleClick = (e) => {
         e.preventDefault();
         logout();

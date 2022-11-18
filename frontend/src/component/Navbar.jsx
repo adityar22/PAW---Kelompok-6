@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+import Modal from "./Modal";
+
 import controller from "../asset/controller.png";
 import menu_about from "../asset/menu_about.png";
 import menu_account from "../asset/menu_account.png";
@@ -11,12 +13,13 @@ import menu_calendar from "../asset/menu_calendar.png";
 import menu_home from "../asset/menu_home.png";
 import menu_notes from "../asset/menu_notes.png";
 import menu_task from "../asset/menu_task.png";
-
 import logo_tman from "../asset/logoTman.png";
 
 
 const Navbar = () => {
     const [open, setOpen] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+
     const { logout } = useLogout();
     const { user } = useAuthContext();
 
@@ -82,7 +85,7 @@ const Navbar = () => {
                         {user && (
                             <div className="logout">
                                 {/* <span>{user.email}</span> */}
-                                <button onClick={handleClick} className={`text-white bg-red-500 hover:bg-red-700 focus:scale-90 focus:transition-all rounded-lg px-5 py-2.5 text-center mb-2 w-full transition-all ${!open && "scale-0"}`}>Log out</button>
+                                {/* <button onClick={handleClick} className={`text-white bg-red-500 hover:bg-red-700 focus:scale-90 focus:transition-all rounded-lg px-5 py-2.5 text-center mb-2 w-full transition-all ${!open && "scale-0"}`}>Log out</button> */}
                             </div>
                         )}
                     </ul>

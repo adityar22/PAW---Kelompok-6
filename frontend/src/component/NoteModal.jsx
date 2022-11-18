@@ -61,7 +61,7 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
     return (
         <>
             <div className="overlay z-10 "></div>
-            <div className={`z-20 container mx-auto absolute top-1/3 left-1/3 ${isEdited ? "-translate-y-[20%]" : "-translate-y-[5%]"} w-1/2 max-w-full flex`}>
+            <div className="container w-max mx-auto absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
                 <div className="relative w-full max-w-2xl h-full md:h-auto">
                     <div className="relative bg-white rounded-lg shadow-xl hover:scale-105 transition-all duration-700">
                         <div className="flex justify-between items-start p-4 rounded">

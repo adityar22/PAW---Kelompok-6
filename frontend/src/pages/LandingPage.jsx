@@ -6,9 +6,9 @@ const Home = () => {
     const { user } = useAuthContext();
 
     return (
-        <div className="p-7 h-screen">
-            <div className="flex items-center mt-36"> 
-                <div className="py-8 pl-8 w-full">
+        <div className="px-28">
+            <div className="flex justify-center items-center mt-24"> 
+                <div className="py-8 pl-8 w-1/2">
                     <h1 className="text-6xl font-bold text-orange">Welcome back,</h1>
                     <h1 className="text-6xl font-bold text-dark-blue py-6">{user.username}!</h1>
                     <h1 className="pb-6">Let's organize your daily college tasks with us ✨</h1>
@@ -17,8 +17,7 @@ const Home = () => {
                         <Link to="/task">Get Started</Link>
                     </button>
                 </div>
-               
-                <div className=" flex justify-end items-center pl-20"> 
+                <div className=" flex justify-end items-center w-1/2"> 
                     <img src={vector_home} className="" alt="Task PNG"/>
                 </div>
 
