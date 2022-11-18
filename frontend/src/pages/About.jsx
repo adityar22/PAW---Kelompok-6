@@ -17,7 +17,7 @@ const About = () => {
 
     return (
         <>
-            <ReactMarkdown className="prose py-20 px-28 h-screen max-w-full" rehypePlugins={[rehypeRaw]}>
+            <ReactMarkdown className="prose py-20 px-28 max-w-full" rehypePlugins={[rehypeRaw]}>
                 {markdown}
             </ReactMarkdown>
         </>

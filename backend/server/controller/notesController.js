@@ -5,7 +5,7 @@ const getAllNotes = async (req, res) => {
     const user_id = req.user._id; // diambil dari requireAuth yang sudah menyimpan id sebelumnya
 
     try {
-        const notes = await notesModel.find({ user_id }).sort({ createdAt: -1 }).exec();
+        const notes = await notesModel.find({ user_id }).sort({ isPinned: -1, createdAt: -1 }).exec();
 
         if (!notes) {
             return res.status(404).json({ error: 'No such notes' });

@@ -16,7 +16,6 @@ import menu_task from "../asset/menu_task.png";
 
 const Navbar = () => {
     const [open, setOpen] = useState(true);
-    const [popup, setPopup] = useState(false);
     const { logout } = useLogout();
     const { user } = useAuthContext();
 
@@ -28,10 +27,6 @@ const Navbar = () => {
         { title: "About", src: menu_about, gap: true, link: "/about" },
         { title: "Accounts", src: menu_account, gap: true, link: "/profile" }
     ];
-
-    const togglePopup = () => {
-        setPopup(!popup);
-    }
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -46,11 +41,11 @@ const Navbar = () => {
             />
             <div className="flex justify-between flex-col h-full">
                 <div className="content-top">
-                    <div className="flex gap-x-4 items-center">
+                    <div className="flex gap-x-4 justify-center">
                         <Link to="/">
                             <h1
-                                className={`text-orange cursor-pointer origin-left font-medium text-xl duration-300  ${!open && "scale-0"}`}>
-                                Task Management
+                                className={`text-orange cursor-pointer origin-left font-bold text-xl duration-300  ${!open && "scale-0"}`}>
+                                T-man
                             </h1>
                         </Link>
                     </div>
@@ -73,6 +68,10 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="content-bottom">
+                    <ul className={`flex flex-col items-center mb-3 text-gray-300 transition-all text-sm ${!open && "scale-0"}`}>
+                        <p >Logged as <span className="font-semibold text-orange">{user.username ? user.username : 'anonim'}</span></p>
+                        <p className="font-semibold text-orange">{user.email}</p>
+                    </ul>
                     <ul>
                         {user && (
                             <div className="logout">
