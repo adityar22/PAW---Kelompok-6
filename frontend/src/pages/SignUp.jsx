@@ -5,15 +5,75 @@ import { useSignUp } from "../hooks/useSignUp";
 const SignUp = () => {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirm, setConfirm] = useState('');
-    const { signup, isPending, error } = useSignUp();
+    const [passwordError, setPasswordErr] = useState("Password is empty");
+    const [confirmPasswordError, setConfirmPasswordError] = useState("Confirm password is empty");
+    const [passwordInput, setPasswordInput] = useState({
+        password: '',
+        confirmPassword: ''
+    })
 
+    const { signup, isPending, error } = useSignUp();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(e);
-        await signup(email, password);
+        await signup(email, username, passwordInput.password);
+    }
+
+    const handlePasswordChange = (e) => {
+        const passwordInputValue = e.target.value.trim();
+        const passwordInputFieldName = e.target.name;
+        const NewPasswordInput = { ...passwordInput, [passwordInputFieldName]: passwordInputValue }
+        setPasswordInput(NewPasswordInput);
+    }
+
+    const handleValidation = (e) => {
+        const passwordInputValue = e.target.value.trim();
+        const passwordInputFieldName = e.target.name;
+
+        // password
+        if (passwordInputFieldName === 'password') {
+            const uppercaseRegExp = /(?=.*?[A-Z])/;
+            const lowercaseRegExp = /(?=.*?[a-z])/;
+            const digitsRegExp = /(?=.*?[0-9])/;
+            const specialCharRegExp = /(?=.*?[#?!@$%^&*-])/;
+            const minLengthRegExp = /.{8,}/;
+
+            const passwordLength = passwordInputValue.length;
+            const uppercasePassword = uppercaseRegExp.test(passwordInputValue);
+            const lowercasePassword = lowercaseRegExp.test(passwordInputValue);
+            const digitsPassword = digitsRegExp.test(passwordInputValue);
+            const specialCharPassword = specialCharRegExp.test(passwordInputValue);
+            const minLengthPassword = minLengthRegExp.test(passwordInputValue);
+
+            let errMsg = "";
+            if (passwordLength === 0) {
+                errMsg = "Password is empty";
+            } else if (!uppercasePassword) {
+                errMsg = "At least one Uppercase";
+            } else if (!lowercasePassword) {
+                errMsg = "At least one Lowercase";
+            } else if (!digitsPassword) {
+                errMsg = "At least one digit";
+            } else if (!specialCharPassword) {
+                errMsg = "At least one Special Characters";
+            } else if (!minLengthPassword) {
+                errMsg = "At least minumum 8 characters";
+            } else {
+                errMsg = "";
+            }
+            setPasswordErr(errMsg);
+        }
+
+        // confirm password
+        if (passwordInputFieldName === "confirmPassword" || (passwordInputFieldName === "password" && passwordInput.confirmPassword.length > 0)) {
+
+            if (passwordInput.confirmPassword !== passwordInput.password) {
+                setConfirmPasswordError("Confirm password is not matched");
+            } else {
+                setConfirmPasswordError("");
+            }
+
+        }
     }
 
     return (
@@ -31,20 +91,20 @@ const SignUp = () => {
                             className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                             type="email"
                             id="email"
-                            // name="email" 
+                            name="email"
                             onChange={(e) => { setEmail(e.target.value) }}
                             value={email}
                         />
                     </div>
                     <div className="relative mb-4">
-                        <label className="leading-7 text-sm text-gray-600">Email</label>
+                        <label className="leading-7 text-sm text-gray-600">Username</label>
                         <input required
                             className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                            type="email"
-                            id="email"
-                            // name="email" 
-                            onChange={(e) => { setEmail(e.target.value) }}
-                            value={email}
+                            type="text"
+                            id="username"
+                            name="username"
+                            onChange={(e) => { setUsername(e.target.value) }}
+                            value={username}
                         />
                     </div>
                     <div className="relative mb-4">
@@ -53,23 +113,27 @@ const SignUp = () => {
                             className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                             type="password"
                             id="password"
-                            // name="password" 
-                            onChange={(e) => { setPassword(e.target.value) }}
-                            value={password}
+                            name="password"
+                            onChange={handlePasswordChange}
+                            onKeyUp={handleValidation}
+                            value={passwordInput.password}
                         />
+                        {passwordError && <p className="text-sm text-red-400 mx-auto font-medium mt-2"> {passwordError}</p>}
                     </div>
                     <div className="relative mb-4">
                         <label className="leading-7 text-sm text-gray-600">Confirm Password</label>
                         <input required
                             className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                             type="password"
-                            id="password"
-                            // name="password" 
-                            onChange={(e) => { setConfirm(e.target.value) }}
-                            value={confirm}
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            onChange={handlePasswordChange}
+                            onKeyUp={handleValidation}
+                            value={passwordInput.confirmPassword}
                         />
+                        {confirmPasswordError && <p className="text-sm text-red-400 mx-auto font-medium mt-2"> {confirmPasswordError}</p>}
                     </div>
-                    <button disabled={isPending} className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-4">Sign Up</button>
+                    <button disabled={!isPending && (confirmPasswordError === passwordError) ? "" : "true"} className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-4 disabled:bg-gray-400">Sign Up</button>
                     <p className="text-sm mx-auto mt-8">
                         Already have an account <Link to="/login" className="underline text-blue-500">Login</Link>
                     </p>
