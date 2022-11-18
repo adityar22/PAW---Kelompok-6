@@ -7,14 +7,16 @@ export const useSignUp = () => {
     const [error, setError] = useState("");
     const url = '/api/user/signup';
 
-    const signup = async (email, password) => {
+    const signup = async (email, username, password) => {
         setIsPending(true);
         setError('');
+
+        console.log(email, username, password);
 
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, username, password })
         });
         const data = await response.json();
         

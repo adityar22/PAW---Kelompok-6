@@ -67,7 +67,7 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
                         <div className="flex justify-between items-start p-4 rounded">
                             {isEdited ?
                                 <input required
-                                    className="text-2xl font-semibold text-gray-900 border border-gray-400 rounded-lg"
+                                    className="text-2xl font-semibold text-gray-900 border border-gray-400 rounded-lg w-full"
                                     id="title"
                                     type="text"
                                     defaultValue={note.title}
@@ -91,7 +91,7 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
                                     onChange={(e) => setContent(e.target.value)}
                                 />
                                 :
-                                <p className="text-base leading-relaxed ">
+                                <p className="text-base leading-relaxed whitespace-pre-wrap">
                                     {note.content}
                                 </p>
                             }

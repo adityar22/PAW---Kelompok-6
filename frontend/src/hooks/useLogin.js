@@ -9,7 +9,6 @@ export const useLogin = () => {
 
     const login = async (email, password) => {
         setIsPending(true);
-        setError('');
 
         const response = await fetch(url, {
             method: 'POST',
@@ -24,12 +23,12 @@ export const useLogin = () => {
             localStorage.setItem('user', JSON.stringify(user));
             dispatch({ type: 'LOGIN', payload: user });
             setIsPending(false);
-            setError('Log in success!');
+            setError('Login success');
         }
 
         if (!response.ok) {
-            setError(user.error);
             setIsPending(false);
+            setError(user.error);
         }
 
     }

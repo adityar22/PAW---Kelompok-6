@@ -1,63 +1,23 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { useLogin } from "../hooks/useLogin";
-import { useAuthContext } from "../hooks/useAuthContext";
 
-const Login = () => {
-    const { user } = useAuthContext();
+const Login = ({notify}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { login, isPending, error } = useLogin();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await login(email, password);
+        const response = await login(email, password);
+        
+        response.isError ? notify.error(response.message) : notify.info(response.message);
     }
 
-    const notify = {
-        info: (msg) => {
-            toast.info(msg, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        },
-        error: (msg) => {
-            toast.error(msg, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        }
-    }
 
     return (
         <>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
             <section className="text-gray-600 body-font mt-5">
                 <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
                     <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
