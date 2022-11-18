@@ -61,10 +61,10 @@ const Task = () => {
     //Return Task Page
     return (
         <>
-            {popup && <AddTask togglePopup={togglePopup} setLoading={setLoading} url={url}/>}
+            {popup && <AddTask togglePopup={togglePopup} setLoading={setLoading} url={url} />}
             <div className="bg-white justify-center items-center py-10 px-28 h-screen">
-                <div className="text-4xl font-bold text-orange my-8">
-                    <h1>Add Your Task Here</h1>
+                <div className="text-4xl font-bold text-orange my-12 mx-auto">
+                    <h1 className='text-5xl font-bold mb-12 text-dark-blue' >Add your daily task here! 📃</h1>
                 </div>
                 <div className="justify-between flex">
                     <div className="align-middle">

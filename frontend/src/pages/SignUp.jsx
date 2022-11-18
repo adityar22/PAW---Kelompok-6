@@ -4,11 +4,12 @@ import { useSignUp } from "../hooks/useSignUp";
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
     const { signup, isPending, error } = useSignUp();
 
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(e);
@@ -24,6 +25,17 @@ const SignUp = () => {
                 </div>
                 <form className="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0" onSubmit={handleSubmit}>
                     <h2 className="text-gray-900 text-lg font-medium title-font mb-5">Sign Up</h2>
+                    <div className="relative mb-4">
+                        <label className="leading-7 text-sm text-gray-600">Email</label>
+                        <input required
+                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                            type="email"
+                            id="email"
+                            // name="email" 
+                            onChange={(e) => { setEmail(e.target.value) }}
+                            value={email}
+                        />
+                    </div>
                     <div className="relative mb-4">
                         <label className="leading-7 text-sm text-gray-600">Email</label>
                         <input required
