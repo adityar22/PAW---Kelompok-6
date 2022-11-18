@@ -14,5 +14,4 @@ route.post('/',controller.createNotes);
 route.put('/:id',controller.updateNotes);
 route.delete('/:id',controller.deleteNotes);
 
-
 module.exports = route

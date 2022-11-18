@@ -19,3 +19,32 @@ Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengel
 
 ## 💾 Documentation
 - [Presentation Slide - Task Management System](https://www.canva.com/design/DAFNU1TPF34/-PU_xSTMN6UTTSGXzLkU5w/view?utm_content=DAFNU1TPF34&utm_campaign=designshare&utm_medium=link&utm_source=publishpresent)
+
+## Setting Up Project
+- Install required dependencies:
+
+```````````
+npm install
+```````````
+
+- Run the program:
+
+```````````
+npm start
+```````````
+
+## Folder Structure (frontend)
+``````````
+- public               # bisa diakses public
+- src
+  - index.js           # react bootstrapper
+  - App.js             # routing pages
+  - asset              # asset non-public (gambar, font, dll)
+  - components
+    - elements         # component element satuan
+    - layouts          # component layout
+    - templates        # component template yang dapat digunakan berulang kali
+  - contexts
+  - hooks              # react hook
+  - pages              # halaman - halaman
+``````````

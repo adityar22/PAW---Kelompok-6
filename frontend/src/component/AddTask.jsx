@@ -1,39 +1,49 @@
 import { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useTasksContext } from "../hooks/useTasksContext";
 
-const AddTask = ({ togglePopup, setLoading, url }) => {
-    const { dispatch, setError } = useTasksContext();
+const AddTask = ({ togglePopup, setLoading, url, setError }) => {
+    const { dispatch} = useTasksContext();
+    const {user} = useAuthContext();
 
     const [taskName, setTaskName] = useState("");
-    const [taskDesc, setTaskDesc] = useState("");
+    const [taskDescription, setTaskDescription] = useState("");
     const [taskPriority, setTaskPriority] = useState("");
     const [taskStat, setTaskStat] = useState("Not Started");
     const [taskTime, setTaskTime] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newTask = { taskName, taskDesc, taskPriority, taskStat, taskTime }
+
+        if(!user){
+            setError('You must be logged in');
+            return;
+        }
+
+        const newTask = { taskName, taskDescription, taskTime, taskPriority, taskStat}
 
         setLoading(true);
 
         const response = await fetch(url, {
             method: 'POST',
-            header: {
-                "Content-Type": "application/json"
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization':`Bearer ${user.token}`
             },
             body: JSON.stringify(newTask),
         })
 
-        const data = await response.json();
+        const task = await response.json();
 
         if (response.ok) {
+            console.log('New task added!');
             setTaskName("");
-            setTaskDesc("");
+            setTaskDescription("");
             setTaskPriority("");
             setTaskTime("");
             setLoading(false);
             togglePopup();
-            dispatch({ type: 'ADD_TASK', payload: data });
+            dispatch({ type: 'ADD_TASK', payload: task.data });
         }
         if (!response.ok) {
             throw Error('Could not fetch the data for that resource')
@@ -43,7 +53,7 @@ const AddTask = ({ togglePopup, setLoading, url }) => {
     return (
         <div>
             <div className="overlay z-10"></div>
-            <div className="container w-fit mx-aito absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
+            <div className="container w-fit mx-auto absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
                 <form className="create w-screen max-w-xl mx-8 bg-white shadow-xl rounded-3xl px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
                     <button className="button absolute bg-red-500 border-red-700 -top-4 right-4 hover:bg-red-700" onClick={togglePopup}>x</button>
                     <h3 className="text-center text-2xl font -bold mb-12">Add New Task</h3>
@@ -68,10 +78,10 @@ const AddTask = ({ togglePopup, setLoading, url }) => {
                         <textarea
                             required
                             className="resize-none shadow border appearance-none rounded w-full h-48 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                            id="taskDesc"
+                            id="taskDescription"
                             placeholder="Write detail task here..."
-                            onChange={(e) => setTaskDesc(e.target.value)}
-                            value={taskDesc}
+                            onChange={(e) => setTaskDescription(e.target.value)}
+                            value={taskDescription}
                         />
                     </div>
                     <div>
@@ -83,15 +93,15 @@ const AddTask = ({ togglePopup, setLoading, url }) => {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="taskTime"
                             type="date"
-                            onChange={(e) => setTaskTime(e.target.value)}
+                            onChange={(e) => setTaskTime((e.target.value).toString())}
                         />
                     </div>
                     <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2">
                             Priority
                         </label>
-                        <div className="flex-row justify-between">
-                            <div>
+                        <div className="mb-3">
+                            <div className="inline-block mr-3">
                                 <input
                                     type="radio"
                                     id="taskPriority1"
@@ -100,7 +110,7 @@ const AddTask = ({ togglePopup, setLoading, url }) => {
                                     onClick={(e) => setTaskPriority(e.target.value)} />
                                 <label for="taskPriority1">Low</label>
                             </div>
-                            <div>
+                            <div className="inline-block mr-3">
                                 <input
                                     type="radio"
                                     id="taskPriority2"
@@ -109,7 +119,7 @@ const AddTask = ({ togglePopup, setLoading, url }) => {
                                     onClick={(e) => setTaskPriority(e.target.value)} />
                                 <label for="taskPriority2">Normal</label>
                             </div>
-                            <div>
+                            <div className="inline-block mr-3">
                                 <input
                                     type="radio"
                                     id="taskPriority3"
