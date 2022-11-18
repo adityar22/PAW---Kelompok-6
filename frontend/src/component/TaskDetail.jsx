@@ -11,7 +11,7 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
     const [taskName, setTaskName] = useState(task.taskName);
     const [taskDescription, setTaskDescription] = useState(task.taskDescription);
     const [taskPriority, setTaskPriority] = useState(task.taskPriority);
-    const [taskStat, setTaskStat] = useState("Not Started");
+    const [taskStat, setTaskStat] = useState(task.taskStat);
     const [taskTime, setTaskTime] = useState(task.taskTime);
 
     //Delete Handler
@@ -52,7 +52,9 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
         if (!user) {
             return;
         }
+
         setLoading(true);
+
         const updateTask = { taskName, taskDescription, taskTime, taskPriority, taskStat }
         const response = await fetch('/api/tasks/' + task._id, {
             method: 'PUT',
@@ -67,6 +69,7 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
             setLoading(false);
             togglePopup();
             dispatch({ type: 'EDIT_TASK', payload: json.data });
+            notify.info(json.message);
         }
         if (!response.ok) {
             setLoading(false);
@@ -170,9 +173,21 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
                         </div>
                         :
                         <div>
-                            <h3>{taskName}</h3>
-                            <p>{taskTime}</p>
-                            <p>{taskDescription}</p>
+                            <h2 className="text-center text-2xl font -bold mb-2">{taskName}</h2>
+                            <p className="text-center text-sm font -bold mb-6" >
+                                To Due: 
+                                <span className="text-orange mx-2">{taskTime}</span>
+                                ||
+                                <span 
+                                    className={`ml-2
+                                    ${taskStat === "Not Started" && "text-red-500"}
+                                    ${taskStat === "In Progress" && "text-yellow-500"}
+                                    ${taskStat === "Completed" && "text-green-500"}
+                                    `}>
+                                    {taskStat}
+                                </span>
+                            </p>
+                            <p className="text-center text-sm mb-12" >{taskDescription}</p>
 
                             <div className="">
                                 <div className="inline-block mr-3">

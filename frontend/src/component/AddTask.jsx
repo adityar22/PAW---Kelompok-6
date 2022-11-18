@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useTasksContext } from "../hooks/useTasksContext";
 
-const AddTask = ({ togglePopup, setLoading, url, setError }) => {
+const AddTask = ({ togglePopup, setLoading, url, setError, notify }) => {
     const { dispatch} = useTasksContext();
     const {user} = useAuthContext();
 
@@ -33,7 +33,7 @@ const AddTask = ({ togglePopup, setLoading, url, setError }) => {
             body: JSON.stringify(newTask),
         })
 
-        const task = await response.json();
+        const json = await response.json();
 
         if (response.ok) {
             console.log('New task added!');
@@ -43,10 +43,12 @@ const AddTask = ({ togglePopup, setLoading, url, setError }) => {
             setTaskTime("");
             setLoading(false);
             togglePopup();
-            dispatch({ type: 'ADD_TASK', payload: task.data });
+            dispatch({ type: 'ADD_TASK', payload: json.data });
+            notify.info(json.message);
         }
         if (!response.ok) {
-            throw Error('Could not fetch the data for that resource')
+            setLoading(false);
+            notify.error(json.error);
         }
     }
 
