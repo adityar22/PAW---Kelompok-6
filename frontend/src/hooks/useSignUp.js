@@ -18,19 +18,27 @@ export const useSignUp = () => {
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({ email, username, password })
         });
-        const data = await response.json();
+        const user = await response.json();
         
         if (response.ok) {
             // use local storage to save email and JWT token
-            localStorage.setItem('user', JSON.stringify(data));
-            dispatch({ type: 'LOGIN', payload: data });
+            localStorage.setItem('user', JSON.stringify(user));
+            dispatch({ type: 'LOGIN', payload: user });
             setIsPending(false);
-            setError('Sign up success!');
+            // setError('Sign up success!');
+            return {
+                isError: false,
+                message: 'Sign Up Success!'
+            }
         }
 
         if (!response.ok) {
-            setError(data.error);
+            // setError(data.error);
             setIsPending(false);
+            return {
+                isError: true,
+                message: user.error
+            }
         }
 
     }

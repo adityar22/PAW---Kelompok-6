@@ -23,12 +23,20 @@ export const useLogin = () => {
             localStorage.setItem('user', JSON.stringify(user));
             dispatch({ type: 'LOGIN', payload: user });
             setIsPending(false);
-            setError('Login success');
+            // setError('Login success');
+            return {
+                isError: false,
+                message: 'Login success!'
+            }
         }
 
         if (!response.ok) {
             setIsPending(false);
-            setError(user.error);
+            // setError(user.error);
+            return {
+                isError: true,
+                message: user.error
+            }
         }
 
     }
