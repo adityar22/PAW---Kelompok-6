@@ -6,6 +6,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const Profile = () => {
     const [showModal, setShowModal] = useState(false);
     const [showModal1, setShowModal1] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
     const { logout } = useLogout();
     const { user } = useAuthContext();
     const handleClick = (e) => {
@@ -30,10 +31,10 @@ const Profile = () => {
                 <button text="py-10" className="button px-10 ml-10">Cancel</button>
             </div>
             <div className="pt-8"> 
-                <button text="py-20" className="btn-white px-24" onClick={() => setShowModal1(true) }>Delete Account</button>
+                <button text="py-20" className="btn-white px-24" onClick={() => setShowModal1(true)}>Delete Account</button>
             </div>
             <div>
-                <button text="py-20" onClick={handleClick} className={'logout btn-red mt-8 px-32 ${!open && "scale-0"}'}>Log Out</button>
+                <button text="py-20" className="btn-red mt-8 px-32" onClick={() => setShowModal2(true)}>Log Out</button>
             </div> 
         </div>
 
@@ -56,6 +57,16 @@ const Profile = () => {
             </div>
             <div className="text-center pb-6"> 
                 <button text="py-6" className="btn-red px-10">Delete</button>
+            </div>
+        </Modal>
+
+        <Modal isVisible={showModal2} onClose={() => setShowModal2(false)}>
+            <div className="py-6 px-6 lg:px-8 text-left">
+                <h1 className='text-2xl font-bold mb-5 text-black text-center' >Confirm Log Out</h1>
+                <p className='text-lg text-black text-center'>Are you sure you want to log out?</p>
+            </div>
+            <div className="text-center pb-6"> 
+                <button text="py-6" onClick={handleClick} className={`logout btn-red mt-8 px-32`}>Log Out</button>
             </div>
         </Modal>
         </Fragment>
