@@ -6,17 +6,9 @@ import interactionGridPlugin from "@fullcalendar/interaction";
 import { useState, useEffect, useRef } from "react";
 import { useTasksContext } from "../hooks/useTasksContext";
 import useFetch from "../hooks/useFetch";
-// import {useTasksContext} from "../context/TasksContext";
-// import AppState from "../contexts/CalContext";
 
 const Calendar = () => {
-    //   const CalContext = useContext();
-    //   const { tasks, getTasks} = AppState
-    //   useEffect(() => {
-    //     getTasks()
-    //   }, [tasks])
-    const { tasks, dispatch, isPending, error, setLoading, setError } =
-        useTasksContext();
+    const { tasks, dispatch, isPending, error, setLoading, setError } = useTasksContext();
     const [popup, setPopup] = useState(false);
     const url = "/api/tasks";
 
@@ -38,9 +30,7 @@ const Calendar = () => {
                 }}
                 height={700}
                 contentHeight={700}
-                tasks={tasks}
-            //{tasks && tasks.map(task => (<TaskList key={task._id} task={task} />))}
-            // tasks={tasks}
+                events={tasks}
             />{" "}
         </div>
     );

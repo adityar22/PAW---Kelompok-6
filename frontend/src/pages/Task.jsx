@@ -107,7 +107,7 @@ const Task = () => {
                 pauseOnHover
                 theme="light"
             />
-            {popup && <AddTask togglePopup={togglePopup} setLoading={setLoading} url={url}/>}
+            {popup && <AddTask togglePopup={togglePopup} setLoading={setLoading} url={url} notify={notify}/>}
             <div className="bg-white justify-center items-center py-10 px-28 h-screen">
                 <div className="text-4xl font-bold text-orange my-8">
                     <h1>Add Your Task Here</h1>
