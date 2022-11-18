@@ -44,7 +44,7 @@ const Navbar = () => {
                 <div className="content-top">
                     <div className="flex gap-x-4 justify-center">
                         <Link to="/">
-                            <img src={logo_tman} className="w-12 inline-block"/>
+                            <img src={logo_tman} className={`w-12 inline-block mr-2 ${!open && "m-3"}`}/>
                             <h1
                                 className={`text-orange inline-block mb-12 cursor-pointer origin-left font-bold text-2xl duration-300  ${!open && "scale-0"}`}>
                                 T'Man
