@@ -66,7 +66,7 @@ exports.update = async (req, res) => {
             return res.status(404).json({error: 'No such task'});
         }
 
-        const task = await taskDB.findOneAndUpdate({_id: id},{...req.body}).exec();
+        const task = await taskDB.findOneAndUpdate({ _id: id }, { ...req.body }, { returnDocument: 'after' }).exec();
 
         if(!task){
             return res.status(404).json({error: 'No such task'});
