@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useTasksContext } from "../hooks/useTasksContext";
+import ModalDelete from "./ModalDelete";
+
 
 const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) => {
     const { dispatch } = useTasksContext();
@@ -13,6 +15,12 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
     const [taskPriority, setTaskPriority] = useState(task.taskPriority);
     const [taskStat, setTaskStat] = useState(task.taskStat);
     const [taskTime, setTaskTime] = useState(task.taskTime);
+
+    const[confirm, setConfirm] = useState(false);
+
+    const toggleConfirm=()=>{
+        setConfirm(!confirm);
+    }
 
     //Delete Handler
     const handleDelete = async (e) => {
@@ -175,6 +183,7 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
                         </div>
                         :
                         <div>
+                            {confirm && <ModalDelete handleDelete={handleDelete} togglePopup={toggleConfirm}/>}
                             <h2 className="text-center text-2xl font -bold mb-2">{taskName}</h2>
                             <p className="text-center text-sm font -bold mb-6" >
                                 To Due: 
@@ -202,7 +211,7 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
                                 <div className="inline-block mr-3">
                                     <button
                                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus :outline-none focus:shadow-outline"
-                                        onClick={handleDelete}>
+                                        onClick={toggleConfirm}>
                                         Delete
                                     </button>
                                 </div>
