@@ -1,8 +1,11 @@
 import vector_home from "../asset/vector_home.png";
-import ModalConfirm from "../component/ModalConfirm";
+import { Link } from "react-router-dom";
+
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Home = () => {
-    
+    const { user } = useAuthContext();
+
     return (
         <div className="p-7 h-screen">
             <div className="flex items-center mt-36"> 

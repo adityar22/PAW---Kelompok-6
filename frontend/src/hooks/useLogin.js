@@ -17,18 +17,18 @@ export const useLogin = () => {
             body: JSON.stringify({ email, password })
         });
 
-        const data = await response.json();
+        const user = await response.json();
 
         if (response.ok) {
             // use local storage to save email and JWT token
-            localStorage.setItem('user', JSON.stringify(data));
-            dispatch({ type: 'LOGIN', payload: data });
+            localStorage.setItem('user', JSON.stringify(user));
+            dispatch({ type: 'LOGIN', payload: user });
             setIsPending(false);
             setError('Log in success!');
         }
 
         if (!response.ok) {
-            setError(data.error);
+            setError(user.error);
             setIsPending(false);
         }
 

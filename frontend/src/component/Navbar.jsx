@@ -42,7 +42,7 @@ const Navbar = () => {
             />
             <div className="flex justify-between flex-col h-full">
                 <div className="content-top">
-                    <div className="flex gap-x-4 items-center">
+                    <div className="flex gap-x-4 justify-center">
                         <Link to="/">
                             <img src={logo_tman} className="w-12 inline-block"/>
                             <h1
@@ -74,6 +74,10 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="content-bottom">
+                    <ul className={`flex flex-col items-center mb-3 text-gray-300 transition-all text-sm ${!open && "scale-0"}`}>
+                        <p >Logged as <span className="font-semibold text-orange">{user.username ? user.username : 'anonim'}</span></p>
+                        <p className="font-semibold text-orange">{user.email}</p>
+                    </ul>
                     <ul>
                         {user && (
                             <div className="logout">

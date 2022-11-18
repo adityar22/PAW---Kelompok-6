@@ -12,12 +12,12 @@ const loginUser = async (req, res) => {
 
     try{
         loginValidation(email, password);
-
         const user = await User.login(email, password);
 
         const token = createToken(user._id);
-
-        res.status(200).json({ email, token });
+        const username = user.username;
+        
+        res.status(200).json({ message: "Login succesfully", email, username, token });
     }
     catch(err){
         res.status(400).json({ error: err.message });
@@ -26,20 +26,19 @@ const loginUser = async (req, res) => {
 
 // signup user
 const signupUser = async (req, res) => {
-    const { email, password } = req.body;
-    console.log(req.body);
+    const { email, username, password } = req.body;
 
     try {
         //validate email and password
-        signUpValidation(email, password);
+        signUpValidation(email, username, password);
 
         // user signup
-        const user = await User.signup(email, password);
+        const user = await User.signup(email, username, password);
 
         //create token
         const token = createToken(user._id);
 
-        res.status(200).json({ email, token });
+        res.status(200).json({ message: "Sign up succesfully", email, username, token });
     }
     catch (err) {
         res.status(400).json({ error: err.message });
@@ -47,8 +46,8 @@ const signupUser = async (req, res) => {
 
 }
 
-const signUpValidation = (email, password) => {
-    if (!email || !password) {
+const signUpValidation = (email, username, password) => {
+    if (!email ||  !username || !password) {
         throw Error('All field must be filled')
     }
 
