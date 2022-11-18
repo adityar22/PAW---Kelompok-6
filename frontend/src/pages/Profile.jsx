@@ -1,9 +1,11 @@
 import { Fragment, useState } from "react";
 import Modal from "../component/Modal";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Profile = () => {
     const [showModal, setShowModal] = useState(false);
     const [showModal1, setShowModal1] = useState(false);
+    const { user } = useAuthContext();
 
     return (
         <Fragment>
@@ -11,9 +13,9 @@ const Profile = () => {
             <h1 className='text-5xl font-bold mb-12 text-dark-blue' >Account</h1>
             <h1 className='text-2xl font-bold mb-5 text-black' >Personal Info</h1>
             <p className='text-lg text-black' >Name</p>
-            <input className="rounded-lg mb-8 bg-gray-200 p-2 w-1/3 focus:border-blue-500 focus:bg-gray-300 focus:outline-orange"></input>
+            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full p-2.5 mb-8 focus:outline-orange" placeholder={user.username}></input>
             <p className='text-lg text-black' >Email</p>
-            <input className="rounded-lg mb-8 bg-gray-200 p-2 w-1/3 focus:border-blue-500 focus:bg-gray-300 focus:outline-orange"></input>
+            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full p-2.5 mb-8 focus:outline-orange" placeholder={user.email}></input>
             <p className='text-lg text-black' >Password</p>
             <button className='text-lg mb-8 text-gray-400 hover:text-gray-300' onClick={() => setShowModal(true) }>Change Password</button>
         
@@ -32,9 +34,9 @@ const Profile = () => {
         <Modal isVisible={showModal} onClose={() => setShowModal(false)}>
             <div className="py-6 px-6 lg:px-8 text-left">
                 <p className='text-lg text-black' >Old Password</p>
-                <input className="rounded-lg mb-8 bg-gray-200 p-2 w-full focus:border-blue-500 focus:bg-gray-300 focus:outline-orange"></input>
+                <input required type="password" className="rounded-lg mb-8 bg-gray-200 p-2 w-full focus:border-blue-500 focus:bg-gray-300 focus:outline-orange"></input>
                 <p className='text-lg text-black' >New Password</p>
-                <input className="rounded-lg bg-gray-200 p-2 w-full focus:border-blue-500 focus:bg-gray-300 focus:outline-orange"></input>
+                <input required type="password" className="rounded-lg bg-gray-200 p-2 w-full focus:border-blue-500 focus:bg-gray-300 focus:outline-orange"></input>
             </div>
             <div className="text-center py-6"> 
                 <button text="py-6" className="button px-10">Change Password</button>

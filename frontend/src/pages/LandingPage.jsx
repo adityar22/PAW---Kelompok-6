@@ -1,6 +1,4 @@
 import vector_home from "../asset/vector_home.png";
-import { Link } from "react-router-dom";
-
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const Home = () => {
@@ -11,7 +9,7 @@ const Home = () => {
             <div className="flex items-center mt-36"> 
                 <div className="py-8 pl-8 w-full">
                     <h1 className="text-6xl font-bold text-orange">Welcome back,</h1>
-                    <h1 className="text-6xl font-bold text-dark-blue py-6">Buddy!</h1>
+                    <h1 className="text-6xl font-bold text-dark-blue py-6">{user.username}!</h1>
                     <h1 className="pb-6">Let's organize your daily college tasks with us ✨</h1>
                     <button 
                         text="p-10" className="button text-xl">
