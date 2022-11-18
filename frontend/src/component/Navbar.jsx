@@ -32,6 +32,10 @@ const Navbar = () => {
         { title: "Accounts", src: menu_account, gap: true, link: "/profile", isActive: false }
     ];
 
+    const toggleActive=()=>{
+        
+    }
+
     const handleClick = (e) => {
         e.preventDefault();
         logout();

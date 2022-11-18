@@ -18,7 +18,7 @@ Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengel
 - [Saddan Syah Akbar (20/460566/TK/51155)](https://www.github.com/saddansyah)
 
 ## 💾 Documentation
-- [Presentation Slide - Task Management System](https://www.canva.com/design/DAFNU1TPF34/-PU_xSTMN6UTTSGXzLkU5w/view?utm_content=DAFNU1TPF34&utm_campaign=designshare&utm_medium=link&utm_source=publishpresent)
+- [Presentation Slide - Task Management System](https://www.canva.com/design/DAFSMW6FTNQ/1u5KgZ6RQxInhRnGJ9Pazw/view?utm_content=DAFSMW6FTNQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 
 ## Setting Up Project
 - Install required dependencies:

@@ -4,6 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useNotesContext } from "../hooks/useNotesContext";
 
 import InputTag from "./InputTag";
+import ModalDelete from "./ModalDelete";
 
 const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError, notify }) => {
     const { user } = useAuthContext();
@@ -14,6 +15,13 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
     const [content, setContent] = useState(note.content);
     const [isPinned, setIsPinned] = useState(note.isPinned);
     const [tag, setTag] = useState(note.tag);
+
+    const [confirmPopup, setConfirmPopup] = useState(false);
+    const toggleConfirmPopup = (e) =>{
+        e.preventDefault();
+        e.stopPropagation();
+        setConfirmPopup(!confirmPopup);
+    }
 
     const toggleEdit = () => {
         setIsEdited(!isEdited);
@@ -129,14 +137,14 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
                                         onClick={toggleEdit}>Edit</button>
                                     <button type="button"
                                         class="text-gray-500 bg-white hover:bg-gray-100 active:ring-4 active:outline-none active:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
-                                        onClick={handleDelete}>Delete</button>
+                                        onClick={toggleConfirmPopup}>Delete</button>
                                 </>
                             }
                         </div>
                     </div>
                 </div>
             </div>
-
+            {confirmPopup && <ModalDelete togglePopup={toggleConfirmPopup} handleDelete={handleDelete}/>}
         </>
     );
 }
