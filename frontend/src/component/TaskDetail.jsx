@@ -26,7 +26,7 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
         setLoading(true);
         const response = await fetch('api/tasks/' + task._id, {
             method: 'DELETE',
-            header: {
+            headers: {
                 'Authorization': `Bearer ${user.token}`
             }
         });
@@ -37,6 +37,7 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
             setLoading(false);
             dispatch({ type: 'DELETE TASK', payload: json.data });
             notify.info(json.message);
+            togglePopup()
         }
         if (!response.ok) {
             setLoading(false);
