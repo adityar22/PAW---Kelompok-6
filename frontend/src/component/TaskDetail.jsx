@@ -32,10 +32,10 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
         });
 
         const json = await response.json();
-
+        console.log(json);
         if (response.ok) {
             setLoading(false);
-            dispatch({ type: 'DELETE TASK', payload: json.data });
+            dispatch({ type: 'DELETE_TASK', payload: json.data });
             notify.info(json.message);
             togglePopup()
         }
@@ -66,6 +66,7 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
             body: JSON.stringify(updateTask)
         });
         const json = await response.json();
+        console.log(json);
         if (response.ok) {
             setLoading(false);
             togglePopup();
