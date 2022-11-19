@@ -23,7 +23,7 @@ exports.getTask = async (req, res) => {
     const taskUser = req.user.id;
 
     try{
-        const task = await taskDB.find({taskUser}).sort({createdAt:-1}).exec();
+        const task = await taskDB.find({taskUser}).sort({taskTime:-1}).exec();
 
         if(!task){
             return res.status(404).json({error: 'No such tasks'});
