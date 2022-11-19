@@ -103,9 +103,11 @@ const Notes = () => {
                     </div>
                     {error && <div className='font-semibold text-lg text-red-400 mt-4'>Somehing error is occured 🙀</div>}
                     {isPending && <Loading />}
-                    {listNotes && <div className="mb-5 flex flex-wrap">{listNotes.map((note) => (
-                        <Note key={note._id} note={note} setLoading={setLoading} setError={setError} notify={notify}/>
-                    ))}</div>}
+                    {listNotes && <div className="mb-5 flex flex-wrap">{
+                        listNotes.map((note) => {
+                            return <Note key={note._id} note={note} setLoading={setLoading} setError={setError} notify={notify} />
+                        })
+                    }</div>}
                 </div>
             </div>
             {addPopup && <AddForm toggleAddPopup={toggleAddPopup} setLoading={setLoading} url={url} setError={setError} notify={notify} />}

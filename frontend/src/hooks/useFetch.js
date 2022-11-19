@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useAuthContext } from "./useAuthContext";
+import { useNotesContext } from "./useNotesContext";
 
 const useFetch = ({ url, type, dispatch, setError, setLoading }) => {
 

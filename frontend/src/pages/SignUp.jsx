@@ -22,7 +22,7 @@ const SignUp = ({notify}) => {
     const handlePasswordChange = (e) => {
         const passwordInputValue = e.target.value.trim();
         const passwordInputFieldName = e.target.name;
-        const NewPasswordInput = { ...passwordInput, [passwordInputFieldName]: passwordInputValue }
+        const NewPasswordInput = { ...passwordInput, [passwordInputFieldName]: passwordInputValue } // [nama] mengekstrak isi dari variabel untuk dijadikan key
         setPasswordInput(NewPasswordInput);
     }
 

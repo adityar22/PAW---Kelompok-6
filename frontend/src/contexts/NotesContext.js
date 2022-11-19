@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createContext, useReducer, useState } from "react";
 
 export const NotesContext = createContext();
@@ -13,9 +14,8 @@ export const notesReducer = (state, action) => {
                 notes: [action.payload, ...state.notes]
             }
         case 'EDIT_NOTES':
-            console.log(action.payload)
             return {
-                notes: state.notes.map((item) => {return item._id !== action.payload._id ? item : action.payload})
+                notes: state.notes.map((item) => {return item._id !== action.payload._id ? item : action.payload}).sort((a, b) => {return Number(b.isPinned) - Number(a.isPinned)})
             }
         case 'DELETE_NOTES':
             return {

@@ -1,28 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 
 import { useNotesContext } from '../hooks/useNotesContext';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useHandleUpdate } from '../hooks/useHandleUpdate';
 
 import NoteModal from './NoteModal';
 import ModalDelete from './ModalDelete';
 
 const Note = ({ note, setLoading, setError, notify }) => {
-    const { dispatch } = useNotesContext();
-    const { user } = useAuthContext();
-    const wordLimit = 200;
-
     const [detailPopup, setDetailPopup] = useState(false);
     const [confirmPopup, setConfirmPopup] = useState(false);
+    const editedNotes = { ...note, isPinned: !note.isPinned }
+    const wordLimit = 200;
 
-    const toggleDetailPopup = () => {
+    const toggleDetailPopup = (e) => {
         setDetailPopup(!detailPopup);
     }
 
-    const toggleConfirmPopup = (e) =>{
+    const toggleConfirmPopup = (e) => {
         e.stopPropagation();
         e.preventDefault();
         setConfirmPopup(!confirmPopup);
+    }
+
+    const { dispatch } = useNotesContext();
+    const { user } = useAuthContext();
+    const { update } = useHandleUpdate(note, editedNotes, setLoading, setError, notify, toggleDetailPopup);
+
+
+    const handlePinned = async (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        sessionStorage.setItem('pinnedNotes', JSON.stringify(editedNotes));
+
+        update();
     }
 
     const handleDelete = async (e) => {
@@ -56,18 +69,6 @@ const Note = ({ note, setLoading, setError, notify }) => {
 
     }
 
-    const handlePinned = async (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        if (!user) {
-            return;
-        }
-
-        setLoading(true);
-
-    }
-
 
     return (
         <>
@@ -76,8 +77,8 @@ const Note = ({ note, setLoading, setError, notify }) => {
                     <div className='flex flex-row justify-between mb-2'>
                         <h2 className='text-xl font-bold text-cyan-700'>{note.title}</h2>
                         <div className="ml-7 note-icons">
-                            <span className='inline-block cursor-pointer'>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 stroke-yellow-500">
+                            <span className='inline-block cursor-pointer' onClick={handlePinned}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 ${note.isPinned && "fill-yellow-500"} stroke-yellow-500`}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                                 </svg>
                             </span>
@@ -105,8 +106,8 @@ const Note = ({ note, setLoading, setError, notify }) => {
                 </div>
             </div>
             {/* Just show last modal */}
-            {(detailPopup) && <NoteModal toggleDetailPopup={toggleDetailPopup} note={note} handleDelete={handleDelete} setLoading={setLoading} setError={setError} notify={notify} />}
-            {confirmPopup && <ModalDelete togglePopup={toggleConfirmPopup} handleDelete={handleDelete}/>}
+            {detailPopup && <NoteModal toggleDetailPopup={toggleDetailPopup} note={note} handleDelete={handleDelete} setLoading={setLoading} setError={setError} notify={notify} />}
+            {confirmPopup && <ModalDelete togglePopup={toggleConfirmPopup} handleDelete={handleDelete} />}
         </>
     );
 }
