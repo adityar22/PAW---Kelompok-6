@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 const InputTag = ({ tag, setTag }) => {
 
     function handleKeyDown(e) {

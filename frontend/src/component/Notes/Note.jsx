@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 
-import { useNotesContext } from '../hooks/useNotesContext';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useNotesContext } from '../../hooks/useNotesContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 import NoteModal from './NoteModal';
-import ModalDelete from './ModalDelete';
+import ModalDelete from '../Public/ModalDelete';
 
 const Note = ({ note, setLoading, setError, notify }) => {
     const { dispatch } = useNotesContext();

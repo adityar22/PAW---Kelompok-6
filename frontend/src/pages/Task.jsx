@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useTasksContext } from '../hooks/useTasksContext';
 import useFetch from '../hooks/useFetch';
 
@@ -6,12 +6,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 //Initiate Component
-import TaskList from '../component/TaskList';
+import TaskList from '../component/Task/TaskList';
 import Loading from '../component/Loading';
-import Searchbar from '../component/Searchbar'
-import SortSelection from '../component/SortSelection';
-import Pagination from '../component/Pagination';
-import AddTask from '../component/AddTask';
+import Searchbar from '../component/Public/Searchbar'
+import SortSelection from '../component/Public/SortSelection';
+import Pagination from '../component/Public/Pagination';
+import AddTask from '../component/Task/AddTask';
 
 //Init Task Page
 const Task = () => {

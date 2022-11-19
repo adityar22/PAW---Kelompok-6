@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { useNotesContext } from "../hooks/useNotesContext";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useNotesContext } from "../../hooks/useNotesContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 
 

@@ -5,10 +5,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNotesContext } from '../hooks/useNotesContext';
 import useFetch from '../hooks/useFetch';
 
-import Note from '../component/Note';
+import Note from '../component/Notes/Note';
 import Loading from '../component/Loading';
-import AddForm from '../component/AddForm';
-import Searchbar from '../component/Searchbar';
+import AddForm from '../component/Notes/AddForm';
+import Searchbar from '../component/Public/Searchbar';
 
 const Notes = () => {
     const { notes, dispatch, isPending, error, setLoading, setError } = useNotesContext();
