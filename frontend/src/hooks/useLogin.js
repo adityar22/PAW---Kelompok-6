@@ -4,7 +4,6 @@ import { useState } from "react";
 export const useLogin = () => {
     const { dispatch } = useAuthContext();
     const [isPending, setIsPending] = useState(null);
-    const [error, setError] = useState("");
     const url = '/api/user/login';
 
     const login = async (email, password) => {
@@ -23,7 +22,6 @@ export const useLogin = () => {
             localStorage.setItem('user', JSON.stringify(user));
             dispatch({ type: 'LOGIN', payload: user });
             setIsPending(false);
-            // setError('Login success');
             return {
                 isError: false,
                 message: 'Login success!'
@@ -32,7 +30,6 @@ export const useLogin = () => {
 
         if (!response.ok) {
             setIsPending(false);
-            // setError(user.error);
             return {
                 isError: true,
                 message: user.error
@@ -41,5 +38,5 @@ export const useLogin = () => {
 
     }
 
-    return { login, isPending, error };
+    return { login, isPending};
 }

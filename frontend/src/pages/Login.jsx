@@ -6,7 +6,7 @@ import { useLogin } from "../hooks/useLogin";
 const Login = ({ notify }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login, isPending, error } = useLogin();
+    const { login, isPending} = useLogin();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -53,7 +53,6 @@ const Login = ({ notify }) => {
                         <p className="text-sm mx-auto mt-8">
                             Don't have account? <Link to="/signup" className="underline text-blue-500">Sign Up</Link>
                         </p>
-                        {error && <p className="text-sm text-red-400 mx-auto font-medium mt-8">{error}</p>}
                     </form>
                 </div>
             </section>
