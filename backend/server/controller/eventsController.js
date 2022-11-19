@@ -23,7 +23,7 @@ exports.getAll = async (req, res) => {
     const eventUser = req.user._id; // diambil dari requireAuth yang sudah menyimpan id sebelumnya
 
     try {
-        const events = await (await eventsModel.find({ eventUser })).find({
+        const events = await eventsModel.find({ eventUser }).find({
             eventStat:{$gte: moment(req.query.eventStart).toDate()}, 
             eventEnd:{$lte: moment(req.query.eventEnd).toDate()
             }}).exec();

@@ -4,7 +4,7 @@ import { useEventContext } from "../../hooks/useEventContext";
 
 import Datetime from 'react-datetime';
 
-const AddEvent = ({ togglePopup, setLoading, url, setError }) => {
+const AddEvent = ({ togglePopup, setLoading, url, setError, notify }) => {
     const { dispatch } = useEventContext();
     const { user } = useAuthContext();
 
@@ -44,9 +44,11 @@ const AddEvent = ({ togglePopup, setLoading, url, setError }) => {
             setLoading(false);
             togglePopup();
             dispatch({ type: 'ADD_EVENT', payload: json.data });
+            notify.info(json.message);
         }
         if (!response.ok) {
             setLoading(false);
+            notify.error(json.error);
         }
     }
 
@@ -94,8 +96,8 @@ const AddEvent = ({ togglePopup, setLoading, url, setError }) => {
                                     required
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="eventStart"
-                                    type="date"
-                                    onChange={(e) => setEventStart(e.target.value)}
+                                    value={eventStart}
+                                    onChange={date => setEventStart(date)}
                                 />
                             </div>
                             <div className="inline-block">
@@ -106,8 +108,8 @@ const AddEvent = ({ togglePopup, setLoading, url, setError }) => {
                                     required
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="eventEnd"
-                                    type="date"
-                                    onChange={(e) => setEventEnd(e.target.value)}
+                                    value={eventEnd}
+                                    onChange={date => setEventEnd(date)}
                                 />
                             </div>
                         </div>
