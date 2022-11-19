@@ -1,9 +1,7 @@
 import { useState, useRef } from 'react';
 import { useTasksContext } from '../hooks/useTasksContext';
+import { useDisplayContext } from '../hooks/useDisplayContext';
 import useFetch from '../hooks/useFetch';
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 //Initiate Component
 import TaskList from '../component/Task/TaskList';
@@ -13,10 +11,12 @@ import SortSelection from '../component/Public/SortSelection';
 import Pagination from '../component/Public/Pagination';
 import AddTask from '../component/Task/AddTask';
 
+
 //Init Task Page
 const Task = () => {
     //Fetch API
     const { tasks, dispatch, isPending, error, setLoading, setError } = useTasksContext();
+    const { notify } = useDisplayContext();
     const [popup, setPopup] = useState(false);
 
     //Backend URL
@@ -64,50 +64,10 @@ const Task = () => {
     };
     const listTasks = searchTerm < 1 ? currentTask : searchResult
 
-    //Set Notification
-    const notify={
-        info : (msg)=>{
-            toast.info(msg,{
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        },
-        error:(msg)=>{
-            toast.error(msg, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        }
-    }
-
     //Return Task Page
     return (
         <>
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
-            {popup && <AddTask togglePopup={togglePopup} setLoading={setLoading} url={url} notify={notify}/>}
+            {popup && <AddTask togglePopup={togglePopup} setLoading={setLoading} url={url} notify={notify} />}
             <div className="justify-center items-center py-10 px-28 h-screen">
                 <div className="text-4xl font-bold text-orange my-12 mx-auto">
                     <h1 className='text-5xl font-bold mb-12 text-dark-blue' >Add your daily task here! 📃</h1>
