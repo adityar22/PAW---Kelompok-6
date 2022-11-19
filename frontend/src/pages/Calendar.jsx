@@ -1,9 +1,10 @@
-import React, {useState, useRef} from "react";
+import React, { useState, useRef} from "react";
 import { useEventContext } from "../hooks/useEventContext";
 import useFetch from "../hooks/useFetch";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import moment from 'moment';
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -16,19 +17,20 @@ import Loading from "../component/Loading";
 
 const Calendar = () => {
     const { events, dispatch, isPending, error, setLoading, setError } = useEventContext();
+
     const [popup, setPopup] = useState(false);
     const url = "/api/events";
-    const calRef = useRef(null);
 
     useFetch({ url, dispatch, setError, setLoading, type: "GET_EVENTS" });
+    console.log(events);
 
     const togglePopup = () => {
         setPopup(!popup);
     };
 
-    const notify={
-        info : (msg)=>{
-            toast.info(msg,{
+    const notify = {
+        info: (msg) => {
+            toast.info(msg, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -39,7 +41,7 @@ const Calendar = () => {
                 theme: "light",
             });
         },
-        error:(msg)=>{
+        error: (msg) => {
             toast.error(msg, {
                 position: "top-right",
                 autoClose: 5000,
@@ -78,7 +80,6 @@ const Calendar = () => {
                 {error && <div className='font-semibold text-lg text-red-400 my-4'>Somehing error is occured 🙀</div>}
                 {isPending && <Loading />}
                 <FullCalendar
-                    ref={calRef}
                     plugins={
                         [dayGridPlugin, timeGridPlugin, interactionGridPlugin]}
                     initialView="dayGridMonth"

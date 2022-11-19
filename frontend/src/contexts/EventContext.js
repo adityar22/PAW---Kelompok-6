@@ -2,22 +2,24 @@ import { createContext, useReducer, useState } from "react";
 
 export const EventContext = createContext();
 
-export const eventReducer = (state, action)=>{
-    switch(action.type){
+export const eventReducer = (state, action) => {
+    switch (action.type) {
         case 'ADD_EVENT':
-            return{
-                event: [action.payload, ...state.event]
+            return {
+                ...state,
+                events: action.payload,
             }
         case 'GET_EVENTS':
-            return{
-                events: action.payload
+            return {
+                ...state,
+                events: action.payload,
             }
         default:
             return state
     }
 }
 
-const EventContextProvider=({children})=>{
+const EventContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(eventReducer, {
         events: null
     })
