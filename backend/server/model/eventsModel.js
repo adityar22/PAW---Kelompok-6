@@ -1,32 +1,28 @@
 const mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    taskUser:{
+    eventUser:{
         type: String,
         required: true
     },
-    taskName:{
+    eventName:{
         type: String,
         required: true
     },
-    taskDescription:{
+    eventDesc:{
         type: String,
         required: true
     },
-    taskTime:{
+    eventStart:{
         type: Date,
         required:true
     },
-    taskPriority:{
-        type: String,
-        required: true
-    },
-    taskStat:{
-        type: String,
-        required: true
+    eventEnd:{
+        type: Date,
+        required:true
     }
 })
 
-const taskDB = mongoose.model('taskDB',schema);
+const eventsDB = mongoose.model('eventsDB',schema);
 
-module.exports = taskDB;
+module.exports = eventsDB;
