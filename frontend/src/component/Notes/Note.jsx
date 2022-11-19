@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import { format } from 'date-fns';
 
 import { useNotesContext } from '../../hooks/useNotesContext';
@@ -13,7 +13,7 @@ const Note = ({ note, setLoading, setError, notify }) => {
     const [confirmPopup, setConfirmPopup] = useState(false);
     const editedNotes = { ...note, isPinned: !note.isPinned }
     const wordLimit = 200;
-    
+
     const openDetailPopup = () => {
         setDetailPopup(true);
     }

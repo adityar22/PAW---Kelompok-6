@@ -9,7 +9,6 @@ const About = () => {
         const getData = async () => {
             const response = await fetch('https://raw.githubusercontent.com/adityar22/PAW---Kelompok-6/master/README.md');
             const data = await response.text();
-            console.log(data);
             setMarkdown(data);
         }
         getData();

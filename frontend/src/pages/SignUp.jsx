@@ -19,6 +19,8 @@ const SignUp = ({notify}) => {
         await signup(email, username, passwordInput.password);
     }
 
+    // Password validation
+
     const handlePasswordChange = (e) => {
         const passwordInputValue = e.target.value.trim();
         const passwordInputFieldName = e.target.name;

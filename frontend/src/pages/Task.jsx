@@ -74,7 +74,7 @@ const Task = () => {
                 </div>
                 <div className="justify-between flex">
                     <div className="align-middle">
-                        <button type="button" className="button mb-3" onClick={togglePopup}>Add Task</button>
+                        <button type="button" className="button mb-3" onClick={togglePopup}>Add Task +</button>
                     </div>
                     <Searchbar term={searchTerm} getSearchTerm={getSearchTerm} inputEl={inputEl} />
                 </div>
