@@ -3,6 +3,9 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEventContext } from "../../hooks/useEventContext";
 
 import Datetime from 'react-datetime';
+import Datepicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 const AddEvent = ({ togglePopup, setLoading, url, setError, notify }) => {
     const { dispatch } = useEventContext();
@@ -17,7 +20,7 @@ const AddEvent = ({ togglePopup, setLoading, url, setError, notify }) => {
         e.preventDefault();
 
         if (!user) {
-            setError('You must be logged in');
+            notify.info('You must be logged in');
         }
 
         const newEvent = { eventName, eventDesc, eventStart, eventEnd }
@@ -36,7 +39,6 @@ const AddEvent = ({ togglePopup, setLoading, url, setError, notify }) => {
         const json = await response.json();
 
         if (response.ok) {
-            console.log('New event added!');
             setEventName("");
             setEventDesc("");
             setEventStart(new Date());
@@ -92,24 +94,32 @@ const AddEvent = ({ togglePopup, setLoading, url, setError, notify }) => {
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Event Start
                                 </label>
-                                <Datetime
+                                <Datepicker
                                     required
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="eventStart"
-                                    value={eventStart}
+                                    selected={eventStart}
                                     onChange={date => setEventStart(date)}
+                                    showTimeSelect
+                                    timeFormat={'p'}
+                                    timeIntervals={1}
+                                    dateFormat='Pp'
                                 />
                             </div>
                             <div className="inline-block">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Event End
                                 </label>
-                                <Datetime
+                                <Datepicker
                                     required
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="eventEnd"
-                                    value={eventEnd}
+                                    selected={eventEnd}
                                     onChange={date => setEventEnd(date)}
+                                    showTimeSelect
+                                    timeFormat={'p'}
+                                    timeIntervals={1}
+                                    dateFormat='Pp'
                                 />
                             </div>
                         </div>

@@ -1,9 +1,11 @@
-import React, { useState, useRef } from "react";
-
+import React, { useState, useRef} from "react";
 import { useEventContext } from "../hooks/useEventContext";
 import useFetch from "../hooks/useFetch";
 import { useDisplayContext } from "../hooks/useDisplayContext";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import moment from 'moment';
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -19,14 +21,13 @@ const Calendar = () => {
     const { notify } = useDisplayContext();
     const [popup, setPopup] = useState(false);
     const url = "/api/events";
-    const calRef = useRef(null);
 
     useFetch({ url, dispatch, setError, setLoading, type: "GET_EVENTS" });
+    console.log(events);
 
     const togglePopup = () => {
         setPopup(!popup);
     };
-
 return (
     <>
         {popup && <AddEvent togglePopup={togglePopup} setLoading={setLoading} url={url} notify={notify} />}
