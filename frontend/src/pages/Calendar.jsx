@@ -4,25 +4,32 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionGridPlugin from "@fullcalendar/interaction";
 import { useState, useEffect, useRef } from "react";
-import { useTasksContext } from "../hooks/useTasksContext";
+import { useEventContext } from "../hooks/useEventContext";
 import useFetch from "../hooks/useFetch";
 
+import AddEvent from "../component/Event/AddEvent";
+
+
 const Calendar = () => {
-    const { tasks, dispatch, isPending, error, setLoading, setError } = useTasksContext();
+    const { events, dispatch, isPending, error, setLoading, setError } = useEventContext();
     const [popup, setPopup] = useState(false);
-    const url = "/api/tasks";
+    const url = "/api/events";
 
     const togglePopup = () => {
         setPopup(!popup);
     };
 
-    useFetch({ url, dispatch, setError, setLoading, type: "GET_TASKS" });
+    useFetch({ url, dispatch, setError, setLoading, type: "GET_EVENTS" });
 
     return (
         <>
-            <div className="py-10 px-28" >
+            {popup && <AddEvent togglePopup={togglePopup} setLoading={setLoading} url={url}/>}
+            <div className="py-10 px-28 w-full" >
                 <div className="text-4xl font-bold text-orange my-12 mx-auto">
-                    <h1 className='text-5xl font-bold mb-12 text-dark-blue' >Add your daily task here! 📃</h1>
+                    <h1 className='text-5xl font-bold mb-12 text-dark-blue' >Add your events here! 📃</h1>
+                </div>
+                <div className="align-middle mb-6">
+                    <button type="button" className="button mb-3" onClick={togglePopup}>Add Event</button>
                 </div>
                 <FullCalendar
                     plugins={
@@ -35,7 +42,6 @@ const Calendar = () => {
                     }}
                     height={700}
                     contentHeight={700}
-                    events={tasks}
                 />{" "}
             </div>
         </>

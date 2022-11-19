@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
-import { useTasksContext } from "../hooks/useTasksContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useTasksContext } from "../../hooks/useTasksContext";
 
 const AddTask = ({ togglePopup, setLoading, url, setError, notify }) => {
     const { dispatch} = useTasksContext();

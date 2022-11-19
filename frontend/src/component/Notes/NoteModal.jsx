@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import { useAuthContext } from "../hooks/useAuthContext";
-import { useNotesContext } from "../hooks/useNotesContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useNotesContext } from "../../hooks/useNotesContext";
 
 import InputTag from "./InputTag";
-import ModalDelete from "./ModalDelete";
+import ModalDelete from "../Public/ModalDelete";
 
 const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError, notify }) => {
     const { user } = useAuthContext();

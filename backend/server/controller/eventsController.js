@@ -5,11 +5,12 @@ const moment = require('moment');
 exports.create = async (req, res) =>{
     const { eventName, eventDesc, eventStart, eventEnd } = req.body;
     const eventUser = req.user._id; // diambil dari requireAuth yang sudah menyimpan id sebelumnya
-
+    
     try {
         const newEvent = await eventsModel.create({ eventUser, eventName, eventDesc, eventStart, eventEnd });
+        console.log(newEvent);
         res.status(200).json({
-            message: "Notes created succesfully",
+            message: "Event created succesfully",
             data: newEvent
         });
     }

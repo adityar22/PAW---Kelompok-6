@@ -39,6 +39,6 @@ app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
 app.use('/api/tasks', taskRouter);
 app.use('/api/user', userRouter);
 app.use('/api/notes', notesRouter);
-app.use('api/events', eventsRouter);
+app.use('/api/events', eventsRouter);
 
 app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`) });

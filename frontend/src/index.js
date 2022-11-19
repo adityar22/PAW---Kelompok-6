@@ -8,6 +8,7 @@ import App from './App';
 import NotesContextProvider from './contexts/NotesContext';
 import TasksContextProvider from './contexts/TasksContext';
 import AuthContextProvider from './contexts/AuthContext';
+import EventContextProvider from './contexts/EventContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +16,9 @@ root.render(
     <AuthContextProvider>
       <NotesContextProvider>
         <TasksContextProvider>
-          <App />
+          <EventContextProvider>
+            <App />
+          </EventContextProvider>
         </TasksContextProvider>
       </NotesContextProvider>
     </AuthContextProvider>
