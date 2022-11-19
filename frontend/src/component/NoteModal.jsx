@@ -5,28 +5,27 @@ import { useHandleUpdate } from "../hooks/useHandleUpdate";
 import InputTag from "./InputTag";
 import ModalDelete from "./ModalDelete";
 
-const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError, notify }) => {
+const NoteModal = ({ closeDetailPopup, note, handleDelete, setLoading, setError, notify }) => {
 
     const [isEdited, setIsEdited] = useState(false);
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content);
     const [isPinned, setIsPinned] = useState(note.isPinned);
     const [tag, setTag] = useState(note.tag);
-    
     const [confirmPopup, setConfirmPopup] = useState(false);
-    
-    const toggleConfirmPopup = (e) =>{
+
+    const toggleConfirmPopup = (e) => {
         e.preventDefault();
         e.stopPropagation();
         setConfirmPopup(!confirmPopup);
     }
-    
+
     const toggleEdit = () => {
         setIsEdited(!isEdited);
     }
-    
-    const updatedNote = {title, content, isPinned, tag};
-    const {handleUpdate} = useHandleUpdate(note, updatedNote, setLoading, setError, notify, toggleDetailPopup);
+
+    const updatedNote = { title, content, isPinned, tag };
+    const { handleUpdate } = useHandleUpdate(note, updatedNote, setLoading, setError, notify, closeDetailPopup);
 
     return (
         <>
@@ -48,7 +47,7 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
                                     {note.title}
                                 </h3>
                             }
-                            <button onClick={toggleDetailPopup} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center ml-4">
+                            <button onClick={closeDetailPopup} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center ml-4">
                                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
                             </button>
                         </div>
@@ -106,7 +105,7 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
                     </div>
                 </div>
             </div>
-            {confirmPopup && <ModalDelete togglePopup={toggleConfirmPopup} handleDelete={handleDelete}/>}
+            {confirmPopup && <ModalDelete togglePopup={toggleConfirmPopup} handleDelete={handleDelete} />}
 
         </>
     );

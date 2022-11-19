@@ -1,12 +1,14 @@
 
 import { useAuthContext } from "./useAuthContext";
 import { useNotesContext } from "./useNotesContext";
+import { useDisplayContext } from "./useDisplayContext";
 
-export const useHandleUpdate = (note, updatedNote, setLoading, setError, notify, toggleDetailPopup) => {
+export const useHandleUpdate = (note, updatedNote, setLoading, setError, notify, closeDetailPopup) => {
     const { user } = useAuthContext();
     const { dispatch } = useNotesContext();
+    // const { notify } = useDisplayContext();
 
-    const update = async () => {
+    const update = async (isOpen) => {
         if (!user) {
             return;
         }
@@ -25,8 +27,8 @@ export const useHandleUpdate = (note, updatedNote, setLoading, setError, notify,
         const json = await response.json();
 
         if (response.ok) {
+            closeDetailPopup();
             setLoading(false);
-            toggleDetailPopup();
             dispatch({ type: 'EDIT_NOTES', payload: json.data });
             notify.info(json.message);
         }
@@ -38,9 +40,6 @@ export const useHandleUpdate = (note, updatedNote, setLoading, setError, notify,
     }
 
     const handleUpdate = async (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-
         await update();
     }
 

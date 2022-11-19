@@ -105,7 +105,7 @@ const Notes = () => {
                     {isPending && <Loading />}
                     {listNotes && <div className="mb-5 flex flex-wrap">{
                         listNotes.map((note) => {
-                            return <Note key={note._id} note={note} setLoading={setLoading} setError={setError} notify={notify} />
+                            return <Note key={note._id} note={note} setLoading={setLoading} setError={setError} notify={notify} isPending={isPending}/>
                         })
                     }</div>}
                 </div>

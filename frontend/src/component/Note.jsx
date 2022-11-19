@@ -13,9 +13,13 @@ const Note = ({ note, setLoading, setError, notify }) => {
     const [confirmPopup, setConfirmPopup] = useState(false);
     const editedNotes = { ...note, isPinned: !note.isPinned }
     const wordLimit = 200;
+    
+    const openDetailPopup = () => {
+        setDetailPopup(true);
+    }
 
-    const toggleDetailPopup = (e) => {
-        setDetailPopup(!detailPopup);
+    const closeDetailPopup = () => {
+        setDetailPopup(false);
     }
 
     const toggleConfirmPopup = (e) => {
@@ -26,17 +30,7 @@ const Note = ({ note, setLoading, setError, notify }) => {
 
     const { dispatch } = useNotesContext();
     const { user } = useAuthContext();
-    const { update } = useHandleUpdate(note, editedNotes, setLoading, setError, notify, toggleDetailPopup);
-
-
-    const handlePinned = async (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        sessionStorage.setItem('pinnedNotes', JSON.stringify(editedNotes));
-
-        update();
-    }
+    const { update } = useHandleUpdate(note, editedNotes, setLoading, setError, notify, closeDetailPopup);
 
     const handleDelete = async (e) => {
         e.stopPropagation();
@@ -69,10 +63,16 @@ const Note = ({ note, setLoading, setError, notify }) => {
 
     }
 
+    const handlePinned = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        update(detailPopup);
+    }
+
 
     return (
         <>
-            <div className="notes-card mb-7 mr-7 max-h-fit max-w-xl" onClick={toggleDetailPopup}>
+            <div className="notes-card mb-7 mr-7 max-h-fit max-w-xl" onClick={(openDetailPopup)}>
                 <div className="content-top">
                     <div className='flex flex-row justify-between mb-2'>
                         <h2 className='text-xl font-bold text-cyan-700'>{note.title}</h2>
@@ -106,7 +106,7 @@ const Note = ({ note, setLoading, setError, notify }) => {
                 </div>
             </div>
             {/* Just show last modal */}
-            {detailPopup && <NoteModal toggleDetailPopup={toggleDetailPopup} note={note} handleDelete={handleDelete} setLoading={setLoading} setError={setError} notify={notify} />}
+            {detailPopup && <NoteModal closeDetailPopup={closeDetailPopup} note={note} handleDelete={handleDelete} setLoading={setLoading} setError={setError} notify={notify} />}
             {confirmPopup && <ModalDelete togglePopup={toggleConfirmPopup} handleDelete={handleDelete} />}
         </>
     );
