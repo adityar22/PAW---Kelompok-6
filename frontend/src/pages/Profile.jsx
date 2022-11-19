@@ -21,21 +21,21 @@ const Profile = () => {
             <h1 className='sm:text-5xl font-bold mb-8 sm:mb-12 text-dark-blue text-4xl' >Account</h1>
             <h1 className='sm:text-2xl font-bold mb-5 text-black text-xl' >Personal Info</h1>
             <p className='sm:text-lg text-black' >Name</p>
-            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block sm:w-1/2 md:1/3 p-2.5 mb-8 focus:outline-orange" placeholder={user.username}></input>
+            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 p-2.5 mb-8 focus:outline-orange" placeholder={user.username}></input>
             <p className='sm:text-lg text-black' >Email</p>
-            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block sm:w-1/2 md:1/3 p-2.5 mb-8 focus:outline-orange" placeholder={user.email}></input>
+            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 p-2.5 mb-8 focus:outline-orange" placeholder={user.email}></input>
             <p className='sm:text-lg text-black' >Password</p>
             <button className='sm:text-lg mb-8 text-gray-400 hover:text-gray-300' onClick={() => setShowModal(true) }>Change Password</button>
         
             <div> 
-                <button text="py-10" className="button text-sm px-2 sm:px-10">Update</button>
-                <button text="py-10" className="button text-sm px-2 ml-8 sm:px-10 sm:ml-10">Cancel</button>
+                <button text="py-10" className="button text-sm w-30 md:w-28">Update</button>
+                <button text="py-10" className="button text-sm w-30 ml-4 md:md-8 md:w-28 md:ml-15">Cancel</button>
             </div>
             <div className="pt-8"> 
-                <button text="py-20" className="btn-white text-sm px-8 sm:px-24" onClick={() => setShowModal1(true)}>Delete Account</button>
+                <button text="py-20" className="btn-white text-sm w-40 md:w-60" onClick={() => setShowModal1(true)}>Delete Account</button>
             </div>
             <div>
-                <button text="py-20" className="btn-red text-sm mt-4 px-14 sm:px-32" onClick={() => setShowModal2(true)}>Log Out</button>
+                <button text="py-20" className="btn-red text-sm mt-4 w-40 md:w-60" onClick={() => setShowModal2(true)}>Log Out</button>
             </div> 
         </div>
 
