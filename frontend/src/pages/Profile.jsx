@@ -18,7 +18,7 @@ const Profile = () => {
     return (
         <Fragment>
         <div className="px-8 py-6 sm:px-28 sm:py-10 h-screen">
-            <h1 className='sm:text-5xl font-bold mb-8 sm:mb-12 text-dark-blue text-4xl' >Account</h1>
+            <h1 className='sm:text-5xl font-bold mb-8 sm:mb-12 text-dark-blue text-4xl' >Account 👥</h1>
             <h1 className='sm:text-2xl font-bold mb-5 text-black text-xl' >Personal Info</h1>
             <p className='sm:text-lg text-black' >Name</p>
             <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 p-2.5 mb-8 focus:outline-orange" placeholder={user.username}></input>
