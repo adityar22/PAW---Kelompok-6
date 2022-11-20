@@ -1,17 +1,18 @@
 import { useState, useRef } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { useNotesContext } from '../hooks/useNotesContext';
+import { useDisplayContext } from '../hooks/useDisplayContext';
 import useFetch from '../hooks/useFetch';
 
-import Note from '../component/Note';
-import Loading from '../component/Loading';
-import AddForm from '../component/AddForm';
-import Searchbar from '../component/Searchbar';
+import Note from '../component/Notes/Note';
+import Loading from '../component/Loading'
+import AddForm from '../component/Notes/AddForm';
+import Searchbar from '../component/Public/Searchbar';
 
 const Notes = () => {
     const { notes, dispatch, isPending, error, setLoading, setError } = useNotesContext();
+    const { notify } = useDisplayContext();
+
     const [addPopup, setAddPopup] = useState(false);
 
     // Backend URL <-- temporary -->
@@ -53,47 +54,8 @@ const Notes = () => {
     const listNotes = searchTerm < 1 ? notes : searchResult
 
 
-    const notify = {
-        info: (msg) => {
-            toast.info(msg, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        },
-        error: (msg) => {
-            toast.error(msg, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        }
-    }
-
     return (
         <>
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
             <div className="py-10 px-28 h-screen">
                 <div className="my-12 mx-auto">
                     <h1 className='text-5xl font-bold mb-12 text-dark-blue' >Write your note here! 📝</h1>
@@ -103,9 +65,11 @@ const Notes = () => {
                     </div>
                     {error && <div className='font-semibold text-lg text-red-400 mt-4'>Somehing error is occured 🙀</div>}
                     {isPending && <Loading />}
-                    {listNotes && <div className="mb-5 flex flex-wrap">{listNotes.map((note) => (
-                        <Note key={note._id} note={note} setLoading={setLoading} setError={setError} notify={notify}/>
-                    ))}</div>}
+                    {listNotes && <div className="mb-5 flex flex-wrap">{
+                        listNotes.map((note) => {
+                            return <Note key={note._id} note={note} setLoading={setLoading} setError={setError} notify={notify} isPending={isPending} />
+                        })
+                    }</div>}
                 </div>
             </div>
             {addPopup && <AddForm toggleAddPopup={toggleAddPopup} setLoading={setLoading} url={url} setError={setError} notify={notify} />}

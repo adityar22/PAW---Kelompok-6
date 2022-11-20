@@ -1,23 +1,20 @@
 import { useState } from "react";
 
-import { useAuthContext } from "../hooks/useAuthContext";
-import { useNotesContext } from "../hooks/useNotesContext";
+import { useHandleUpdate } from "../../hooks/useHandleUpdate";
 
 import InputTag from "./InputTag";
-import ModalDelete from "./ModalDelete";
+import ModalDelete from "../Public/ModalDelete";
 
-const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError, notify }) => {
-    const { user } = useAuthContext();
-    const { dispatch } = useNotesContext();
+const NoteModal = ({ closeDetailPopup, note, handleDelete, setLoading, setError, notify }) => {
 
     const [isEdited, setIsEdited] = useState(false);
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content);
     const [isPinned, setIsPinned] = useState(note.isPinned);
     const [tag, setTag] = useState(note.tag);
-
     const [confirmPopup, setConfirmPopup] = useState(false);
-    const toggleConfirmPopup = (e) =>{
+
+    const toggleConfirmPopup = (e) => {
         e.preventDefault();
         e.stopPropagation();
         setConfirmPopup(!confirmPopup);
@@ -27,44 +24,8 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
         setIsEdited(!isEdited);
     }
 
-    const handleUpdate = async (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        if (!user) {
-            return;
-        }
-
-        setLoading(true);
-
-        const updatedTodos = { title, content, isPinned, tag };
-        console.log(JSON.stringify(updatedTodos));
-        console.log(note._id)
-
-        const response = await fetch('/api/notes/' + note._id, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${user.token}`
-            },
-            body: JSON.stringify(updatedTodos)
-        });
-
-        const json = await response.json();
-
-        if (response.ok) {
-            setLoading(false);
-            toggleDetailPopup();
-            dispatch({ type: 'EDIT_NOTES', payload: json.data });
-            notify.info(json.message);
-        }
-        if (!response.ok) {
-            setLoading(false);
-            // setError(json.error);
-            notify.error(json.error);
-        }
-        setLoading(false);
-    }
+    const updatedNote = { title, content, isPinned, tag };
+    const { handleUpdate } = useHandleUpdate(note, updatedNote, setLoading, setError, notify, closeDetailPopup);
 
     return (
         <>
@@ -86,8 +47,8 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
                                     {note.title}
                                 </h3>
                             }
-                            <button onClick={toggleDetailPopup} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center ml-4" data-modal-toggle="staticModal">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                            <button onClick={closeDetailPopup} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center ml-4">
+                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
                             </button>
                         </div>
                         <div className="p-6 space-y-6">
@@ -124,19 +85,19 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
                             {isEdited ?
                                 <>
                                     <button type="button"
-                                        class="text-white bg-green-500 hover:bg-green-700-100 active:ring-4 active:outline-none active:ring-green-300 rounded-lg border border-green-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 hover:bg-green-700 focus:z-10"
-                                        onClick={handleUpdate}>Update</button>
+                                        className="text-white bg-green-500 hover:bg-green-700-100 active:ring-4 active:outline-none active:ring-green-300 rounded-lg border border-green-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 hover:bg-green-700 focus:z-10"
+                                        onClick={handleUpdate}>Update Note</button>
                                     <button type="button"
-                                        class="text-gray-500 bg-white hover:bg-gray-100 active:ring-4 active:outline-none active:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
+                                        className="text-gray-500 bg-white hover:bg-gray-100 active:ring-4 active:outline-none active:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
                                         onClick={toggleEdit}>Back</button>
                                 </>
                                 :
                                 <>
                                     <button type="button"
-                                        class="text-white bg-dark-blue hover:bg-blue-900 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                        className="text-white bg-dark-blue hover:bg-blue-900 active:ring-4 active:outline-none active:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                         onClick={toggleEdit}>Edit</button>
                                     <button type="button"
-                                        class="text-gray-500 bg-white hover:bg-gray-100 active:ring-4 active:outline-none active:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
+                                        className="text-gray-500 bg-white hover:bg-gray-100 active:ring-4 active:outline-none active:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
                                         onClick={toggleConfirmPopup}>Delete</button>
                                 </>
                             }
@@ -144,7 +105,8 @@ const NoteModal = ({ toggleDetailPopup, note, handleDelete, setLoading, setError
                     </div>
                 </div>
             </div>
-            {confirmPopup && <ModalDelete togglePopup={toggleConfirmPopup} handleDelete={handleDelete}/>}
+            {confirmPopup && <ModalDelete togglePopup={toggleConfirmPopup} handleDelete={handleDelete} />}
+
         </>
     );
 }

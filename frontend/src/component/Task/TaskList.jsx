@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { tasksReducer } from "../contexts/TasksContext";
 import TaskDetail from "./TaskDetail";
+import { format } from 'date-fns';
 
 const TaskList = ({ task, notify, setLoading, setError }) => {
     const [popup, setPopup] = useState(false);
@@ -14,7 +14,7 @@ const TaskList = ({ task, notify, setLoading, setError }) => {
                 <td className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">{task.taskName}</td>
                 <td className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">{task.taskStat}</td>
                 <td className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">{task.taskPriority}</td>
-                <td className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">{task.taskTime}</td>
+                <td className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">{format(new Date(task.taskTime), 'MM/dd/yyyy')}</td>
                 <td className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">
                     <p onClick={togglePopup} className="cursor-pointer text-orange hover:text-yellow-300">Open</p>
                 </td>

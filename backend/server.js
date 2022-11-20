@@ -8,6 +8,7 @@ const connectDB = require('./server/database/connection');
 const taskRouter = require('./server/routes/taskRouter');
 const userRouter = require('./server/routes/userRouter');
 const notesRouter = require('./server/routes/notesRouter');
+const eventsRouter = require('./server/routes/eventsRouter');
 
 const app = express();
 dotenv.config({ path: "config.env" })
@@ -38,5 +39,6 @@ app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
 app.use('/api/tasks', taskRouter);
 app.use('/api/user', userRouter);
 app.use('/api/notes', notesRouter);
+app.use('/api/events', eventsRouter);
 
 app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`) });

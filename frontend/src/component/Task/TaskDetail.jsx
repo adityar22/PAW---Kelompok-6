@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
-import { useTasksContext } from "../hooks/useTasksContext";
-import ModalDelete from "./ModalDelete";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useTasksContext } from "../../hooks/useTasksContext";
+import ModalDelete from "../Public/ModalDelete";
 
 
 const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) => {

@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import Navbar from '../component/Navbar';
+import Navbar from '../component/Public/Navbar';
 import LandingPage from '../pages/LandingPage';
 import Task from '../pages/Task';
 import Calendar from '../pages/Calendar';

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
-import { useTasksContext } from "../hooks/useTasksContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useTasksContext } from "../../hooks/useTasksContext";
 
 const AddTask = ({ togglePopup, setLoading, url, setError, notify }) => {
     const { dispatch} = useTasksContext();
@@ -10,7 +10,7 @@ const AddTask = ({ togglePopup, setLoading, url, setError, notify }) => {
     const [taskDescription, setTaskDescription] = useState("");
     const [taskPriority, setTaskPriority] = useState("");
     const [taskStat, setTaskStat] = useState("Not Started");
-    const [taskTime, setTaskTime] = useState("");
+    const [taskTime, setTaskTime] = useState(new Date());
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -95,7 +95,7 @@ const AddTask = ({ togglePopup, setLoading, url, setError, notify }) => {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="taskTime"
                             type="date"
-                            onChange={(e) => setTaskTime((e.target.value).toString())}
+                            onChange={(e) => setTaskTime(e.target.value)}
                         />
                     </div>
                     <div>

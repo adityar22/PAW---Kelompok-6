@@ -15,7 +15,7 @@ export const notesReducer = (state, action) => {
         case 'EDIT_NOTES':
             console.log(action.payload)
             return {
-                notes: state.notes.map((item) => {return item._id !== action.payload._id ? item : action.payload})
+                notes: state.notes.map((item) => {return item._id !== action.payload._id ? item : action.payload}).sort((a, b) => {return Number(b.isPinned) - Number(a.isPinned)})
             }
         case 'DELETE_NOTES':
             return {
@@ -28,7 +28,6 @@ export const notesReducer = (state, action) => {
 
 const NotesContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(notesReducer, {
-        // notes -> object
         notes: null
     })
 
