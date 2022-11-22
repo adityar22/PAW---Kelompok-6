@@ -1,7 +1,7 @@
 <h1 align="center">
   📝 T'Man - Task Management System
 </h1>
-<p align="center">API CRUD using Express + MongoDB | Pengembangan Aplikasi Web</p>
+<p align="center">Web App using Express + MongoDB | Pengembangan Aplikasi Web</p>
 
 ## ❓ Tentang Aplikasi
 Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengelola task berdasarkan skala prioritas dan deadline. Fitur utama dalam aplikasi ini yaitu adalah CRUD
@@ -18,7 +18,7 @@ Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengel
 - [Saddan Syah Akbar (20/460566/TK/51155)](https://www.github.com/saddansyah)
 
 ## 💾 Documentation
-- [Presentation Slide - Task Management System](https://www.canva.com/design/DAFSMW6FTNQ/1u5KgZ6RQxInhRnGJ9Pazw/view?utm_content=DAFSMW6FTNQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
+- [Presentation Slide - T'Man (Task Management System)](https://www.canva.com/design/DAFSMW6FTNQ/1u5KgZ6RQxInhRnGJ9Pazw/view?utm_content=DAFSMW6FTNQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 
 ## Setting Up Project
 - Install required dependencies:
