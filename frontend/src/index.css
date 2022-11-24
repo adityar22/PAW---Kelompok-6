@@ -27,4 +27,16 @@
   .btn-white {
     @apply bg-white hover:bg-gray-300 text-red-500 font-bold py-2 px-4 border-b-4 border-red-300  rounded-full drop-shadow-lg;
   }
+
+  
+  
+}
+
+
+.navCustom{
+  background-color: black;
+  color: white;
+}
+.navCustom:active{
+  background-color: blue;
 }
