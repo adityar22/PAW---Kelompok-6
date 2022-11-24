@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 import { useLogout } from "../../hooks/useLogout";
 import { useAuthContext } from "../../hooks/useAuthContext";
-
-import Modal from "../Modal";
 
 import controller from "../../asset/controller.png";
 import menu_about from "../../asset/menu_about.png";
@@ -18,23 +16,20 @@ import logo_tman from "../../asset/logoTman.png";
 
 const Navbar = () => {
     const [open, setOpen] = useState(true);
-    const [showModal, setShowModal] = useState(false);
+    const active = "bg-white text-orange"
+    const deactive = "text-gray-300"
 
     const { logout } = useLogout();
     const { user } = useAuthContext();
 
     const Menus = [
-        { title: "Home", src: menu_home, link: "/", isActive: false },
-        { title: "Task ", src: menu_task, link: "/task", isActive: false },
-        { title: "Schedule ", src: menu_calendar, link: "/calendar", isActive: false },
-        { title: "Notes ", src: menu_notes, link: "/notes", isActive: false },
-        { title: "About", src: menu_about, gap: true, link: "/about", isActive: false },
-        { title: "Accounts", src: menu_account, gap: true, link: "/profile", isActive: false }
+        { title: "Home", src: menu_home, link: "/" },
+        { title: "Task ", src: menu_task, link: "/task" },
+        { title: "Schedule ", src: menu_calendar, link: "/calendar" },
+        { title: "Notes ", src: menu_notes, link: "/notes" },
+        { title: "About", src: menu_about, gap: true, link: "/about" },
+        { title: "Accounts", src: menu_account, gap: true, link: "/profile" }
     ];
-
-    const toggleActive=()=>{
-        
-    }
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -43,40 +38,40 @@ const Navbar = () => {
 
     return (
         <div className={` ${open ? "w-72" : "w-20"} 
-            bg-dark-blue h-screen p-5  pt-8  duration-300 relative`}>
+            bg-dark-blue h-full p-5  pt-8  duration-300 relative`}>
             <img src={controller} className={`absolute cursor-pointer -right-3 top-9 w-6 scale-150 rounded-full rotate-180  ${!open && "rotate-0"}`}
                 onClick={() => setOpen(!open)} alt=""
             />
             <div className="flex justify-between flex-col h-full">
                 <div className="content-top">
                     <div className="flex gap-x-4 justify-center">
-                        <Link to="/">
-                            <img src={logo_tman} className={`w-12 inline-block mr-2 ${!open && "m-3"}`}/>
+                        <NavLink to="/">
+                            <img src={logo_tman} className={`w-12 inline-block mr-2 ${!open && "m-3"}`} />
                             <h1
                                 className={`text-orange inline-block mb-12 cursor-pointer origin-left font-bold text-2xl duration-300  ${!open && "scale-0"}`}>
                                 T'Man
                             </h1>
-                        </Link>
+                        </NavLink>
                     </div>
                     <ul className="pt-6">
                         {Menus.map((menu, index) => (
-                            <Link className="" to={menu.link}>
-                                <div key={index}>
-                                    {menu.gap && <div className="inset-0 flex items-center px-2 mt-4"><div className="w-full border-b border-white border-opacity-30"></div></div>}
-                                    <li
-                                        className={` flex gap-3 rounded-md p-2 cursor-pointer hover:bg-blue-500 text-sm items-center transition-all duration-300 gap-x-4 
+                            <div>
+                                <NavLink key={index} to={menu.link} className={({ isActive }) => isActive ? active : deactive}>
+                                    <div>
+                                        {menu.gap && <div className="inset-0 flex items-center px-2 mt-4"><div className="w-full border-b border-white border-opacity-30"></div></div>}
+                                        <li
+                                            className={` flex gap-3 rounded-md p-2 cursor-pointer hover:bg-blue-500 text-sm items-center transition-all duration-300 gap-x-4 
                                 ${menu.gap ? "mt-4" : "mt-2"} 
-                                ${index === 0 && "bg-light-white"} 
-                                ${menu.isActive ? "bg-orange text-white" : "text-gray-300"}`}
-                                >
-
-                                        <img src={menu.src} className="w-4 h-4" alt="" />
-                                        <span className={`${!open && "hidden"} origin-left duration-200 text-base`}>
-                                            {menu.title}
-                                        </span>
-                                    </li>
-                                </div>
-                            </Link>
+                                ${index === 0 && "bg-light-white"} `}
+                                        >
+                                            <img src={menu.src} className="w-4 h-4" alt="" />
+                                            <span className={`${!open && "hidden"} origin-left duration-200 text-base`}>
+                                                {menu.title}
+                                            </span>
+                                        </li>
+                                    </div>
+                                </NavLink>
+                            </div>
                         ))}
                     </ul>
                 </div>

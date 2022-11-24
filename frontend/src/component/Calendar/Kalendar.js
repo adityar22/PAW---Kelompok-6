@@ -62,119 +62,118 @@ export const Calender = () => {
         );
     };
 
-    return ( <
-        Wrapper > {
-            /* <DateControls>
-                    <ion-icon
-                      onClick={() => prevMonth(currentDate, setCurrentDate)}
-                      name="arrow-back-circle-outline"
-                    ></ion-icon>
-                    {getMonthYear(currentDate)}
-                    <ion-icon
-                      onClick={() => nextMonth(currentDate, setCurrentDate)}
-                      name="arrow-forward-circle-outline"
-                    ></ion-icon>
-                  </DateControls> */
-        } <
-        SevenColGrid > {
-            sortDays(currentDate).map((day) => ( <
-                HeadDays className = "nonDRAG" > { day } < /HeadDays>
-            ))
-        } <
-        /SevenColGrid>
+    return (
+        <Wrapper >
+            {
+                /* <DateControls>
+                        <ion-icon
+                          onClick={() => prevMonth(currentDate, setCurrentDate)}
+                          name="arrow-back-circle-outline"
+                        ></ion-icon>
+                        {getMonthYear(currentDate)}
+                        <ion-icon
+                          onClick={() => nextMonth(currentDate, setCurrentDate)}
+                          name="arrow-forward-circle-outline"
+                        ></ion-icon>
+                      </DateControls> */
+            }
+            <SevenColGrid > {
+                sortDays(currentDate).map((day) => (
+                    <HeadDays className="nonDRAG" > {day} </HeadDays>
+                ))
+            }
+            </SevenColGrid>
 
-        <
-        SevenColGrid fullheight = { true }
-        is28Days = { getDaysInMonth(currentDate) === 28 } >
-        {
-            range(getDaysInMonth(currentDate)).map((day) => ( <
-                div id = { `${currentDate.getFullYear()}/${currentDate.getMonth()}/${day}` }
-                onDragEnter = {
-                    (e) =>
-                    onDragEnter(
-                        new Date(
-                            currentDate.getFullYear(),
-                            currentDate.getMonth(),
-                            day
-                        ),
-                        e
-                    )
-                }
-                onDragOver = {
-                    (e) => e.preventDefault() }
-                onDragEnd = { drop }
-                onClick = {
-                    (e) =>
-                    addEvent(
-                        new Date(
-                            currentDate.getFullYear(),
-                            currentDate.getMonth(),
-                            day
-                        ),
-                        e
-                    )
-                } >
-                <
-                span className = { `nonDRAG ${
-                datesAreOnSameDay(
-                  new Date(),
-                  new Date(
-                    currentDate.getFullYear(),
-                    currentDate.getMonth(),
-                    day
-                  )
-                )
-                  ? "active"
-                  : ""
-              }` } >
-                { day } <
-                /span> <
-                EventWrapper > {
-                    events.map(
-                        (ev, index) =>
-                        datesAreOnSameDay(
-                            ev.date,
-                            new Date(
-                                currentDate.getFullYear(),
-                                currentDate.getMonth(),
-                                day
+            <SevenColGrid fullheight={true}
+                is28Days={getDaysInMonth(currentDate) === 28} >
+                {
+                    range(getDaysInMonth(currentDate)).map((day) => (
+                        <div id={`${currentDate.getFullYear()}/${currentDate.getMonth()}/${day}`}
+                            onDragEnter={
+                                (e) =>
+                                    onDragEnter(
+                                        new Date(
+                                            currentDate.getFullYear(),
+                                            currentDate.getMonth(),
+                                            day
+                                        ),
+                                        e
+                                    )
+                            }
+                            onDragOver={
+                                (e) => e.preventDefault()}
+                            onDragEnd={drop}
+                            onClick={
+                                (e) =>
+                                    addEvent(
+                                        new Date(
+                                            currentDate.getFullYear(),
+                                            currentDate.getMonth(),
+                                            day
+                                        ),
+                                        e
+                                    )
+                            } >
+                            <span className={`nonDRAG ${datesAreOnSameDay(
+                                new Date(),
+                                new Date(
+                                    currentDate.getFullYear(),
+                                    currentDate.getMonth(),
+                                    day
+                                )
                             )
-                        ) && ( <
-                            StyledEvent onDragStart = {
-                                (e) => drag(index, e) }
-                            draggable className = "StyledEvent"
-                            id = { `${ev.color} ${ev.title}` }
-                            key = { ev.title }
-                            bgColor = { ev.color } >
-                            { ev.title } <
-                            /StyledEvent>
-                        )
-                    )
-                } <
-                /EventWrapper> <
-                /div>
-            ))
-        } <
-        /SevenColGrid> <
-        /Wrapper>
+                                ? "active"
+                                : ""
+                                }`} >
+                                {day}
+                            </span>
+                            <EventWrapper > {
+                                events.map(
+                                    (ev, index) =>
+                                        datesAreOnSameDay(
+                                            ev.date,
+                                            new Date(
+                                                currentDate.getFullYear(),
+                                                currentDate.getMonth(),
+                                                day
+                                            )
+                                        ) && (
+                                            <StyledEvent onDragStart={
+                                                (e) => drag(index, e)}
+                                                draggable className="StyledEvent"
+                                                id={`${ev.color} ${ev.title}`}
+                                                key={ev.title}
+                                                bgColor={ev.color} >
+                                                {ev.title}
+                                            </StyledEvent>
+                                        )
+                                )
+                            }
+                            </EventWrapper>
+                        </div>
+                    ))
+                }
+            </SevenColGrid>
+        </Wrapper>
     );
 };
 
 const EventWrapper = ({ children }) => {
     if (children.filter((child) => child).length)
-        return ( <
-            > { children } {
-                children.filter((child) => child).length > 2 && ( <
-                    SeeMore onClick = {
+        return (
+            <>
+                {children}
+                {children.filter((child) => child).length > 2 && (
+                    <SeeMore onClick={
                         (e) => {
                             e.stopPropagation();
                             console.log("clicked p");
                         }
                     } >
-                    see more... <
-                    /SeeMore>
+                        see more...
+                    </SeeMore>
                 )
-            } <
-            />
+                }
+            </>
         );
 };

@@ -11,9 +11,9 @@ import NotFound from '../pages/NotFound';
 
 const Home = () => {
     return (
-        <div className="flex">
+        <div className="flex h-screen">
             <Navbar />
-            <div className='w-full max-h-screen overflow-y-scroll'>
+            <div className='w-full h-screen overflow-y-scroll'>
                 <Routes>
                     <Route path='task' element={<Task />} />
                     <Route path='calendar' element={<Calendar />} />
