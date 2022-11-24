@@ -18,14 +18,19 @@ const Profile = () => {
     return (
         <Fragment>
         <div className="px-8 py-6 sm:px-28 sm:py-10 h-screen">
-            <h1 className='sm:text-5xl font-bold mb-8 sm:mb-12 text-dark-blue text-4xl' >Account</h1>
-            <h1 className='sm:text-2xl font-bold mb-5 text-black text-xl' >Personal Info</h1>
+            <h1 className='sm:text-5xl font-bold mb-8 sm:mb-12 text-dark-blue text-4xl' 
+                >Account 👥</h1>
+            <h1 className='sm:text-2xl font-bold mb-5 text-black text-xl' 
+                >Personal Info</h1>
             <p className='sm:text-lg text-black' >Name</p>
-            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 p-2.5 mb-8 focus:outline-orange" placeholder={user.username}></input>
+            <input label="Nama" className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 p-2.5 mb-8 focus:outline-orange" 
+                placeholder={user.username}></input>
             <p className='sm:text-lg text-black' >Email</p>
-            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 p-2.5 mb-8 focus:outline-orange" placeholder={user.email}></input>
+            <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 p-2.5 mb-8 focus:outline-orange" 
+                placeholder={user.email}></input>
             <p className='sm:text-lg text-black' >Password</p>
-            <button className='sm:text-lg mb-8 text-gray-400 hover:text-gray-300' onClick={() => setShowModal(true) }>Change Password</button>
+            <button className='sm:text-lg mb-8 text-gray-400 hover:text-gray-300' 
+                onClick={() => setShowModal(true) }>Change Password</button>
         
             <div> 
                 <button text="py-10" className="button text-sm w-30 md:w-28">Update</button>
@@ -46,8 +51,8 @@ const Profile = () => {
                 <p className='text-lg text-black' >New Password</p>
                 <input required type="password" className="rounded-lg bg-gray-200 p-2 w-full focus:border-blue-500 focus:bg-gray-300 focus:outline-orange"></input>
             </div>
-            <div className="text-center py-6"> 
-                <button text="py-6" className="button px-10">Change Password</button>
+            <div className="text-center pb-6"> 
+                <button text="py-4 mb-2" className="button mx-4">Change Password</button>
             </div>
         </Modal>
 
@@ -57,7 +62,8 @@ const Profile = () => {
                 <p className='text-lg text-black text-center'>Are you sure you want to delete your account?</p>
             </div>
             <div className="text-center pb-6"> 
-                <button text="py-6" className="btn-red px-10">Delete</button>
+                <button text="py-6" className="btn-red px-6 ml-4">Yes, Delete</button>                
+                <button text="py-6" onClick={() => setShowModal1(false)} className="button ml-4 px-6">No, Cancel</button>
             </div>
         </Modal>
 
@@ -67,7 +73,8 @@ const Profile = () => {
                 <p className='text-lg text-black text-center'>Are you sure you want to log out?</p>
             </div>
             <div className="text-center pb-6"> 
-                <button text="py-6" onClick={handleClick} className={`logout btn-red mt-8 px-32`}>Log Out</button>
+                <button text="py-6" onClick={handleClick} className={`logout btn-red px-6 ml-4 mr-2`}>Yes, I'm Sure</button>
+                <button text="py-6" onClick={() => setShowModal2(false)} className="button px-6 ml-4">No, Cancel</button>
             </div>
         </Modal>
         </Fragment>

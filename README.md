@@ -1,7 +1,7 @@
 <h1 align="center">
-  📝 Task Management System
+  📝 T'Man - Task Management System
 </h1>
-<p align="center">API CRUD using Express + MongoDB | Pengembangan Aplikasi Web</p>
+<p align="center">Web App using Express + MongoDB | Pengembangan Aplikasi Web</p>
 
 ## ❓ Tentang Aplikasi
 Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengelola task berdasarkan skala prioritas dan deadline. Fitur utama dalam aplikasi ini yaitu adalah CRUD
@@ -9,6 +9,16 @@ Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengel
 - R (Read)   -> Menampilkan daftar task User yang sudah ditambahkan
 - U (Update) -> Memperbarui task User yang dipilih
 - D (Delete) -> Menghapus task User yang dipilih
+
+## Halaman dan Fitur
+- (Login dan Sign Up)<br>
+Untuk dapat menggunakan aplikasi ini, pengguna diharuskan membuat akun terlebih dahulu, untuk selanjutnya dapat login menggunakan akun tersebut.<br>
+- (Manage Tasks)<br>
+Pada halaman ini, user dapat mengelola task yg berisikan judul, deskripsi, deadline, prioritas, dan status. Selain itu, halaman ini juga memiliki beberapa fitur tambahan seperti searching, pagination, dan sorting.<br>
+- (Manage Notes)<br>
+Halaman notes untuk mengelola catatan. Berisi judul, konten, dan tag. Terdapat fitur filtering / searching.<br>
+- (Manage User Profile)<br>
+Halaman account yang berisikan informasi profile user yang terhubung dengan akun saat login.<br>
 
 ## 👥 Anggota Kelompok 6 
 - [Aditya Ramadhan (20/460535/TK/51124)](https://www.github.com/adityar22)
@@ -18,7 +28,7 @@ Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengel
 - [Saddan Syah Akbar (20/460566/TK/51155)](https://www.github.com/saddansyah)
 
 ## 💾 Documentation
-- [Presentation Slide - Task Management System](https://www.canva.com/design/DAFSMW6FTNQ/1u5KgZ6RQxInhRnGJ9Pazw/view?utm_content=DAFSMW6FTNQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
+- [Presentation Slide - T'Man (Task Management System)](https://www.canva.com/design/DAFSMW6FTNQ/1u5KgZ6RQxInhRnGJ9Pazw/view?utm_content=DAFSMW6FTNQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 
 ## Setting Up Project
 - Install required dependencies:
