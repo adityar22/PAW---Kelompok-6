@@ -39,22 +39,20 @@ const Calendar = () => {
                 {error && < div className='font-semibold text-lg text-red-400 my-4' > Somehing error is occured🙀 </div>}
                 {isPending && < Loading />}
                 <Calender />
-                {
-                    /* <FullCalendar
-                                    //ref={calRef}
-                                    plugins={
-                                        [dayGridPlugin, timeGridPlugin, interactionGridPlugin]}
-                                    initialView="dayGridMonth"
-                                    headerToolbar={{
-                                        left: "prev next today",
-                                        center: "title",
-                                        right: "dayGridMonth timeGridWeek timeGridDay",
-                                    }}
-                                    height={700}
-                                    contentHeight={700}
-                                    events={events}
-                                />{" "} */
-                }
+                {/* <FullCalendar
+                    //ref={calRef}
+                    plugins={
+                        [dayGridPlugin, timeGridPlugin, interactionGridPlugin]}
+                    initialView="dayGridMonth"
+                    headerToolbar={{
+                        left: "prev next today",
+                        center: "title",
+                        right: "dayGridMonth timeGridWeek timeGridDay",
+                    }}
+                    height={700}
+                    contentHeight={700}
+                    events={events}
+                />{" "} */}
             </div>
         </>
     );

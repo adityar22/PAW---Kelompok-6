@@ -56,11 +56,15 @@ const Notes = () => {
 
     return (
         <>
-            <div className="py-10 px-28 h-screen" >
+            <div className="py-20 sm:py10 px-10 sm:px-28 h-screen" >
                 <div className="my-12 mx-auto" >
-                    <h1 className='text-5xl font-bold mb-12 text-dark-blue' > Write Your Note Here!📝 </h1>
-                    <div className='justify-start flex' >
-                        <button type="button" className="button mb-12 mr-7 z-0" onClick={toggleAddPopup} > Add Notes + </button>
+                    <h1 className='text-4xl sm:text-5xl font-bold mb-12 text-dark-blue' > Write Your Note Here!📝 </h1>
+                    <div className='justify-between flex:row sm:flex'>
+                        <button type="button"
+                            className="button mb-10 sm:mb-12 mr-10 sm:mr-7 z-10 -bottom-0 -right-0 sm:z-0 fixed sm:relative"
+                            onClick={toggleAddPopup}
+                        > Add Notes +
+                        </button>
                         <Searchbar term={searchTerm} getSearchTerm={getSearchTerm} inputEl={inputEl} />
                     </div>
                     {error && < div className='font-semibold text-lg text-red-400 mt-4' > Somehing error is occured🙀 </div>}
