@@ -10,90 +10,78 @@ import AddForm from '../component/Notes/AddForm';
 import Searchbar from '../component/Public/Searchbar';
 
 const Notes = () => {
-        const { notes, dispatch, isPending, error, setLoading, setError } = useNotesContext();
-        const { notify } = useDisplayContext();
+    const { notes, dispatch, isPending, error, setLoading, setError } = useNotesContext();
+    const { notify } = useDisplayContext();
 
-        const [addPopup, setAddPopup] = useState(false);
+    const [addPopup, setAddPopup] = useState(false);
 
-        // Backend URL <-- temporary -->
-        const url = '/api/notes';
+    // Backend URL <-- temporary -->
+    const url = '/api/notes';
 
-        // Popup toggle
-        const toggleAddPopup = () => {
-            setAddPopup(!addPopup);
+    // Popup toggle
+    const toggleAddPopup = () => {
+        setAddPopup(!addPopup);
+    }
+
+    // Get Data Hooks
+    useFetch({ url, dispatch, setError, setLoading, type: 'GET_NOTES' });
+
+    // Searching Logic
+    const [searchTerm, setSearchTerm] = useState("");
+    const inputEl = useRef("");
+    const [searchResult, setSearchresult] = useState([]);
+
+    const searchHandler = (searchTerm) => {
+        setSearchTerm(searchTerm);
+        if (searchTerm !== "") {
+            const newNotesList = notes.filter((note) => {
+                return Object.values(note)
+                    .join(" ")
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase());
+            });
+            console.log(newNotesList);
+            setSearchresult(newNotesList);
+        } else {
+            setSearchresult(notes);
         }
+    };
 
-        // Get Data Hooks
-        useFetch({ url, dispatch, setError, setLoading, type: 'GET_NOTES' });
+    const getSearchTerm = () => {
+        searchHandler(inputEl.current.value);
+    };
 
-        // Searching Logic
-        const [searchTerm, setSearchTerm] = useState("");
-        const inputEl = useRef("");
-        const [searchResult, setSearchresult] = useState([]);
-
-        const searchHandler = (searchTerm) => {
-            setSearchTerm(searchTerm);
-            if (searchTerm !== "") {
-                const newNotesList = notes.filter((note) => {
-                    return Object.values(note)
-                        .join(" ")
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase());
-                });
-                console.log(newNotesList);
-                setSearchresult(newNotesList);
-            } else {
-                setSearchresult(notes);
-            }
-        };
-
-        const getSearchTerm = () => {
-            searchHandler(inputEl.current.value);
-        };
-
-        const listNotes = searchTerm < 1 ? notes : searchResult
+    const listNotes = searchTerm < 1 ? notes : searchResult
 
 
-        return ( <
-                >
-                <
-                div className = "py-10 px-28 h-screen" >
-                <
-                div className = "my-12 mx-auto" >
-                <
-                h1 className = 'text-5xl font-bold mb-12 text-dark-blue' > Write Your Note Here!📝 < /h1> <
-                div className = 'justify-start flex' >
-                <
-                button type = "button"
-                className = "button mb-12 mr-7 z-0"
-                onClick = { toggleAddPopup } > Add Notes + < /button> <
-                Searchbar term = { searchTerm }
-                getSearchTerm = { getSearchTerm }
-                inputEl = { inputEl }
-                /> <
-                /div> {
-                    error && < div className = 'font-semibold text-lg text-red-400 mt-4' > Somehing error is occured🙀 < /div>} { isPending && < Loading / > } {
-                        listNotes && < div className = "mb-5 flex flex-wrap" > {
-                                listNotes.map((note) => {
-                                    return <Note key = { note._id }
-                                    note = { note }
-                                    setLoading = { setLoading }
-                                    setError = { setError }
-                                    notify = { notify }
-                                    isPending = { isPending }
-                                    />
-                                })
-                            } < /div>} <
-                            /div> <
-                            /div> {
-                                addPopup && < AddForm toggleAddPopup = { toggleAddPopup }
-                                setLoading = { setLoading }
-                                url = { url }
-                                setError = { setError }
-                                notify = { notify }
-                                />} <
-                                />
-                            );
-                    }
+    return (
+        <>
+            <div className="py-10 px-28 h-screen" >
+                <div className="my-12 mx-auto" >
+                    <h1 className='text-5xl font-bold mb-12 text-dark-blue' > Write Your Note Here!📝 </h1>
+                    <div className='justify-start flex' >
+                        <button type="button" className="button mb-12 mr-7 z-0" onClick={toggleAddPopup} > Add Notes + </button>
+                        <Searchbar term={searchTerm} getSearchTerm={getSearchTerm} inputEl={inputEl} />
+                    </div>
+                    {error && < div className='font-semibold text-lg text-red-400 mt-4' > Somehing error is occured🙀 </div>}
+                    {isPending && < Loading />}
+                    {listNotes && < div className="mb-5 flex flex-wrap" >
+                        {listNotes.map((note) => {
+                            return <Note key={note._id}
+                                note={note}
+                                setLoading={setLoading}
+                                setError={setError}
+                                notify={notify}
+                                isPending={isPending}
+                            />
+                        })
+                        }
+                    </div>}
+                </div>
+            </div>
+            {addPopup && < AddForm toggleAddPopup={toggleAddPopup} setLoading={setLoading} url={url} setError={setError} notify={notify} />}
+        </>
+    );
+}
 
-                    export default Notes;
+export default Notes;
