@@ -67,43 +67,48 @@ const Task = () => {
     //Return Task Page
     return (
         <>
-            {popup && <AddTask togglePopup={togglePopup} setLoading={setLoading} url={url} notify={notify} />}
-            <div className="justify-center items-center py-10 px-28 h-screen">
-                <div className="text-4xl font-bold text-orange my-12 mx-auto">
-                    <h1 className='text-5xl font-bold mb-12 text-dark-blue' >Add your daily task here! 📃</h1>
+            {popup && < AddTask togglePopup={togglePopup} setLoading={setLoading} url={url} notify={notify} />}
+            <div className="justify-center items-center py-20 lg:py-10 px-3 lg:px-28 h-screen w-screen" >
+                <div className="text-4xl font-bold text-orange my-12 mx-auto" >
+                    <h1 className='text-5xl font-bold mb-12 text-dark-blue' > Add Your Daily Task Here!📃 </h1>
                 </div>
-                <div className="justify-between flex">
-                    <div className="align-middle">
-                        <button type="button" className="button mb-3" onClick={togglePopup}>Add Task +</button>
+                <div className="justify-start sm:justify-between flex-row sm:flex" >
+                    <div className="align-middle" >
+                        <button
+                            type="button"
+                            className="button p-3 py-6 sm:py-3 mb-10 sm:mb-12 mr-10 sm:mr-7 z-10 -bottom-0 -right-0 sm:z-0 fixed sm:relative"
+                            onClick={togglePopup}
+                        > Add Task + </button>
                     </div>
                     <Searchbar term={searchTerm} getSearchTerm={getSearchTerm} inputEl={inputEl} />
                 </div>
-                <div className='justify-end flex'>
+                <div className='justify-end flex' >
                     <SortSelection />
                 </div>
 
-                {/* create table */}
-                <table className="shadow-2xl border-2 border-dark-blue-200 text-center w-full my-6">
-                    <thead className="bg-dark-blue text-white">
-                        <tr>
-                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Task Title</th>
-                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Status</th>
-                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Priority</th>
-                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Deadline</th>
-                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide">Action</th>
+                { /* create table */}
+                <table className="shadow-2xl border-2 border-dark-blue-200 text-center w-full my-6 overflow-x-scroll" >
+                    <thead className="bg-dark-blue text-white" >
+                        <tr >
+                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide" > Task Title </th>
+                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide" > Status </th>
+                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide" > Priority </th>
+                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide" > Deadline </th>
+                            <th className="py-3 bg-white-800 p-3 text-sm font-semibold tracking-wide" > Action </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {/*Call Task List Component into Table Row*/}
-                        {error && <div className='font-semibold text-lg text-red-400 my-4'>Somehing error is occured 🙀</div>}
-                        {isPending && <Loading />}
+                    <tbody > { /*Call Task List Component into Table Row*/}
+                        {error && < div className='font-semibold text-lg text-red-400 my-4' > Somehing error is occured🙀 </div>}
+                        {isPending && < Loading />}
 
-                        {listTasks && listTasks.map(task => (<TaskList key={task._id} task={task} notify={notify} setLoading={setLoading} setError={setError} />))}
+                        {listTasks && listTasks.map(task => (< TaskList key={task._id} task={task} notify={notify} setLoading={setLoading} setError={setError} />))}
                     </tbody>
                 </table>
 
-                {/*Call Pagination Component*/}
-                {tasks && <Pagination postPerPage={postPerPage} totalPost={tasks.length} paginate={paginate} />}
+                { /*Call Pagination Component*/}
+                <div className="justify-center">
+                    {tasks && < Pagination postPerPage={postPerPage} totalPost={tasks.length} paginate={paginate} />}
+                </div>
             </div>
         </>
     );
