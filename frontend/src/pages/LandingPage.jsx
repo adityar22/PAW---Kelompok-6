@@ -6,9 +6,9 @@ const Home = () => {
     const { user } = useAuthContext();
 
     return (
-        <div className="py-16 px-2 sm:px-16">
+        <div className="py-16 px-3 lg:px-16 h-screen">
             <div className="flex justify-center items-center mt-24 lg:mt-4"> 
-                <div className="py-8 pl-8 sm:pl-0 sm:py-0 w-1/2">
+                <div className="sm:py-0 lg:py-8 pl-0 lg:lg:pl-0 w-1/2 z-10">
                     <h1 className="text-5xl sm:text-6xl font-bold text-orange">Welcome back,</h1>
                     <h1 className="text-4xl sm:text-6xl font-bold text-dark-blue py-6">{user.username}!</h1>
                     <p className="text-sm sm:text-lg">How's your day?</p>
@@ -18,8 +18,8 @@ const Home = () => {
                         <Link to="/task">Get Started</Link>
                     </button>
                 </div>
-                <div className="flex w-1/2 ml-2"> 
-                    <img src={vector_landing} className="hidden lg:block" alt="Task PNG"/>
+                <div className="flex w-1/2 ml-2 justify-center sm:bottom-0 sm:-right-0 sm:fixed lg:relative"> 
+                    <img src={vector_landing} className="hidden sm:block" alt="Task PNG"/>
                 </div>
 
                 {/* <ModalConfirm/> */}
