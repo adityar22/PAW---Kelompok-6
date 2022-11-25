@@ -17,7 +17,7 @@ import "../../index.css"
 
 
 const Navbar = () => {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const active = "bg-white text-orange font-bold"
     const deactive = "text-gray-300"
 
@@ -42,7 +42,7 @@ const Navbar = () => {
         <>
             <div className={`${open ? "w-full sm:w-72" : "w-full sm:w-20 h-20 sm:h-screen"} 
             bg-dark-blue p-5  sm:pt-8  duration-300 fixed sm:relative z-40`}>
-                <img src={controller} className={`absolute cursor-pointer -right-0 mr-6 sm:mr-0 sm:-right-3 top-9 w-6 scale-150 rounded-full  ${!open ? "-rotate-90 sm:rotate-0" : "rotate-90 sm:rotate-180"}`}
+                <img src={controller} className={`absolute cursor-pointer -right-0 mr-6 sm:mr-0 sm:-right-3 w-6 scale-150 rounded-full  ${!open ? "top-9 rotate-90 sm:rotate-0" : "-bottom-0 sm:top-9 -rotate-90 sm:rotate-180"}`}
                     onClick={() => setOpen(!open)} alt=""
                 />
                 <div className="flex justify-between flex-col h-full ">
