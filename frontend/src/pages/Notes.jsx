@@ -56,7 +56,7 @@ const Notes = () => {
 
     return (
         <>
-            <div className="py-20 sm:py10 px-10 sm:px-28 h-screen" >
+            <div className="py-20 sm:py10 px-10 sm:px-28 h-screen w-full" >
                 <div className="my-12 mx-auto" >
                     <h1 className='text-4xl sm:text-5xl font-bold mb-12 text-dark-blue' > Write Your Note Here!📝 </h1>
                     <div className='justify-between flex:row sm:flex'>
@@ -82,8 +82,8 @@ const Notes = () => {
                         }
                     </div>}
                 </div>
-            </div>
             {addPopup && < AddForm toggleAddPopup={toggleAddPopup} setLoading={setLoading} url={url} setError={setError} notify={notify} />}
+            </div>
         </>
     );
 }
