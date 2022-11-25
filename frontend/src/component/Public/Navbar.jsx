@@ -56,7 +56,7 @@ const Navbar = () => {
                                 </h1>
                             </NavLink>
                         </div>
-                        <div className={!open ? "invisible sm:visible sm:pt-6" : "visible pt3 sm:pt-6"}>
+                        <div className={!open ? "hidden sm:block sm:pt-6" : "block pt3 sm:pt-6"}>
                             {Menus.map((menu, index) => (
                                 <div>
                                     <NavLink key={index} to={menu.link} className={({ isActive }) => isActive ? active : deactive}>

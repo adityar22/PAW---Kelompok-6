@@ -57,7 +57,7 @@ const AddForm = ({ toggleAddPopup, setLoading, url, setError, notify }) => {
     return (
         <>
             <div className="overlay z-10"></div>
-            <div className="container w-fit mx-auto absolute z-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
+            <div className="container w-fit mx-auto fixed z-30 mt-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:hover:scale-105 transition-all duration-700">
                 <form className="create w-screen max-w-xl mx-8 bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
                     <div className="flex flex-row justify-between mb-12">
                         <h3 className="text-2xl font-semibold"> Add New Notes </h3>
