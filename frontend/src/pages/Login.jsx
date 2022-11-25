@@ -21,11 +21,14 @@ const Login = ({ notify }) => {
         <>
             <section className="text-gray-600 body-font flex items-center w-screen h-screen">
                 <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
-                    <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
+                    <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0 lg:pl-10">
                         <h1 className="title-font font-medium text-4xl text-gray-900">Welcome back at <span className="text-orange font-bold">T-Man</span></h1>
-                        <p className="leading-relaxed mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae consectetur dicta libero fugiat odit tempora impedit harum quidem, aspernatur amet..</p>
+                        <p className="leading-relaxed mt-4 lg:mr-10">We bring together people to accomplish great things. We keep you on track. A great plan lead to great things. </p>
+                        {/* <p className="leading-relaxed mt-4 italic">
+                       “Those who plan do better than those who do not plan, even though they rarely stick to their plan.” </p>
+                       <p> - Winston Churchill</p> */}
                     </div>
-                    <form className="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0" onSubmit={handleSubmit}>
+                    <form className="lg:mr-16 lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0" onSubmit={handleSubmit}>
                         <h2 className="text-gray-900 text-lg font-medium title-font mb-5">Login</h2>
                         <div className="relative mb-4">
                             <label className="leading-7 text-sm text-gray-600">Email</label>
