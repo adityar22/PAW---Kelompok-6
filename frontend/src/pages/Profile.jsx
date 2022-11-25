@@ -88,7 +88,7 @@ const Profile = () => {
 
     return (
         <Fragment>
-        <div className="px-8 py-6 sm:px-28 sm:py-10 h-screen">
+        <div className="px-8 py-28 sm:px-28 sm:py-10 h-screen w-screen">
             <h1 className='sm:text-5xl font-bold mb-8 sm:mb-12 text-dark-blue text-4xl' 
                 >Account 👥</h1>
             <h1 className='sm:text-2xl font-bold mb-5 text-black text-xl' 
@@ -108,7 +108,7 @@ const Profile = () => {
                 required
                 id="email"
                 type="text"
-                value={email}
+                defaultValue={email}
                 onChange={(e) => setEmail(e.target.value)}></input>
 
             <p className='sm:text-lg text-black' >Password</p>
