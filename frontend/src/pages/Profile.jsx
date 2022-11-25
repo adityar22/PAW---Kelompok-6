@@ -1,19 +1,90 @@
 import { Fragment, useState } from "react";
 import { useLogout } from "../hooks/useLogout";
+import { useDisplayContext } from '../hooks/useDisplayContext';
+import { useAuthContext } from '../hooks/useAuthContext';
+
+import useFetch from '../hooks/useFetch';
 import Modal from "../component/Modal";
-import { useAuthContext } from "../hooks/useAuthContext";
+// import { useHandleUpdateUser } from "../hooks/useHandleUpdateUser";
+
 
 const Profile = () => {
-    const [showModal, setShowModal] = useState(false);
-    const [showModal1, setShowModal1] = useState(false);
-    const [showModal2, setShowModal2] = useState(false);
-    const { logout } = useLogout();
-    const { user } = useAuthContext();
-    
     const handleClick = (e) => {
         e.preventDefault();
         logout();
     };
+
+    const { user, dispatch, isPending, error, setLoading, setError } = useAuthContext();
+    const { notify } = useDisplayContext();
+    const [popup, setPopup] = useState(false);
+
+    const url = '/api/profile/';
+
+    const togglePopup = () => {
+        setPopup(!popup);
+    }
+
+    // useFetch({ url, dispatch, setError, setLoading, type: 'EDIT_USER' });
+
+    const [username, setUsername] = useState(user.username);
+    const [email, setEmail] = useState(user.email);
+    const [isEdited, setIsedited] = useState(false);
+    const[confirm, setConfirm] = useState(false);
+
+    // const toggleConfirm=()=>{
+    //      setConfirm(!confirm);
+    // }
+
+    // const toggleEdit = () => {
+    //     setIsedited(!isEdited);
+    // }
+
+    // Update handler
+    const handleUpdateUser = async (e) => {   
+        console.log("quwot");
+        e.stopPropagation();
+        e.preventDefault();
+    
+            if (!user) {
+                return;
+            }
+    
+            setLoading(true);
+            console.log(user)
+
+            const updateUser = { username, email }
+            console.log(updateUser)
+            const response = await fetch('/api/user/profile/' + user.id, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'Authorization': `Bearer ${user.token}`
+                },
+                body: JSON.stringify(updateUser)
+            });
+    
+            const json = await response.json();  
+
+            console.log(json.data)
+            if (response.ok) {
+                // closeDetailPopup();
+                setLoading(false);
+                dispatch({ type: 'EDIT_USER', payload: json.data });
+                togglePopup();
+                notify.info(json.message);
+            }
+            if (!response.ok) {
+                setLoading(false);
+                setError(json.error);
+                notify.error(json.error);
+            }
+            setLoading(false);
+        }
+
+    const [showModal, setShowModal] = useState(false);
+    const [showModal1, setShowModal1] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
+    const { logout } = useLogout();
 
     return (
         <Fragment>
@@ -23,17 +94,32 @@ const Profile = () => {
             <h1 className='sm:text-2xl font-bold mb-5 text-black text-xl' 
                 >Personal Info</h1>
             <p className='sm:text-lg text-black' >Name</p>
-            <input label="Nama" className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 p-2.5 mb-8 focus:outline-orange" 
-                placeholder={user.username}></input>
+            <input
+                required
+                className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 p-2.5 mb-8 focus:outline-orange" 
+                id="username"
+                type="text"
+                defaultValue={username}
+                onChange={(e) => setUsername(e.target.value)}>
+            </input>    
+
             <p className='sm:text-lg text-black' >Email</p>
             <input className="bg-gray-200 border text-sm rounded-lg focus:border-blue-500 focus:bg-gray-300 block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 p-2.5 mb-8 focus:outline-orange" 
-                placeholder={user.email}></input>
+                required
+                id="email"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}></input>
+
             <p className='sm:text-lg text-black' >Password</p>
             <button className='sm:text-lg mb-8 text-gray-400 hover:text-gray-300' 
                 onClick={() => setShowModal(true) }>Change Password</button>
         
             <div> 
-                <button text="py-10" className="button text-sm w-30 md:w-28">Update</button>
+                <button 
+                    text="py-10" 
+                    className="button text-sm w-30 md:w-28"
+                    onClick={handleUpdateUser}>Update</button>
                 <button text="py-10" className="button text-sm w-30 ml-4 md:md-8 md:w-28 md:ml-15">Cancel</button>
             </div>
             <div className="pt-8"> 

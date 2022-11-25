@@ -63,7 +63,7 @@ const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) =>
         }
 
         setLoading(true);
-
+        console.log(task)
         const updateTask = { taskName, taskDescription, taskTime, taskPriority, taskStat }
         const response = await fetch('/api/tasks/' + task._id, {
             method: 'PUT',
