@@ -7,7 +7,7 @@ import useFetch from '../hooks/useFetch';
 import TaskList from '../component/Task/TaskList';
 import Loading from '../component/Loading';
 import Searchbar from '../component/Public/Searchbar'
-import SortSelection from '../component/Public/SortSelection';
+// import SortSelection from '../component/Public/SortSelection';
 import Pagination from '../component/Public/Pagination';
 import AddTask from '../component/Task/AddTask';
 
