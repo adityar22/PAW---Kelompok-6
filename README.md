@@ -19,6 +19,8 @@ Pada halaman ini, user dapat mengelola task yg berisikan judul, deskripsi, deadl
 Halaman notes untuk mengelola catatan. Berisi judul, konten, dan tag. Terdapat fitur filtering / searching.<br>
 - (Manage User Profile)<br>
 Halaman account yang berisikan informasi profile user yang terhubung dengan akun saat login.<br>
+- (Calendar)<br>
+Terdapat calendar view untuk melihat tugas-tugas pada hari yang bersangkutan.<br>
 
 ## 👥 Anggota Kelompok 6 
 - [Aditya Ramadhan (20/460535/TK/51124)](https://www.github.com/adityar22)
@@ -51,9 +53,11 @@ npm start
   - App.js             # routing pages
   - asset              # asset non-public (gambar, font, dll)
   - components
-    - elements         # component element satuan
-    - layouts          # component layout
-    - templates        # component template yang dapat digunakan berulang kali
+    - calendar         # calendar view
+    - events           # for managing events
+    - notes            # for taking notes
+    - public           # additional features
+    - tasks            # for managing tasks
   - contexts
   - hooks              # react hook
   - pages              # halaman - halaman
