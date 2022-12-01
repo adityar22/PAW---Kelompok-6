@@ -1,5 +1,4 @@
-import React, { useState} from "react";
-import { useEventContext } from "../hooks/useEventContext";
+import React, { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { useDisplayContext } from "../hooks/useDisplayContext";
 
@@ -8,9 +7,9 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionGridPlugin from "@fullcalendar/interaction";
 
-import AddEvent from "../component/Event/AddEvent";
 import Loading from "../component/Loading";
 import { useTasksContext } from "../hooks/useTasksContext";
+import AddTask from "../component/Task/AddTask";
 
 // import { Calender } from "../component/Calendar/Kalendar";
 
@@ -27,21 +26,19 @@ const Calendar = () => {
     const togglePopup = () => {
         setPopup(!popup);
     };
-    const renderEvent=()=>{
-        {tasks && tasks.map(event=>{return(
+    const renderEvent = () => {
+        setLoading(false)
+        return (
             <>
-                <b>{event.taskName}</b>
-                <i>{event.taskTime.Date.parse('yyyy-mm-dd')}</i>
-                {console.log(event.taskName)}
-                {console.log(event.taskTime.Date.parse('yyyy-mm-dd'))}
+                <b>"2022-11-30"</b>
+                <i>"Coba"</i>
             </>
-        );
-        })}
+        )
     }
 
     return (
         <>
-            {popup && < AddEvent togglePopup={togglePopup} setLoading={setLoading} url={url} notify={notify} />}
+            {popup && < AddTask togglePopup={togglePopup} setLoading={setLoading} url={url} notify={notify} />}
             <div className="py-10 px-28 w-full h-screen">
                 <div className="text-4xl font-bold text-orange my-12 mx-auto" >
                     <h1 className='text-5xl font-bold mb-12 text-dark-blue' > Add Your Events Here!📅 </h1>
@@ -64,10 +61,7 @@ const Calendar = () => {
                     }}
                     height={700}
                     contentHeight={500}
-                    eventContent={
-                        {renderEvent}
-                    }
-
+                    eventContent={renderEvent()}
                 />{" "}
             </div>
         </>
