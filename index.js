@@ -21,24 +21,26 @@ app.use(morgan('tiny'));
 connectDB();
 
 //parse req
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
+app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-
-//set view engine
-app.set("view engine", "ejs")
-//app.set("views",path.resolve(__dirname,"views/ejs"))
-
-//load asstes
-app.use('/css', express.static(path.resolve(__dirname, "assets/css")))
-app.use('/img', express.static(path.resolve(__dirname, "assets/img")))
-app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
 
 app.use('/api/tasks', taskRouter);
 app.use('/api/user', userRouter);
 app.use('/api/notes', notesRouter);
 app.use('/api/events', eventsRouter);
+
+app.use(express.static(path.join(__dirname, "./frontend/build")));
+
+app.get("*", function (_, res) {
+  res.sendFile(
+    path.join(__dirname, "./frontend/build/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+});
 
 app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`) });
