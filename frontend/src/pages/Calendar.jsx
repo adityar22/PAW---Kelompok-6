@@ -38,7 +38,7 @@ const Calendar = () => {
     
     useEffect(() => {
         tasks && renderEvent(tasks)
-    }, [tasks])
+    }, [tasks]);
 
     return (
         <>
