@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { useDisplayContext } from "../hooks/useDisplayContext";
 
@@ -19,22 +19,26 @@ const Calendar = () => {
     const { notify } = useDisplayContext();
     const [popup, setPopup] = useState(false);
     const url = "/api/tasks";
+    const [event, setEvent] = useState([]);
 
     useFetch({ url, dispatch, setError, setLoading, type: "GET_TASKS" });
-    console.log(tasks);
 
     const togglePopup = () => {
         setPopup(!popup);
     };
-    const renderEvent = () => {
-        setLoading(false)
-        return (
-            <>
-                <b>"2022-11-30"</b>
-                <i>"Coba"</i>
-            </>
-        )
-    }
+
+    const renderEvent = (tasks) => {
+        const events = []
+        tasks.forEach((task)=>(
+            events.push({title:task.taskName, date:task.taskTime})
+        ))
+        setEvent(events);
+        console.log(event);
+    };
+    
+    useEffect(() => {
+        tasks && renderEvent(tasks)
+    }, [tasks])
 
     return (
         <>
@@ -50,7 +54,6 @@ const Calendar = () => {
                 {isPending && < Loading />}
                 {/* <Calender /> */}
                 <FullCalendar
-                    //ref={calRef}
                     plugins={
                         [dayGridPlugin, timeGridPlugin, interactionGridPlugin]}
                     initialView="dayGridMonth"
@@ -61,7 +64,7 @@ const Calendar = () => {
                     }}
                     height={700}
                     contentHeight={500}
-                    eventContent={renderEvent()}
+                    events={event}
                 />{" "}
             </div>
         </>

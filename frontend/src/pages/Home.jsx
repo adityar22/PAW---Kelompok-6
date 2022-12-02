@@ -8,6 +8,8 @@ import Notes from '../pages/Notes';
 import About from '../pages/About';
 import Profile from '../pages/Profile';
 import NotFound from '../pages/NotFound';
+import { useTasksContext } from '../hooks/useTasksContext';
+import useFetch from '../hooks/useFetch';
 
 const Home = () => {
     return (
