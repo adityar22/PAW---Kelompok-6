@@ -4,7 +4,7 @@
 <p align="center">Web App using Express + MongoDB | Pengembangan Aplikasi Web</p>
 
 ## 📃Table of Contents
-- [Tentang Aplikasi](#about)  
+- [Tentang Aplikasi](#tentang)  
 - [Halaman dan Fitur](#feat)  
 - [Anggota Kelompok 6](#contributor)  
 - [Documentation](#docs)  
@@ -12,7 +12,7 @@
 - [Folder Structure](#folder)  
 
 
-## ❓ Tentang Aplikasi <a name="about"/>
+## ❓ Tentang Aplikasi <a name="tentang"/>
 T'Man adalah aplikasi berbasis web yang membantu pengguna dalam mengelola task berdasarkan skala prioritas dan deadline. Selain itu, T'Man juga membantu pengguna untuk mencatat segala hal melalui fitur quick notesnya.
 
 ## ✅ Halaman dan Fitur <a name="feat"/>
