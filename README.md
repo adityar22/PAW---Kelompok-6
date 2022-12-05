@@ -1,7 +1,7 @@
 <h1 align="center">
   📝 T'Man - Task Management System
 </h1>
-<p align="center">Web App using Express + MongoDB | Pengembangan Aplikasi Web</p>
+<p align="center">Web App using MERN + Tailwind CSS tech stack | Pengembangan Aplikasi Web</p>
 
 ## 📃Table of Contents
 - Tentang Aplikasi
@@ -101,4 +101,4 @@ npm build
   - hooks              # react hook 
   - pages              # halaman - halaman
 ``````````
-
+<br>
