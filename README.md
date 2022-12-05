@@ -3,49 +3,88 @@
 </h1>
 <p align="center">Web App using Express + MongoDB | Pengembangan Aplikasi Web</p>
 
-## ❓ Tentang Aplikasi
-Aplikasi ini merupakan aplikasi berbasis web yang membantu pengguna dalam mengelola task berdasarkan skala prioritas dan deadline. Fitur utama dalam aplikasi ini yaitu adalah CRUD
-- C (Create) -> Membuat task User yang terdiri dari Nama task, Deskripsi task, Deadline, dan Prioritas
-- R (Read)   -> Menampilkan daftar task User yang sudah ditambahkan
-- U (Update) -> Memperbarui task User yang dipilih
-- D (Delete) -> Menghapus task User yang dipilih
+## 📃Table of Contents
+- [Tentang Aplikasi](#about)  
+- [Halaman dan Fitur](#feat)  
+- [Anggota Kelompok 6](#contributor)  
+- [Documentation](#docs)  
+- [Setting Up Project](#setting)
+- [Folder Structure](#folder)  
 
-## Halaman dan Fitur
-- (Login dan Sign Up)<br>
+
+## ❓ Tentang Aplikasi <a name="about"/>
+T'Man adalah aplikasi berbasis web yang membantu pengguna dalam mengelola task berdasarkan skala prioritas dan deadline. Selain itu, T'Man juga membantu pengguna untuk mencatat segala hal melalui fitur quick notesnya.
+
+## ✅ Halaman dan Fitur <a name="feat"/>
+- ### Login dan Sign Up<br>
 Untuk dapat menggunakan aplikasi ini, pengguna diharuskan membuat akun terlebih dahulu, untuk selanjutnya dapat login menggunakan akun tersebut.<br>
-- (Manage Tasks)<br>
+- ### Manage Tasks<br>
 Pada halaman ini, user dapat mengelola task yg berisikan judul, deskripsi, deadline, prioritas, dan status. Selain itu, halaman ini juga memiliki beberapa fitur tambahan seperti searching, pagination, dan sorting.<br>
-- (Manage Notes)<br>
+- ### Manage Notes<br>
 Halaman notes untuk mengelola catatan. Berisi judul, konten, dan tag. Terdapat fitur filtering / searching.<br>
-- (Manage User Profile)<br>
+- ### Manage User Profile<br>
 Halaman account yang berisikan informasi profile user yang terhubung dengan akun saat login.<br>
-- (Calendar)<br>
+- ### Calendar Task View<br>
 Terdapat calendar view untuk melihat tugas-tugas pada hari yang bersangkutan.<br>
+- ### Pomodoro (coming soon 🚧)
 
-## 👥 Anggota Kelompok 6 
+## 👥 Anggota Kelompok 6 <a name="contributor"/>
 - [Aditya Ramadhan (20/460535/TK/51124)](https://www.github.com/adityar22)
 - [Fachrizal Bayu Nugroho (19/446775/TK/49880)](https://github.com/fachrizalbayunugroho)
 - [Richard Harryson (20/456378/TK/50508)](https://www.github.com/RichardC0de)
 - [Rizky Intan Nurlita (20/456379/TK/50509)](https://www.github.com/rizkyintan)
 - [Saddan Syah Akbar (20/460566/TK/51155)](https://www.github.com/saddansyah)
 
-## 💾 Documentation
+## 💾 Documentation <a name="docs"/>
 - [Presentation Slide - T'Man (Task Management System)](https://www.canva.com/design/DAFSMW6FTNQ/1u5KgZ6RQxInhRnGJ9Pazw/view?utm_content=DAFSMW6FTNQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
+- [UI Wireframe](https://www.figma.com/file/p4vjT4oBKqxJkXcNWI9Z7r/PAW-6-UI%2FUX?node-id=0%3A1)
+- Postman API Documentation
 
-## Setting Up Project
+<hr/>
+
+## ⚙ Setting Up Project <a name="setting"/>
+### Backend (has built-in frontend)
 - Install required dependencies:
-
 ```````````
 npm install
 ```````````
-
 - Run the program:
-
 ```````````
 npm start
 ```````````
+### Frontend
+- Go to frontend directory:
+``````````
+cd frontend
+``````````
+- Install required dependencies:
+```````````
+npm install
+```````````
+- Run the program:
+```````````
+npm start
+```````````
+- Build to static files:
+``````````
+npm build
+``````````
 
-## Folder Structure (frontend)
+## 📁 Folder Structure <a name="folder"/> 
+```
+- frontend             # frontend folder
+- server
+  - controller         # all server-side logic and backend services
+  - database           # mongooso to mongodb connection 
+  - helper             # helpers functions
+  - middleware         # express middleware function
+  - model              # non-relational database schema for mongodb
+  - routes             # endpoints of the controllers
+- index.js             # server initialization
+- config.env           # environment variables
+- package.json         # dependency and npm scripts
+```
+### Folder Structure (frontend)
 ``````````
 - public               # bisa diakses public
 - src
@@ -58,7 +97,8 @@ npm start
     - notes            # for taking notes
     - public           # additional features
     - tasks            # for managing tasks
-  - contexts
-  - hooks              # react hook
+  - contexts           # react context + reducer
+  - hooks              # react hook 
   - pages              # halaman - halaman
 ``````````
+
