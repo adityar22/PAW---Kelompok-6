@@ -4,18 +4,18 @@
 <p align="center">Web App using Express + MongoDB | Pengembangan Aplikasi Web</p>
 
 ## 📃Table of Contents
-- [Tentang Aplikasi](#tentang)  
-- [Halaman dan Fitur](#feat)  
-- [Anggota Kelompok 6](#contributor)  
-- [Documentation](#docs)  
-- [Setting Up Project](#setting)
-- [Folder Structure](#folder)  
+- Tentang Aplikasi
+- Halaman dan Fitur
+- Anggota Kelompok 6
+- Documentation 
+- Setting Up Project
+- Folder Structure
 
 
-## ❓ Tentang Aplikasi <a name="tentang"/>
+## ❓ Tentang Aplikasi
 T'Man adalah aplikasi berbasis web yang membantu pengguna dalam mengelola task berdasarkan skala prioritas dan deadline. Selain itu, T'Man juga membantu pengguna untuk mencatat segala hal melalui fitur quick notesnya.
 
-## ✅ Halaman dan Fitur <a name="feat"/>
+## ✅ Halaman dan Fitur
 - ### Login dan Sign Up<br>
 Untuk dapat menggunakan aplikasi ini, pengguna diharuskan membuat akun terlebih dahulu, untuk selanjutnya dapat login menggunakan akun tersebut.<br>
 - ### Manage Tasks<br>
@@ -28,21 +28,21 @@ Halaman account yang berisikan informasi profile user yang terhubung dengan akun
 Terdapat calendar view untuk melihat tugas-tugas pada hari yang bersangkutan.<br>
 - ### Pomodoro (coming soon 🚧)
 
-## 👥 Anggota Kelompok 6 <a name="contributor"/>
+## 👥 Anggota Kelompok 6
 - [Aditya Ramadhan (20/460535/TK/51124)](https://www.github.com/adityar22)
 - [Fachrizal Bayu Nugroho (19/446775/TK/49880)](https://github.com/fachrizalbayunugroho)
 - [Richard Harryson (20/456378/TK/50508)](https://www.github.com/RichardC0de)
 - [Rizky Intan Nurlita (20/456379/TK/50509)](https://www.github.com/rizkyintan)
 - [Saddan Syah Akbar (20/460566/TK/51155)](https://www.github.com/saddansyah)
 
-## 💾 Documentation <a name="docs"/>
+## 💾 Documentation
 - [Presentation Slide - T'Man (Task Management System)](https://www.canva.com/design/DAFSMW6FTNQ/1u5KgZ6RQxInhRnGJ9Pazw/view?utm_content=DAFSMW6FTNQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 - [UI Wireframe](https://www.figma.com/file/p4vjT4oBKqxJkXcNWI9Z7r/PAW-6-UI%2FUX?node-id=0%3A1)
 - Postman API Documentation
 
 <hr/>
 
-## ⚙ Setting Up Project <a name="setting"/>
+## ⚙ Setting Up Project
 ### Backend (has built-in frontend)
 - Install required dependencies:
 ```````````
@@ -70,7 +70,7 @@ npm start
 npm build
 ``````````
 
-## 📁 Folder Structure <a name="folder"/> 
+## 📁 Folder Structure
 ```
 - frontend             # frontend folder
 - server
