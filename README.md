@@ -101,4 +101,18 @@ npm build
   - hooks              # react hook 
   - pages              # halaman - halaman
 ``````````
+## 📍 API Routes
+Base URL:
+```
+tman-app.vercel.app
+```
+Endpoints:
+```
+/api/tasks             # API for task (login token required)
+/api/notes             # API for notes (login token required)
+/api/user              # API for users 
+  /login               # API for login (POST)
+  /signup              # API for signup (POST)
+  /profile             # API to get and update user profile (GET, PUT)
+```
 <br>
