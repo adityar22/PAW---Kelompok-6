@@ -1,44 +1,64 @@
 const notesModel = require('../model/notesModel');
 const mongoose = require('mongoose');
 
-const getAllNotes = async (req, res) => {
-    const user_id = req.user._id; // diambil dari requireAuth yang sudah menyimpan id sebelumnya
-
+const getAllNotes = async (req, res, next) => {
     try {
+        const user_id = req.user._id; // diambil dari requireAuth yang sudah menyimpan id sebelumnya
         const notes = await notesModel.find({ user_id }).sort({ isPinned: -1, createdAt: -1 }).exec();
 
         if (!notes) {
-            return res.status(404).json({ error: 'No such notes' });
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Notes is empty',
+              };
         }
 
-        res.status(200).json(notes);
+        res.status(200).json({
+            success: true, 
+            message: 'Your all notes is found!',
+            data: notes
+        });
     }
     catch (err) {
-        res.status(400).json({ error: err.message });
+        next(err);
     }
 };
 
-const getNotesById = async (req, res) => {
-    const id = mongoose.Types.ObjectId(req.params.id);
-    const user_id = req.user._id;
-
-    console.log(id);
-
+const getNotesById = async (req, res, next) => {
     try {
+        const id = req.params.id;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Your note id is not valid',
+              };
+        }
+
+        const user_id = req.user._id;
         const notes = await notesModel.find({ user_id }).findOne({ _id: id }).exec();
 
         if (!notes) {
-            return res.status(404).json({ error: 'No such notes' });
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Note is not found',
+              };
         }
 
-        res.status(200).json(notes);
+        res.status(200).json({
+            success: true, 
+            message: 'Note is found!',
+            data: notes
+        });
     }
     catch (err) {
-        res.status(400).json({ error: err.message });
+        next(err);
     }
 }
 
-const getFilteredNotes = async (req, res) => {
+const getFilteredNotes = async (req, res, next) => {
     const user_id = req.user._id;
 
     try {
@@ -46,7 +66,11 @@ const getFilteredNotes = async (req, res) => {
         const notes = await notesModel.find({ user_id }).sort({ createdAt: -1 }).exec();
 
         if (!notes) {
-            return res.status(404).json({ error: 'No such notes' });
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Note is not found',
+              };
         }
 
         const filteredNotes = notes.filter(data => {
@@ -58,74 +82,105 @@ const getFilteredNotes = async (req, res) => {
             return isValid;
         })
 
-        res.status(200).json(filteredNotes);
+        res.status(200).json({
+            success: true, 
+            message: 'Note is found!',
+            data: filteredNotes
+        });
     }
     catch (err) {
-        res.status(400).json({ error: err.message });
+        next(err);
     }
 }
 
-const createNotes = async (req, res) => {
-    const { title, content, isPinned, tag } = req.body;
-    const user_id = req.user._id; // diambil dari requireAuth yang sudah menyimpan id sebelumnya
-
+const createNotes = async (req, res, next) => {
+    
     try {
+        const { title, content, isPinned, tag } = req.body;
+        const user_id = req.user._id; // diambil dari requireAuth yang sudah menyimpan id sebelumnya
         const newNotes = await notesModel.create({ title, content, user_id, isPinned, tag });
+
         res.status(200).json({
-            message: "Notes created succesfully",
+            success: true, 
+            message: 'New note is added succesfully!',
             data: newNotes
         });
     }
     catch (err) {
-        res.status(400).json({ error: err.message });
+        next(err);
     };
 }
 
-const updateNotes = async (req, res) => {
-    const id = mongoose.Types.ObjectId(req.params.id);
+const updateNotes = async (req, res, next) => {
+    if (!req.body) {
+        throw {
+            success: false,
+            statusCode: 404,
+            message: 'Your data to update is empty',
+          };
+    }
 
     try {
+        const id = req.params.id;
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(404).json({ error: 'No such notes' })
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Your note id is not valid',
+              };
         }
 
         const notes = await notesModel.findOneAndUpdate({ _id: id }, { ...req.body }, { returnDocument: 'after' }).exec();
 
         if (!notes) {
-            return res.status(404).json({ error: 'No such notes' });
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Note that you want to update is not found',
+              };
         }
 
         res.status(200).json({
-            message: "Notes updated succesfully",
+            success: true, 
+            message: 'Note is updated succesfully!',
             data: notes
-        })
+        });
     }
     catch (err) {
-        res.status(400).json({ error: err.message });
+        next(err);
     }
 };
 
-const deleteNotes = async (req, res) => {
-    const id = mongoose.Types.ObjectId(req.params.id);
-
+const deleteNotes = async (req, res, next) => {
+    
     try {
+        const id = req.params.id;
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(404).json({ error: 'No such notes' });
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Your note id is not valid',
+              };
         }
 
         const notes = await notesModel.findOneAndDelete({ _id: id }).exec();
 
         if (!notes) {
-            return res.status(404).json({ error: 'No such notes' });
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Note that you want to delete is not found',
+              };
         }
 
         res.status(200).json({
-            message: "Notes deleted succesfully",
+            success: true, 
+            message: 'Note is deleted succesfully!',
             data: notes
         });
     }
     catch (err) {
-        res.status(400).json({ error: err.message });
+        next(err);
     }
 
 

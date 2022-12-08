@@ -2,114 +2,157 @@ const taskDB = require('../model/taskModel');
 const mongoose = require('mongoose');
 
 //create and save new task
-exports.create = async (req, res) => {
-    const {taskName, taskDescription, taskTime, taskPriority, taskStat} = req.body;
+exports.create = async (req, res, next) => {
+    const { taskName, taskDescription, taskTime, taskPriority, taskStat } = req.body;
     const taskUser = req.user._id;
 
-    try{
-        const newTask = await taskDB.create({taskUser, taskName, taskDescription, taskTime, taskPriority, taskStat});
+    try {
+        const newTask = await taskDB.create({ taskUser, taskName, taskDescription, taskTime, taskPriority, taskStat });
         res.status(200).json({
-            message:"Task added successfully",
-            data : newTask
+            success: true,
+            message: 'New task added succesfully!',
+            data: newTask
         });
     }
-    catch(err){
-        res.status(400).json({error: err.message});
+    catch (err) {
+        next(err);
     };
 }
 
 //retrieve and return all tasks
-exports.getTask = async (req, res) => {
+exports.getTask = async (req, res, next) => {
     const taskUser = req.user.id;
 
-    try{
-        const task = await taskDB.find({taskUser}).sort({taskTime:-1}).exec();
+    try {
+        const task = await taskDB.find({ taskUser }).sort({ taskTime: -1 }).exec();
 
-        if(!task){
-            return res.status(404).json({error: 'No such tasks'});
+        if (!task) {
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Task is empty',
+            };
         }
-        res.status(200).json(task);
+
+        res.status(200).json({
+            success: true,
+            message: 'Your all tasks is found!',
+            data: task
+        });
     }
-    catch(err){
-        res.status(400).json({error: err.message});
+    catch (err) {
+        next(err);
     }
 }
 
 //find by id
-exports.findById = async(req,res)=>{
-    const id = mongoose.Types.ObjectId(req.params.id);
-    const taskUser=req.user._id;
+exports.findById = async (req, res, next) => {
 
-    try{
-        const task = await taskDB.find({taskUSer}).findOne({_id: id}).exec();
-        if(!task){
-            return res.status(404).json({error: 'No such task'});
+    try {
+        const id = req.params.id;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Your task id is not valid',
+              };
         }
-        res.status(200).json(task)
+
+        const taskUser = req.user._id;
+        const task = await taskDB.find({ taskUser }).findOne({ _id: id }).exec();
+        if (!task) {
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Task is not found',
+            };
+        }
+        
+        res.status(200).json({
+            success: true,
+            message: 'Your task is found!',
+            data: task
+        });
     }
-    catch(err){
-        return res.status(400).json({error: err.message});
+    catch (err) {
+        next(err);
     }
 }
 
 //update a new task by id
-exports.update = async (req, res) => {
+exports.update = async (req, res, next) => {
     if (!req.body) {
-        return res
-            .status(400)
-            .send({ message: "Data to update can not be empty" })
+        throw {
+            success: false,
+            statusCode: 404,
+            message: 'Your data to update is empty',
+          };
     }
-    const id = mongoose.Types.ObjectId(req.params.id);
-
-    try{
-        if(!mongoose.Types.ObjectId.isValid(id)){
-            return res.status(404).json({error: 'No such task'});
+    
+    try {
+        const id = req.params.id;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Your task id is not valid',
+              };
         }
 
         const task = await taskDB.findOneAndUpdate({ _id: id }, { ...req.body }, { returnDocument: 'after' }).exec();
 
-        if(!task){
-            return res.status(404).json({error: 'No such task'});
+        if (!task) {
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Task is empty',
+              };
         }
 
         res.status(200).json({
-            message:"Task updated successfully",
+            success: true,
+            message: 'Task updated succesfully!',
             data: task
-        })
+        });
     }
-    catch(err){
-        res.status(400).json({error: err.message});
+    catch (err) {
+        next(err);
     }
 }
 
 //delete task
-exports.delete = async (req, res) => {
-    const id = mongoose.Types.ObjectId(req.params.id);
-    try{
-        if(!mongoose.Types.ObjectId.isValid(id)){
-            return res.status(404).json({error: 'No such task'});
+exports.delete = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Your task id is not valid',
+              };
         }
-        const task = await taskDB.findOneAndDelete({_id: id}).exec();
-        if(!task){
-            return res.status(404).json({error: 'No such task'});
+        const task = await taskDB.findOneAndDelete({ _id: id }).exec();
+        if (!task) {
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Task is empty',
+              };
         }
+
         res.status(200).json({
-            message:"Task deleted successfully",
+            success: true,
+            message: 'Task updated succesfully!',
             data: task
         });
     }
-    catch(err){
-        res.status(400).json({error: err.message});
+    catch (err) {
+        next(err);
     }
 }
 
-//sorting API
-exports.sort = async (req, res) => {
-
-}
-
 //filtering API
-exports.filtering = async (req, res) => {
+exports.filtering = async (req, res, next) => {
     try {
         const filters = req.query;
         const todos = await taskDB.find({});
@@ -123,9 +166,13 @@ exports.filtering = async (req, res) => {
             return isValid;
         })
 
-        res.status(200).json(filteredTodo);
+        res.status(200).json({
+            success: true,
+            message: 'Task is found!',
+            data: filteredTodo
+        });
     }
     catch (err) {
-        res.status(400).json(err.message);
+        next(err);
     }
 }

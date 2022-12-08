@@ -8,7 +8,7 @@ const createToken = (_id) => {
 }
 
 //login user
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
     const { email, password } = req.body;
 
     try {
@@ -19,15 +19,21 @@ const loginUser = async (req, res) => {
         const username = user.username;
         const id = user._id;
 
-        res.status(200).json({ message: "Login succesfully", id, email, username, token });
+        res.status(200).json({ 
+            success: false,
+            statusCode: res.statusCode, 
+            message: "Sign up succesfully", 
+            email, 
+            username, 
+            token });
     }
     catch (err) {
-        res.status(400).json({ error: err.message });
+        next(err);
     };
 }
 
 // signup user
-const signupUser = async (req, res) => {
+const signupUser = async (req, res, next) => {
     const { email, username, password } = req.body;
 
     try {
@@ -40,10 +46,16 @@ const signupUser = async (req, res) => {
         //create token
         const token = createToken(user._id);
 
-        res.status(200).json({ message: "Sign up succesfully", email, username, token });
+        res.status(200).json({ 
+            success: false,
+            statusCode: res.statusCode, 
+            message: "Sign up succesfully", 
+            email, 
+            username, 
+            token });
     }
     catch (err) {
-        res.status(400).json({ error: err.message });
+        next(err);
     }
 
 }
@@ -74,9 +86,8 @@ const loginValidation = (email, password) => {
 
 // Update user
 const updateUser = async (req, res) => {
-    const id = mongoose.Types.ObjectId(req.params.id);
-
     try {
+        const id = mongoose.Types.ObjectId(req.params.id);
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json({ error: 'No such user' })
         }
@@ -92,7 +103,7 @@ const updateUser = async (req, res) => {
         })
     }
     catch (err) {
-        res.status(400).json({ error: err.message });
+        next(err);
     }
 }
 
@@ -108,16 +119,16 @@ const getUser = async (req, res) => {
 
         res.status(200).json(user);
     }
+    
     catch (err) {
-        res.status(400).json({ error: err.message });
+        next(err);
     }
 };
 
 const getUserById = async (req, res) => {
     // const user_id = req.user._id; // diambil dari requireAuth yang sudah menyimpan id sebelumnya
-    const id = mongoose.Types.ObjectId(req.params.id);
-
     try {
+        const id = mongoose.Types.ObjectId(req.params.id);
         const user = await User.find({ _id: id }).exec();
 
         if (!user) {
@@ -127,7 +138,7 @@ const getUserById = async (req, res) => {
         res.status(200).json(user);
     }
     catch (err) {
-        res.status(400).json({ error: err.message });
+        next(err);
     }
 };
 
