@@ -37,20 +37,6 @@ app.use('/api/tasks', taskRouter);
 app.use('/api/user', userRouter);
 app.use('/api/notes', notesRouter);
 
-// catch not found error
-app.get('*', (req, res, next) => {
-  try {
-    throw {
-      success: false,
-      statusCode: 404,
-      message: `${req.path} is not found`,
-    }
-  }
-  catch (err) {
-    next(err)
-  }
-})
-
 // middleware error handler
 app.use(errorHandler);
 
