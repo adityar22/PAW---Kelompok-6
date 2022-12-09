@@ -1,11 +1,13 @@
 import { useState } from "react";
 
+import { useNotesContext } from "../../hooks/useNotesContext";
 import { useHandleUpdate } from "../../hooks/useHandleUpdate";
 
 import InputTag from "./InputTag";
 import ModalDelete from "../Public/ModalDelete";
 
 const NoteModal = ({ closeDetailPopup, note, handleDelete, setLoading, setError, notify }) => {
+    const { dispatch } = useNotesContext();
 
     const [isEdited, setIsEdited] = useState(false);
     const [title, setTitle] = useState(note.title);
@@ -25,7 +27,7 @@ const NoteModal = ({ closeDetailPopup, note, handleDelete, setLoading, setError,
     }
 
     const updatedNote = { title, content, isPinned, tag };
-    const { handleUpdate } = useHandleUpdate(note, updatedNote, setLoading, setError, notify, closeDetailPopup);
+    const { handleUpdate } = useHandleUpdate({ url: 'api/notes/', type: 'EDIT_NOTES', dispatch, data: note, updatedData: updatedNote, setLoading, setError, notify, closeDetailPopup });
 
     return (
         <>

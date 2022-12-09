@@ -1,4 +1,4 @@
-import { createContext} from "react";
+import { useState, createContext } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -33,8 +33,15 @@ const DisplayContextProvider = ({ children }) => {
         }
     }
 
+    const [isPending, setIsPending] = useState(false);
+    const [error, setError] = useState("");
+
+    const setLoading = (state) => {
+        setIsPending(state);
+    }
+
     return (
-        <DisplayContext.Provider value={{notify}}>
+        <DisplayContext.Provider value={{ notify, isPending, error, setLoading, setError }}>
             {children}
         </DisplayContext.Provider>
     )

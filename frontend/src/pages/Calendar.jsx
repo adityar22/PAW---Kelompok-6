@@ -15,8 +15,8 @@ import AddTask from "../component/Task/AddTask";
 
 
 const Calendar = () => {
-    const { tasks, dispatch, isPending, error, setLoading, setError } = useTasksContext();
-    const { notify } = useDisplayContext();
+    const { tasks, dispatch } = useTasksContext();
+    const { notify, isPending, error, setLoading, setError } = useDisplayContext();
     const [popup, setPopup] = useState(false);
     const url = "/api/tasks";
     const [event, setEvent] = useState([]);
@@ -29,13 +29,12 @@ const Calendar = () => {
 
     const renderEvent = (tasks) => {
         const events = []
-        tasks.forEach((task)=>(
-            events.push({title:task.taskName, date:task.taskTime})
+        tasks.forEach((task) => (
+            events.push({ title: task.taskName, date: task.taskTime })
         ))
         setEvent(events);
-        console.log(event);
     };
-    
+
     useEffect(() => {
         tasks && renderEvent(tasks)
     }, [tasks]);

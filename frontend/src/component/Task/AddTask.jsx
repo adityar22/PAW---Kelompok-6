@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useAuthContext } from "../../hooks/useAuthContext";
 import { useTasksContext } from "../../hooks/useTasksContext";
+import { useHandleAdd } from "../../hooks/useHandleAdd";
 
-const AddTask = ({ togglePopup, setLoading, url, setError, notify }) => {
-    const { dispatch} = useTasksContext();
-    const {user} = useAuthContext();
+const AddTask = ({ openPopup, closePopup, setLoading, url, setError, notify }) => {
+    const { dispatch } = useTasksContext();
 
     const [taskName, setTaskName] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
@@ -12,52 +11,15 @@ const AddTask = ({ togglePopup, setLoading, url, setError, notify }) => {
     const [taskStat, setTaskStat] = useState("Not Started");
     const [taskTime, setTaskTime] = useState(new Date());
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if(!user){
-            setError('You must be logged in');
-            return;
-        }
-
-        const newTask = { taskName, taskDescription, taskTime, taskPriority, taskStat}
-
-        setLoading(true);
-
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization':`Bearer ${user.token}`
-            },
-            body: JSON.stringify(newTask),
-        })
-
-        const json = await response.json();
-
-        if (response.ok) {
-            console.log('New task added!');
-            setTaskName("");
-            setTaskDescription("");
-            setTaskPriority("");
-            setTaskTime("");
-            setLoading(false);
-            togglePopup();
-            dispatch({ type: 'ADD_TASK', payload: json.data });
-            notify.info(json.message);
-        }
-        if (!response.ok) {
-            setLoading(false);
-            notify.error(json.error);
-        }
-    }
+    const newTask = { taskName, taskDescription, taskTime, taskPriority, taskStat}
+    const { handleAdd: handleSubmit } = useHandleAdd({ url, type: 'ADD_TASK', dispatch, data: newTask, setLoading, setError, notify, closeAddPopup: closePopup});
 
     return (
         <div>
             <div className="overlay z-10"></div>
             <div className="container w-fit mx-auto absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
                 <form className="create w-screen max-w-xl mx-8 bg-white shadow-xl rounded-3xl px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-                    <button className="button absolute bg-red-500 border-red-700 -top-4 right-4 hover:bg-red-700" onClick={togglePopup}>x</button>
+                    <button className="button absolute bg-red-500 border-red-700 -top-4 right-4 hover:bg-red-700" onClick={closePopup}>x</button>
                     <h3 className="text-center text-2xl font -bold mb-12">Add New Task</h3>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">

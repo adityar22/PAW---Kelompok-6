@@ -2,20 +2,34 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useLogin } from "../hooks/useLogin";
+import { useDisplayContext } from '../hooks/useDisplayContext';
+
+import Loading from '../component/Loading';
 
 const Login = ({ notify }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login, isPending} = useLogin();
+    
+    const { isPending, error, setLoading, setError } = useDisplayContext();
+    const { login } = useLogin({ setError, setLoading });
 
     const handleSubmit = async (e) => {
+        setLoading(true);
         e.preventDefault();
+
         const response = await login(email, password);
 
-        !response.isError ? notify.info(response.message) : notify.error(response.message);
+        if (!response.isError) {
+            notify.info(response.message);
+            setLoading(false);
+        }
+        else {
+            notify.error(response.message);
+            setLoading(false);
+        }
     }
 
-
+    setLoading(false);
 
     return (
         <>
@@ -56,6 +70,8 @@ const Login = ({ notify }) => {
                         <p className="text-sm mx-auto mt-8">
                             Don't have account? <Link to="/signup" className="underline text-blue-500">Sign Up</Link>
                         </p>
+                        {error && < div className='font-semibold text-lg text-red-400 mt-4' > Somehing error is occured🙀 </div>}
+                        {isPending && < Loading />}
                     </form>
                 </div>
             </section>

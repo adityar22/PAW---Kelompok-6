@@ -1,7 +1,7 @@
 import { useAuthContext } from "./useAuthContext";
 import { useState } from "react";
 
-export const useLogin = () => {
+export const useLogin = ({setError, setLoading}) => {
     const { dispatch } = useAuthContext();
     const [isPending, setIsPending] = useState(null);
     const url = '/api/user/login';
@@ -21,7 +21,7 @@ export const useLogin = () => {
             // use local storage to save email and JWT token
             localStorage.setItem('user', JSON.stringify(user));
             dispatch({ type: 'LOGIN', payload: user });
-            setIsPending(false);
+            setLoading(false);
             return {
                 isError: false,
                 message: 'Login success!'
@@ -29,7 +29,7 @@ export const useLogin = () => {
         }
 
         if (!response.ok) {
-            setIsPending(false);
+            setLoading(false);
             return {
                 isError: true,
                 message: user.error

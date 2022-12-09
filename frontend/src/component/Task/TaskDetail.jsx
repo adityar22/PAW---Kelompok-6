@@ -1,102 +1,44 @@
 import { useState } from "react";
-import { useAuthContext } from "../../hooks/useAuthContext";
+
 import { useTasksContext } from "../../hooks/useTasksContext";
+import { useHandleUpdate } from "../../hooks/useHandleUpdate";
+import { useHandleDelete } from "../../hooks/useHandleDelete";
+
 import ModalDelete from "../Public/ModalDelete";
 
 
-const TaskDetail = ({ task, togglePopup, setLoading, url, setError, notify }) => {
+const TaskDetail = ({ task, openPopup, closePopup, setLoading, url, setError, notify }) => {
     const { dispatch } = useTasksContext();
-    const { user } = useAuthContext();
-
+    
     const [isEdited, setIsedited] = useState(false);
-
+    
     const [taskName, setTaskName] = useState(task.taskName);
     const [taskDescription, setTaskDescription] = useState(task.taskDescription);
     const [taskPriority, setTaskPriority] = useState(task.taskPriority);
     const [taskStat, setTaskStat] = useState(task.taskStat);
     const [taskTime, setTaskTime] = useState(task.taskTime);
-
+    
     const[confirm, setConfirm] = useState(false);
-
+    
     const toggleConfirm=()=>{
         setConfirm(!confirm);
-    }
-
-    //Delete Handler
-    const handleDelete = async (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        if (!user) {
-            return;
-        }
-
-        setLoading(true);
-        const response = await fetch('api/tasks/' + task._id, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${user.token}`
-            }
-        });
-
-        const json = await response.json();
-        console.log(json);
-        if (response.ok) {
-            setLoading(false);
-            dispatch({ type: 'DELETE_TASK', payload: json.data });
-            notify.info(json.message);
-            togglePopup()
-        }
-        if (!response.ok) {
-            setLoading(false);
-            notify.error(json.error);
-        }
-    }
-
-    //Edit Handler
-    const handleEdit = async (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        if (!user) {
-            return;
-        }
-
-        setLoading(true);
-        console.log(task)
-        const updateTask = { taskName, taskDescription, taskTime, taskPriority, taskStat }
-        const response = await fetch('/api/tasks/' + task._id, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${user.token}`
-            },
-            body: JSON.stringify(updateTask)
-        });
-        const json = await response.json();
-        console.log(json);
-        if (response.ok) {
-            setLoading(false);
-            togglePopup();
-            dispatch({ type: 'EDIT_TASK', payload: json.data });
-            notify.info(json.message);
-        }
-        if (!response.ok) {
-            setLoading(false);
-        }
-        setLoading(false);
     }
 
     const toggleEdit = () => {
         setIsedited(!isEdited);
     }
 
+    const updateTask = { taskName, taskDescription, taskTime, taskPriority, taskStat }
+    const { handleUpdate: handleEdit } = useHandleUpdate({ url: 'api/tasks/', type: 'EDIT_TASK', dispatch, data: task, updatedData: updateTask, setLoading, setError, notify, closeDetailPopup: closePopup });
+    const { handleRemove: handleDelete } = useHandleDelete({ url: 'api/tasks/', type: 'DELETE_TASK', dispatch, data: task, setLoading, setError, notify, closeDetailPopup: closePopup });
+    
+
     return (
         <div>
             <div className="overlay z-10"></div>
             <div className="container w-fit mx-auto absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-all duration-700">
                 <div className="w-screen max-w-xl mx-8 bg-white shadow-xl rounded-3xl px-8 pt-6 pb-8 mb-4">
-                    <button className="button absolute bg-red-500 border-red-700 -top-4 right-4 hover:bg-red-700" onClick={togglePopup}>x</button>
+                    <button className="button absolute bg-red-500 border-red-700 -top-4 right-4 hover:bg-red-700" onClick={closePopup}>x</button>
                     {isEdited ?
                         <div>
                             <div className="mb-4">
