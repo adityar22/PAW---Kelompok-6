@@ -105,15 +105,6 @@ const updateUser = async (req, res, next) => {
             };
         }
 
-        // if (id !== user.id){
-        //     throw {
-        //         success: false,
-        //         statusCode: 409,
-        //         message: 'Cant use same email with another user'
-        //     }
-        // }
-
-
         const updatedUser = await User.findOneAndUpdate({ _id: id }, { ...req.body }, { returnDocument: 'after' }).exec();
 
         if (!updatedUser) {
@@ -178,10 +169,44 @@ const getUserById = async (req, res) => {
     }
 };
 
+// delete user
+const deleteUser = async (req, res, next) => {
+    try {
+        const id = mongoose.Types.ObjectId(req.params.id);
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Your id is invalid',
+            };
+        }
+
+        const deletedUser = await User.findOneAndDelete({ _id: id }).exec();
+
+        if (!deletedUser) {
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'No such user',
+            };
+        }
+
+        res.status(200).json({
+            success: true,
+            statusCode: res.statusCode,
+            message: "User deleted succesfully"
+        });
+    }
+    catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
     loginUser,
     signupUser,
     updateUser,
     getUser,
-    getUserById
+    getUserById,
+    deleteUser
 };

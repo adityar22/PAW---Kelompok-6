@@ -1,5 +1,5 @@
 const express = require('express');
-const { signupUser, loginUser, updateUser, getUser, getUserById } = require('../controller/userController');
+const { signupUser, loginUser, updateUser, getUser, getUserById, deleteUser } = require('../controller/userController');
 
 const router = express.Router();
 
@@ -15,5 +15,8 @@ router.get('/profile/:id', getUserById);
 
 // Update route
 router.put('/profile/:id', updateUser);
+
+// Delete route
+router.delete('/profile/:id', deleteUser);
 
 module.exports = router;

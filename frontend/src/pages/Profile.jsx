@@ -3,9 +3,10 @@ import { useLogout } from "../hooks/useLogout";
 
 import { useDisplayContext } from '../hooks/useDisplayContext';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useHandleUpdateUser} from '../hooks/useHandleUpdateUser';
+import { useHandleDeleteUser} from '../hooks/useHandleDeleteUser';
 
 import Modal from "../component/Modal";
-
 
 const Profile = () => {
     const handleClick = (e) => {
@@ -15,71 +16,17 @@ const Profile = () => {
 
     const { user, dispatch } = useAuthContext();
     const { notify, isPending, error, setLoading, setError } = useDisplayContext();
-    const [popup, setPopup] = useState(false);
-
-    const url = '/api/profile/';
-
-    const togglePopup = () => {
-        setPopup(!popup);
-    }
-
-    // useFetch({ url, dispatch, setError, setLoading, type: 'EDIT_USER' });
-
     const [username, setUsername] = useState(user.username);
     const [email, setEmail] = useState(user.email);
-    const [isEdited, setIsedited] = useState(false);
-    const [confirm, setConfirm] = useState(false);
 
-    // const toggleConfirm=()=>{
-    //      setConfirm(!confirm);
-    // }
-
-    // const toggleEdit = () => {
-    //     setIsedited(!isEdited);
-    // }
-    
-    // Update handler
-    const handleUpdateUser = async (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        if (!user) {
-            return;
-        }
-
-        setLoading(true);
-
-        const updateUser = { username, email }
-        const response = await fetch('/api/user/profile/' + user.id, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updateUser)
-        });
-
-        const json = await response.json();
-        
-        if (json.success) {
-            // closeDetailPopup();
-            setLoading(false);
-            localStorage.setItem('user', JSON.stringify(json.data));
-            dispatch({ type: 'EDIT_USER', payload: json.data });
-            togglePopup();
-            notify.info(json.message);
-        }
-        if (!json.success) {
-            setLoading(false);
-            setError(json.error);
-            notify.error(json.error);
-        }
-        setLoading(false);
-    }
-
-    const [showModal, setShowModal] = useState(false);
     const [showModal1, setShowModal1] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
+    const [showModal3, setShowModal3] = useState(false);
     const { logout } = useLogout();
+
+    const updateUser = { username, email };
+    const { handleUpdateUser } = useHandleUpdateUser({ updateUser: updateUser, dispatch, setLoading, setError, notify, setShowModal3 });
+    const { handleDeleteUser } = useHandleDeleteUser({ logout, dispatch, setLoading, setError, notify });
 
     return (
         <Fragment>
@@ -108,16 +55,11 @@ const Profile = () => {
                         defaultValue={email}
                         onChange={(e) => setEmail(e.target.value)}></input>
 
-                    <p className='sm:text-lg text-black' >Password</p>
-                    <button className='sm:text-lg mb-8 text-gray-400 hover:text-gray-300'
-                        onClick={() => setShowModal(true)}>Change Password</button>
-
                     <div>
                         <button
                             text="py-10"
-                            className="button text-sm w-30 md:w-28"
-                            onClick={handleUpdateUser}>Update</button>
-                        <button text="py-10" className="button text-sm w-30 ml-4 md:md-8 md:w-28 md:ml-15">Cancel</button>
+                            className="button text-sm w-40 md:w-60"
+                            onClick={() => setShowModal3(true)}>Update</button>
                     </div>
                     <div className="pt-8">
                         <button text="py-20" className="btn-white text-sm w-40 md:w-60" onClick={() => setShowModal1(true)}>Delete Account</button>
@@ -127,25 +69,13 @@ const Profile = () => {
                     </div>
                 </div>
 
-                <Modal isVisible={showModal} onClose={() => setShowModal(false)}>
-                    <div className="py-6 px-6 lg:px-8 text-left">
-                        <p className='text-lg text-black' >Old Password</p>
-                        <input required type="password" className="rounded-lg mb-8 bg-gray-200 p-2 w-full focus:border-blue-500 focus:bg-gray-300 focus:outline-orange"></input>
-                        <p className='text-lg text-black' >New Password</p>
-                        <input required type="password" className="rounded-lg bg-gray-200 p-2 w-full focus:border-blue-500 focus:bg-gray-300 focus:outline-orange"></input>
-                    </div>
-                    <div className="text-center pb-6">
-                        <button text="py-4 mb-2" className="button mx-4">Change Password</button>
-                    </div>
-                </Modal>
-
                 <Modal isVisible={showModal1} onClose={() => setShowModal1(false)}>
                     <div className="py-6 px-6 lg:px-8 text-left">
                         <h1 className='text-2xl font-bold mb-5 text-black text-center' >Confirm Delete Account</h1>
                         <p className='text-lg text-black text-center'>Are you sure you want to delete your account?</p>
                     </div>
                     <div className="text-center pb-6">
-                        <button text="py-6" className="btn-red px-6 ml-4">Yes, Delete</button>
+                        <button text="py-6" onClick={handleDeleteUser} className="btn-red px-6 ml-4">Yes, Delete</button>
                         <button text="py-6" onClick={() => setShowModal1(false)} className="button ml-4 px-6">No, Cancel</button>
                     </div>
                 </Modal>
@@ -158,6 +88,17 @@ const Profile = () => {
                     <div className="text-center pb-6">
                         <button text="py-6" onClick={handleClick} className={`logout btn-red px-6 ml-4 mr-2`}>Yes, I'm Sure</button>
                         <button text="py-6" onClick={() => setShowModal2(false)} className="button px-6 ml-4">No, Cancel</button>
+                    </div>
+                </Modal>
+
+                <Modal isVisible={showModal3} onClose={() => setShowModal3(false)}>
+                    <div className="py-6 px-6 lg:px-8 text-left">
+                        <h1 className='text-2xl font-bold mb-5 text-black text-center' >Confirm Update</h1>
+                        <p className='text-lg text-black text-center'>Are you sure you want to update your profile?</p>
+                    </div>
+                    <div className="text-center pb-6">
+                        <button text="py-6" onClick={handleUpdateUser} className={`logout btn-red px-6 ml-4 mr-2`}>Yes, I'm Sure</button>
+                        <button text="py-6" onClick={() => setShowModal3(false)} className="button px-6 ml-4">No, Cancel</button>
                     </div>
                 </Modal>
             </div>
