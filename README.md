@@ -26,7 +26,8 @@ Halaman notes untuk mengelola catatan. Berisi judul, konten, dan tag. Terdapat f
 Halaman account yang berisikan informasi profile user yang terhubung dengan akun saat login.<br>
 - ### Calendar Task View<br>
 Terdapat calendar view untuk melihat tugas-tugas pada hari yang bersangkutan.<br>
-- ### Pomodoro (coming soon 🚧)
+- ### Pomodoro (additional coming soon 🚧)
+- ### Announce Under Maintenance Page (coming soon)
 
 ## 👥 Anggota Kelompok 6
 - [Aditya Ramadhan (20/460535/TK/51124)](https://www.github.com/adityar22)
