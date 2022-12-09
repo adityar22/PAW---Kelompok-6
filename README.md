@@ -39,7 +39,7 @@ Terdapat calendar view untuk melihat tugas-tugas pada hari yang bersangkutan.<br
 ## 💾 Documentation
 - [Presentation Slide - T'Man (Task Management System)](https://www.canva.com/design/DAFSMW6FTNQ/1u5KgZ6RQxInhRnGJ9Pazw/view?utm_content=DAFSMW6FTNQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 - [UI Wireframe](https://www.figma.com/file/p4vjT4oBKqxJkXcNWI9Z7r/PAW-6-UI%2FUX?node-id=0%3A1)
-- [Postman API Documentation](https://api.postman.com/collections/24472733-43af9be6-4a4d-49c4-bd38-97e579874269?access_key=PMAT-01GKTCBFHFEE22296BNFE3ZSXF)
+- [Postman API Documentation](https://documenter.getpostman.com/view/24472733/2s8YzRz3jc)
 
 <hr/>
 
