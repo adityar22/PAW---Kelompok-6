@@ -1,11 +1,10 @@
 import { Fragment, useState } from "react";
 import { useLogout } from "../hooks/useLogout";
+
 import { useDisplayContext } from '../hooks/useDisplayContext';
 import { useAuthContext } from '../hooks/useAuthContext';
 
-import useFetch from '../hooks/useFetch';
 import Modal from "../component/Modal";
-// import { useHandleUpdateUser } from "../hooks/useHandleUpdateUser";
 
 
 const Profile = () => {
@@ -14,8 +13,8 @@ const Profile = () => {
         logout();
     };
 
-    const { user, dispatch, isPending, error, setLoading, setError } = useAuthContext();
-    const { notify } = useDisplayContext();
+    const { user, dispatch } = useAuthContext();
+    const { notify, isPending, error, setLoading, setError } = useDisplayContext();
     const [popup, setPopup] = useState(false);
 
     const url = '/api/profile/';
@@ -38,10 +37,9 @@ const Profile = () => {
     // const toggleEdit = () => {
     //     setIsedited(!isEdited);
     // }
-
+    
     // Update handler
     const handleUpdateUser = async (e) => {
-        console.log("quwot");
         e.stopPropagation();
         e.preventDefault();
 
@@ -50,30 +48,27 @@ const Profile = () => {
         }
 
         setLoading(true);
-        console.log(user)
 
         const updateUser = { username, email }
-        console.log(updateUser)
         const response = await fetch('/api/user/profile/' + user.id, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
-                // 'Authorization': `Bearer ${user.token}`
             },
             body: JSON.stringify(updateUser)
         });
 
         const json = await response.json();
-
-        console.log(json.data)
-        if (response.ok) {
+        
+        if (json.success) {
             // closeDetailPopup();
             setLoading(false);
+            localStorage.setItem('user', JSON.stringify(json.data));
             dispatch({ type: 'EDIT_USER', payload: json.data });
             togglePopup();
             notify.info(json.message);
         }
-        if (!response.ok) {
+        if (!json.success) {
             setLoading(false);
             setError(json.error);
             notify.error(json.error);
@@ -89,7 +84,7 @@ const Profile = () => {
     return (
         <Fragment>
             <div className="py-20 lg:py-10 px-3 lg:px-28 h-screen">
-                <div className="text-4xl my-12 mx-auto">
+                <div className="my-12 mx-auto">
 
                     <h1 className='sm:text-5xl font-bold mb-8 sm:mb-12 text-dark-blue text-4xl'
                     >Account 👥</h1>

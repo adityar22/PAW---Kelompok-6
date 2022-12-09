@@ -11,8 +11,6 @@ router.post('/signup', signupUser);
 
 // Get route
 router.get('/profile/', getUser);
-
-
 router.get('/profile/:id', getUserById);
 
 // Update route

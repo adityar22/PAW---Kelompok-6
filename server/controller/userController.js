@@ -19,13 +19,17 @@ const loginUser = async (req, res, next) => {
         const username = user.username;
         const id = user._id;
 
-        res.status(200).json({ 
-            success: false,
-            statusCode: res.statusCode, 
-            message: "Sign up succesfully", 
-            email, 
-            username, 
-            token });
+        res.status(200).json({
+            success: true,
+            statusCode: res.statusCode,
+            message: "Login succesfully",
+            data: {
+                email,
+                username,
+                token,
+                id
+            }
+        });
     }
     catch (err) {
         next(err);
@@ -45,14 +49,19 @@ const signupUser = async (req, res, next) => {
 
         //create token
         const token = createToken(user._id);
+        const id = user._id;
 
-        res.status(200).json({ 
-            success: false,
-            statusCode: res.statusCode, 
-            message: "Sign up succesfully", 
-            email, 
-            username, 
-            token });
+        res.status(200).json({
+            success: true,
+            statusCode: res.statusCode,
+            message: "Sign up succesfully",
+            data: {
+                email,
+                username,
+                token,
+                id
+            }
+        });
     }
     catch (err) {
         next(err);
@@ -85,22 +94,49 @@ const loginValidation = (email, password) => {
 }
 
 // Update user
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, next) => {
     try {
         const id = mongoose.Types.ObjectId(req.params.id);
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(404).json({ error: 'No such user' })
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'Your id is invalid',
+            };
         }
-        const user = await User.findOneAndUpdate({ _id: id }, { ...req.body }, { returnDocument: 'after' }).exec();
 
-        if (!user) {
-            return res.status(404).json({ error: 'No such user' });
+        // if (id !== user.id){
+        //     throw {
+        //         success: false,
+        //         statusCode: 409,
+        //         message: 'Cant use same email with another user'
+        //     }
+        // }
+
+
+        const updatedUser = await User.findOneAndUpdate({ _id: id }, { ...req.body }, { returnDocument: 'after' }).exec();
+
+        if (!updatedUser) {
+            throw {
+                success: false,
+                statusCode: 404,
+                message: 'No such user',
+            };
         }
+
+        const token = createToken(updatedUser._id);
 
         res.status(200).json({
-            message: "User updated succesfully",
-            data: user
-        })
+            success: true,
+            statusCode: res.statusCode,
+            message: "User and token updated succesfully",
+            data: {
+                email: updatedUser.email,
+                username: updatedUser.username,
+                token,
+                id: updatedUser._id
+            }
+        });
     }
     catch (err) {
         next(err);
@@ -119,7 +155,7 @@ const getUser = async (req, res) => {
 
         res.status(200).json(user);
     }
-    
+
     catch (err) {
         next(err);
     }

@@ -14,9 +14,9 @@ const Login = ({ notify }) => {
     const { login } = useLogin({ setError, setLoading });
 
     const handleSubmit = async (e) => {
-        setLoading(true);
         e.preventDefault();
-
+        
+        setLoading(true);
         const response = await login(email, password);
 
         if (!response.isError) {

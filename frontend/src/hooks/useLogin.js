@@ -17,10 +17,10 @@ export const useLogin = ({setError, setLoading}) => {
 
         const user = await response.json();
 
-        if (response.ok) {
+        if (user.success) {
             // use local storage to save email and JWT token
-            localStorage.setItem('user', JSON.stringify(user));
-            dispatch({ type: 'LOGIN', payload: user });
+            localStorage.setItem('user', JSON.stringify(user.data));
+            dispatch({ type: 'LOGIN', payload: user.data });
             setLoading(false);
             return {
                 isError: false,
@@ -28,7 +28,7 @@ export const useLogin = ({setError, setLoading}) => {
             }
         }
 
-        if (!response.ok) {
+        if (!user.success) {
             setLoading(false);
             return {
                 isError: true,
