@@ -2,6 +2,10 @@ import { useState } from "react";
 import { useTasksContext } from "../../hooks/useTasksContext";
 import { useHandleAdd } from "../../hooks/useHandleAdd";
 
+import Datetime from 'react-datetime';
+import Datepicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 const AddTask = ({ openPopup, closePopup, setLoading, url, setError, notify }) => {
     const { dispatch } = useTasksContext();
 
@@ -11,8 +15,8 @@ const AddTask = ({ openPopup, closePopup, setLoading, url, setError, notify }) =
     const [taskStat, setTaskStat] = useState("Not Started");
     const [taskTime, setTaskTime] = useState(new Date());
 
-    const newTask = { taskName, taskDescription, taskTime, taskPriority, taskStat}
-    const { handleAdd: handleSubmit } = useHandleAdd({ url, type: 'ADD_TASK', dispatch, data: newTask, setLoading, setError, notify, closeAddPopup: closePopup});
+    const newTask = { taskName, taskDescription, taskTime, taskPriority, taskStat }
+    const { handleAdd: handleSubmit } = useHandleAdd({ url, type: 'ADD_TASK', dispatch, data: newTask, setLoading, setError, notify, closeAddPopup: closePopup });
 
     return (
         <div>
@@ -52,12 +56,16 @@ const AddTask = ({ openPopup, closePopup, setLoading, url, setError, notify }) =
                         <label className="block text-gray-700 text-sm font-bold mb-2">
                             Deadline
                         </label>
-                        <input
+                        <Datepicker
                             required
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="taskTime"
-                            type="date"
-                            onChange={(e) => setTaskTime(e.target.value)}
+                            id="eventStart"
+                            selected={taskTime}
+                            onChange={date => setTaskTime(date)}
+                            showTimeSelect
+                            timeFormat={'p'}
+                            timeIntervals={1}
+                            dateFormat='Pp'
                         />
                     </div>
                     <div>
