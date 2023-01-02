@@ -1,15 +1,13 @@
 import { useAuthContext } from "./useAuthContext";
 import { useState } from "react";
 
-export const useLogin = () => {
+export const useLogin = ({setError, setLoading}) => {
     const { dispatch } = useAuthContext();
     const [isPending, setIsPending] = useState(null);
-    const [error, setError] = useState("");
     const url = '/api/user/login';
 
     const login = async (email, password) => {
         setIsPending(true);
-        setError('');
 
         const response = await fetch(url, {
             method: 'POST',
@@ -17,22 +15,28 @@ export const useLogin = () => {
             body: JSON.stringify({ email, password })
         });
 
-        const data = await response.json();
+        const user = await response.json();
 
-        if (response.ok) {
+        if (user.success) {
             // use local storage to save email and JWT token
-            localStorage.setItem('user', JSON.stringify(data));
-            dispatch({ type: 'LOGIN', payload: data });
-            setIsPending(false);
-            setError('Log in success!');
+            localStorage.setItem('user', JSON.stringify(user.data));
+            dispatch({ type: 'LOGIN', payload: user.data });
+            setLoading(false);
+            return {
+                isError: false,
+                message: 'Login success!'
+            }
         }
 
-        if (!response.ok) {
-            setError(data.error);
-            setIsPending(false);
+        if (!user.success) {
+            setLoading(false);
+            return {
+                isError: true,
+                message: user.error
+            }
         }
 
     }
 
-    return { login, isPending, error };
+    return { login, isPending};
 }

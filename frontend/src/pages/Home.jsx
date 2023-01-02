@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import Navbar from '../component/Navbar';
+import Navbar from '../component/Public/Navbar';
 import LandingPage from '../pages/LandingPage';
 import Task from '../pages/Task';
 import Calendar from '../pages/Calendar';
@@ -8,12 +8,14 @@ import Notes from '../pages/Notes';
 import About from '../pages/About';
 import Profile from '../pages/Profile';
 import NotFound from '../pages/NotFound';
+import { useTasksContext } from '../hooks/useTasksContext';
+import useFetch from '../hooks/useFetch';
 
 const Home = () => {
     return (
-        <div className="flex">
+        <div className="max-w-screen flex-row sm:flex">
             <Navbar />
-            <div className='w-full max-h-screen overflow-y-scroll'>
+            <div className='sm:overflow-y-scroll relative w-screen'>
                 <Routes>
                     <Route path='task' element={<Task />} />
                     <Route path='calendar' element={<Calendar />} />

@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e0281285.css",
+    "main.js": "/static/js/main.56df407b.js",
+    "static/media/vector_landing.png": "/static/media/vector_landing.cce06d7a4d5569128791.png",
+    "static/media/notFound.png": "/static/media/notFound.0aeedb551300b1cabbd8.png",
+    "static/media/logoTman.png": "/static/media/logoTman.2123e2e4c55293b3629b.png",
+    "index.html": "/index.html",
+    "main.e0281285.css.map": "/static/css/main.e0281285.css.map",
+    "main.56df407b.js.map": "/static/js/main.56df407b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e0281285.css",
+    "static/js/main.56df407b.js"
+  ]
+}
